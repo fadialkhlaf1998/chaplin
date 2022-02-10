@@ -213,7 +213,6 @@ class _Sign_InState extends State<Sign_In> {
                             });
                             StoryApi.get_stories(Global.customer_id).then((value) {
                               StoryApi.get_my_story(Global.customer_id).then((my_story){
-
                                 Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => PickChoose(value,my_story)));
                                 // setState(() {
                                 //   request=true;
@@ -297,6 +296,7 @@ class _Sign_InState extends State<Sign_In> {
                   //   context,
                   //   MaterialPageRoute(builder: (context) => const DashBoard()),
                   // );
+                  Global.is_signIn = true;
                   StoryApi.get_stories(Global.customer_id).then((value) {
                     StoryApi.get_my_story(Global.customer_id).then((my_story){
                       Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => PickChoose(value,my_story)));

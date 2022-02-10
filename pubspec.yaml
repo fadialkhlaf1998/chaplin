@@ -53,6 +53,9 @@ dependencies:
   top_snackbar_flutter: ^1.0.2
   my_fatoorah: ^3.0.5
   flutter_launcher_icons: ^0.9.2
+  mailer: ^5.1.0
+  flutter_email_sender: ^5.0.2
+
 
 
 dev_dependencies:

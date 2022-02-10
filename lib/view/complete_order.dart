@@ -67,7 +67,9 @@ class _CompleteOrderState extends State<CompleteOrder> {
         children: [
           Column(
             children: [
+              SizedBox(height: 25,),
               _title("complete order"),
+              _TableNumberSubmit(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -172,6 +174,31 @@ class _CompleteOrderState extends State<CompleteOrder> {
           ),
           SizedBox()
         ],
+      ),
+    );
+  }
+
+
+  _TableNumberSubmit(){
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      padding: EdgeInsets.only(left: 15,right: 15,top: 20),
+      child: TextField(
+        style: TextStyle(color: Colors.white),
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: BorderSide(color: Colors.white, width: 1),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: BorderSide(color: Colors.white, width: 1),
+          ),
+          hintText: 'Enter table number',
+          hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+
+        ),
       ),
     );
   }

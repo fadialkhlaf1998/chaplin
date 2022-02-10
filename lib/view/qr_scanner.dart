@@ -1,6 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:chaplin_new_version/model/global.dart';
+import 'package:chaplin_new_version/view/complete_order.dart';
+import 'package:chaplin_new_version/view/submit_complete_order.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -109,7 +112,7 @@ class _QRScannerState extends State<QRScanner> {
       setState(() {
         result = scanData;
       });
-      if(result!.code.toString().contains("123456789")&&initial) {
+      if(result!.code.toString().contains("123456789") && initial && Global.option == 0) {
         setState(() {
           initial=false;
         });
@@ -125,39 +128,33 @@ class _QRScannerState extends State<QRScanner> {
           initial=false;
         });
         openwhatsapp(result!.code.toString());
+      } else if (result!.code.toString().contains("123456789") && initial && Global.option == 1){
+        setState(() {
+          initial=false;
+        });
+        Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const SubmitCompleteOrder()),);
       }
     });
-
   }
+
 
   openwhatsapp(String msg) async{
     var whatsapp ="+1 (202) 773-4834";
+    //whatsapp://send?phone=+1 (202) 773-4834&text=Hello
     var whatsappURl_android = "whatsapp://send?phone="+whatsapp+"&text=$msg";
     var whatappURL_ios ="https://wa.me/$whatsapp?text=${Uri.parse(msg)}";
-    if(Platform.isIOS){
       // for iOS phone only
       if( await canLaunch(whatappURL_ios)){
         await launch(whatappURL_ios, forceSafariVC: false);
       }else{
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: new Text("whatsapp no installed")));
-
       }
-
-    }else{
-      // android , web
-      if( await canLaunch(whatsappURl_android)){
-        await launch(whatsappURl_android);
-      }else{
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: new Text("whatsapp no installed")));
-
-      }
-
-
-    }
-
   }
+
+
 
   @override
   void dispose() {

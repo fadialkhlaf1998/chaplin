@@ -7,9 +7,11 @@ import 'package:chaplin_new_version/model/global.dart';
 import 'package:chaplin_new_version/model/music.dart';
 import 'package:chaplin_new_version/model/my_customer.dart';
 import 'package:chaplin_new_version/model/my_responce.dart';
+import 'package:chaplin_new_version/model/order.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:xml/xml.dart' as xml;
 
 class Connecter {
@@ -201,6 +203,7 @@ class Connecter {
       return false;
     }
   }
+
   static Future<bool> forget_password(String email)async{
     // try {
     //   email=email.replaceAll(" ", "");
@@ -237,6 +240,7 @@ class Connecter {
       return false;
     }
   }
+
   static Future<bool> insert_music(String name,String link)async{
     try {
       //name=name.replaceAll(" ", "");
@@ -282,6 +286,46 @@ class Connecter {
     return false;
   }
 
+  static Future<bool> send_email(String tableNumber) async {
+    try{
+      String subject = 'Table Number: ' + tableNumber;
+      String? body = '';
+      String temp = '';
+      for (int i = 0; i < Global.my_order.length; i++) {
+        temp = "Dish name: " + Global.my_order[i].product!.name!
+            + " | Quantity: " + Global.my_order[i].count.toString()+"\n";
+        body = body! + temp;
+      }
+      body = 'Time: ' + DateFormat('kk:mm:ss \n').format(DateTime.now()) +
+              'Day: ' + DateFormat('EEE d MMM\n').format(DateTime.now()) +
+          '__________________________\n\n' + body!;
+      var headers = {
+        'Content-Type': 'application/json',
+        'Cookie': 'connect.sid=s%3AHSWpm5TVO9_OvvOxMfIOaVRfkfCoQ0c5.VwKalVMNVq8M2a9JLRPOoJR6N3KLQMk6%2Bm7CqYxBNLE'
+      };
+      var request = http.Request('POST', Uri.parse('https://phpstack-548447-2379311.cloudwaysapps.com/send_mail'));
+      request.body = json.encode({
+        "msg": body,
+        "subject": subject
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+        Global.delete_order();
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+      return true;
+
+    }on Exception catch(e){
+      return false;
+    }
+
+  }
   ///-------------logIn-------------
 
 
@@ -310,7 +354,6 @@ class Connecter {
       return MyReult(500,msg["message"],false);
     }
   }
-
   //
   // static Future<bool> check_internet()async{
   //   // return false;
@@ -326,4 +369,5 @@ class Connecter {
   //   }
   //
   // }
+
 }

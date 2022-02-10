@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.chaplin_new_version">
     <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
-        android:label="chaplin_new_version"
+        android:label="CHAPLIN"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

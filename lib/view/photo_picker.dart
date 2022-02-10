@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:chaplin_new_version/controler/story_api.dart';
+import 'package:chaplin_new_version/helper/app_localization.dart';
+import 'package:chaplin_new_version/helper/my_app.dart';
 import 'package:chaplin_new_version/model/global.dart';
 import 'package:chaplin_new_version/model/story.dart';
 import 'package:chaplin_new_version/view/my_story_view.dart';
@@ -15,6 +17,7 @@ class PhotoPicker extends StatefulWidget {
   List<Story> stories;
   Story? my_story;
 
+
   PhotoPicker(this.stories,this.my_story);
 
   @override
@@ -27,6 +30,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
   List<Story> stories;
   bool loading = false;
   Story? my_story;
+  bool pick = false;
 
   _PhotoPickerState(this.stories,this.my_story){
     Global.stories=this.stories;
@@ -39,203 +43,351 @@ class _PhotoPickerState extends State<PhotoPicker> {
       DeviceOrientation.portraitUp,
     ]);
     return Scaffold(
+      backgroundColor: Colors.white,
+
       body: SafeArea(
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.white,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height*0.2,
-                          //color: Colors.black87,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/story.png",),
-                              fit: BoxFit.cover
-                            )
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+        child: GestureDetector(
+          onTap: (){
+            setState(() {
+              pick = false;
+            });
+          },
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              SingleChildScrollView(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height * 0.03,
+                    color: Colors.white,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height*0.2,
+                            //color: Colors.black87,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/story.png",),
+                                fit: BoxFit.cover
+                              )
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
 
-                              Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        IconButton(onPressed: (){
-                                          Navigator.pop(context);
-                                        }, icon: Icon(Icons.arrow_back_ios,color: Colors.white,)),
-                                        Text("STORY",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
-                                        IconButton(onPressed: (){
-                                          // Navigator.pop(context);
-                                        }, icon: Icon(Icons.arrow_back,color: Colors.transparent,))
-                                      ],
+                                Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconButton(onPressed: (){
+                                            Navigator.pop(context);
+                                          }, icon: Icon(Icons.arrow_back_ios,color: Colors.white,)),
+                                          Text("STORY",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
+                                          IconButton(onPressed: (){
+                                            // Navigator.pop(context);
+                                          }, icon: Icon(Icons.arrow_back,color: Colors.transparent,))
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  // Positioned(child: ,top: 10,)
-                                ],
-                              ),
+                                    // Positioned(child: ,top: 10,)
+                                  ],
+                                ),
 
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 2),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: MediaQuery.of(context).size.height*0.09,
-                                  child: Padding(padding: EdgeInsets.only(left: 20,right: 20),
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: Global.stories.length+1,
-                                        itemBuilder: (context,index){
-                                          return index==0?
-                                          my_story==null?Padding(
-                                            padding: const EdgeInsets.only(left: 5,right: 5),
-                                            child: GestureDetector(
-                                              onTap: (){
-                                                showAlertDialog(context);
-                                              },
-                                              child: Container(
-                                                width: MediaQuery.of(context).size.height*0.08,
-                                                height: MediaQuery.of(context).size.height*0.08,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.white,
-                                                  border: Border.all(color: Colors.white,width: 2),
-                                                ),
-                                                child: Icon(Icons.add,size: 40,),
-                                              ),
-                                            ),
-                                          ):Padding(
-                                            padding: const EdgeInsets.only(left: 5,right: 5),
-                                            child: GestureDetector(
-                                              onTap: (){
-                                                //get_images(my_story.id,index-1);
-                                                get_images_my_story();
-                                              },
-                                              child: Container(
-                                                width: MediaQuery.of(context).size.height*0.08,
-                                                height: MediaQuery.of(context).size.height*0.08,
-                                                decoration: BoxDecoration(
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 2),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height*0.09,
+                                    child: Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: Global.stories.length+1,
+                                          itemBuilder: (context,index){
+                                            return index==0?
+                                            my_story==null?Padding(
+                                              padding: const EdgeInsets.only(left: 5,right: 5),
+                                              child:  GestureDetector(
+                                                onTap: (){
+                                                  //showAlertDialog(context);
+                                                  //  setState(() {
+                                                  //    pick=true;
+                                                  //  });
+                                                  if(Global.customer_id==-1){
+                                                    App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
+                                                  }else{
+                                                    //showAlertDialog(context);
+                                                    setState(() {
+                                                      pick=true;
+                                                    });
+                                                  }
+                                                },
+                                                child: AnimatedContainer(
+                                                  duration: Duration(milliseconds: 600),
+                                                  width: !pick ? MediaQuery.of(context).size.height*0.08 : MediaQuery.of(context).size.height*0.075,
+                                                  height: MediaQuery.of(context).size.height*0.08,
+                                                  decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
-                                                    border: Border.all(color: Colors.white,width: 3),
-                                                    image: my_story!.image.endsWith("mp4")?DecorationImage(
-                                                        image:AssetImage("assets/chapo.png"),
-                                                        fit: BoxFit.cover
-                                                    ):DecorationImage(
-                                                        image:NetworkImage(StoryApi.media_url+my_story!.image),
-                                                        fit: BoxFit.cover
-                                                    )
+                                                    color: Colors.white,
+                                                    border: Border.all(color: Color(0xff231F20),width: 2),
+                                                  ),
+                                                  child: AnimatedSwitcher(
+                                                      duration: Duration(milliseconds: 600),
+                                                      child: !pick ? Icon(Icons.add,size: 40,color: Color(0xff231F20),) : Text('')
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                              : Padding(
-                                            padding: const EdgeInsets.only(left: 5,right: 5),
-                                            child: GestureDetector(
-                                              onTap: (){
-                                                get_images(Global.stories[index-1].id,index-1);
-                                              },
-                                              child: Container(
-                                                width: MediaQuery.of(context).size.height*0.08+9,
-                                                height: MediaQuery.of(context).size.height*0.08+9,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  gradient:Global.stories[index-1].readed==0? LinearGradient(
-                                                    colors: [
-                                                      Colors.orange,
-                                                      Colors.pinkAccent,
-                                                    ],
-                                                  ): LinearGradient(
-                                                    colors: [
-                                                      Colors.transparent,
-                                                      Colors.transparent,
-                                                    ],
-                                                  ),
-                                                  // borderRadius: BorderRadius.circular(35),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(2),
-                                                  child: Container(
-                                                    width: MediaQuery.of(context).size.height*0.08+3,
-                                                    height: MediaQuery.of(context).size.height*0.08+3,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
+                                            ):Padding(
+                                              padding: const EdgeInsets.only(left: 5,right: 5),
+                                              child: GestureDetector(
+                                                onTap: (){
+                                                  //get_images(my_story.id,index-1);
+                                                  get_images_my_story();
+                                                },
+                                                child: Container(
+                                                  width: MediaQuery.of(context).size.height*0.08,
+                                                  height: MediaQuery.of(context).size.height*0.08,
+                                                  decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
+                                                      border: Border.all(color: Colors.white,width: 3),
+                                                      image: my_story!.image.endsWith("mp4")?DecorationImage(
+                                                          image:AssetImage("assets/chapo.png"),
+                                                          fit: BoxFit.cover
+                                                      ):DecorationImage(
+                                                          image:NetworkImage(StoryApi.media_url+my_story!.image),
+                                                          fit: BoxFit.cover
+                                                      )
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                                : Padding(
+                                              padding: const EdgeInsets.only(left: 5,right: 5),
+                                              child: GestureDetector(
+                                                onTap: (){
+                                                  get_images(Global.stories[index-1].id,index-1);
+                                                },
+                                                child: Container(
+                                                  width: MediaQuery.of(context).size.height*0.08+9,
+                                                  height: MediaQuery.of(context).size.height*0.08+9,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    gradient:Global.stories[index-1].readed==0? LinearGradient(
+                                                      colors: [
+                                                        Colors.orange,
+                                                        Colors.pinkAccent,
+                                                      ],
+                                                    ): LinearGradient(
+                                                      colors: [
+                                                        Colors.transparent,
+                                                        Colors.transparent,
+                                                      ],
                                                     ),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.all(3),
-                                                      child: Container(
-                                                        width: MediaQuery.of(context).size.height*0.08,
-                                                        height: MediaQuery.of(context).size.height*0.08,
-                                                        decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
+                                                    // borderRadius: BorderRadius.circular(35),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(2),
+                                                    child: Container(
+                                                      width: MediaQuery.of(context).size.height*0.08+3,
+                                                      height: MediaQuery.of(context).size.height*0.08+3,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(3),
+                                                        child: Container(
+                                                          width: MediaQuery.of(context).size.height*0.08,
+                                                          height: MediaQuery.of(context).size.height*0.08,
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
 
-                                                            image: Global.stories[index-1].image.endsWith("mp4")?DecorationImage(
-                                                                image:AssetImage("assets/chapo.png"),
-                                                                fit: BoxFit.cover
-                                                            ):DecorationImage(
-                                                                image:NetworkImage(StoryApi.media_url+Global.stories[index-1].image),
-                                                                fit: BoxFit.cover
-                                                            )
+                                                              image: Global.stories[index-1].image.endsWith("mp4")?DecorationImage(
+                                                                  image:AssetImage("assets/chapo.png"),
+                                                                  fit: BoxFit.cover
+                                                              ):DecorationImage(
+                                                                  image:NetworkImage(StoryApi.media_url+Global.stories[index-1].image),
+                                                                  fit: BoxFit.cover
+                                                              )
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        }),
+                                            );
+                                          }),
+                                    ),
                                   ),
-                                ),
-                              )
+                                )
 
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Semantics(
-                              child: GridView.builder(
-                                shrinkWrap: true,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:  3,crossAxisSpacing: 10),
-                                physics: NeverScrollableScrollPhysics(),
-                                key: UniqueKey(),
-                                itemBuilder: (context, index) {
-                                  // Why network for web?
-                                  // See https://pub.dev/packages/image_picker#getting-ready-for-the-web-platform
-                                  return Semantics(
-                                    label: 'image_picker_example_picked_image',
-                                    child: Image.file(File(images![index].path)),
-                                  );
-                                },
-                                itemCount: images!.length,
-                              ),
-                              label: 'image_picker_example_picked_images'),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Semantics(
+                                child: GridView.builder(
+                                  shrinkWrap: true,
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:  3,crossAxisSpacing: 10),
+                                  physics: NeverScrollableScrollPhysics(),
+                                  key: UniqueKey(),
+                                  itemBuilder: (context, index) {
+                                    // Why network for web?
+                                    // See https://pub.dev/packages/image_picker#getting-ready-for-the-web-platform
+                                    return Semantics(
+                                      label: 'image_picker_example_picked_image',
+                                      child: Image.file(File(images![index].path)),
+                                    );
+                                  },
+                                  itemCount: images!.length,
+                                ),
+                                label: 'image_picker_example_picked_images'),
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-            ),
-            Positioned(child: loading==true?Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: Colors.white.withOpacity(0.4),
-              child: Center(
-                child: CircularProgressIndicator(),
               ),
-            ):Center())
-          ],
+              Positioned(child: loading==true?Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Colors.white.withOpacity(0.4),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ):Center()),
+              Positioned(
+                  left: 22,top: MediaQuery.of(context).size.height*0.25-MediaQuery.of(context).size.height*0.1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5,right: 5),
+                    child: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          pick=false;
+                        });
+
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 600),
+                        curve: Curves.easeInOut,
+                        width: MediaQuery.of(context).size.height*0.069,
+                        height: pick?160:0,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(MediaQuery.of(context).size.height*0.04),
+                              bottomLeft: Radius.circular(MediaQuery.of(context).size.height*0.04),
+                            ),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color(0xff231F20).withOpacity(0.5),
+                                  blurRadius: 0.1,
+                                  spreadRadius: 0.1,
+                                  offset: Offset(0,1)
+                              )
+                            ]
+                        ),
+                        child:SingleChildScrollView(
+                          child: Container(
+                            height: 150,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                IconButton(
+                                  padding: EdgeInsets.all(0),
+                                  onPressed: (){
+                                    _picker.pickMultiImage().then((value) async{
+                                      pick_image(value!);
+                                    });
+                                  }, icon: Icon(Icons.photo,size: 35,color: Color(0xff231F20),),),
+                                IconButton(
+                                    padding: EdgeInsets.all(0),
+                                    onPressed: (){
+                                      List<XFile> value=<XFile>[];
+                                      _picker.pickVideo(source: ImageSource.gallery).then((file) {
+                                        value.add(file!);
+                                        pick_image(value);
+                                      });
+                                    }, icon: Icon(Icons.video_call_outlined,size: 38,color: Color(0xff231F20),)),
+                                IconButton(
+                                    padding: EdgeInsets.all(0),
+                                    onPressed: (){
+                                      List<XFile> value=<XFile>[];
+                                      _picker.pickImage(source: ImageSource.camera).then((file) {
+                                        value.add(file!);
+                                        pick_image(value);
+                                      });
+                                    }, icon: Icon(Icons.camera_alt,size: 33,color:Color(0xff231F20),)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )),
+              Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.055,
+                    decoration: BoxDecoration(
+                      color: Color(0xff272525),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                      //
+                      // if(Global.is_signIn) {
+                      //   print('*****************************');
+                      //   print(Global.customer_id);
+                      //   StoryApi.get_stories(Global.customer_id).then((value) {
+                      //     StoryApi.get_my_story(Global.customer_id).then((
+                      //         my_story) {
+                      //       Navigator.pushReplacement(context, MaterialPageRoute(
+                      //           builder: (context) => PickChoose(value, my_story)));
+                      //     });
+                      //   });
+                      // }else{
+                      //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PickChoose([],null)));
+                      // }
+                    },
+                    child: Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        width: MediaQuery.of(context).size.width*0.13,
+                        height: MediaQuery.of(context).size.width*0.13,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: Offset(1, 2), // changes position of shadow
+                            ),
+                          ],
+                          border: Border.all(width: 2, color: Colors.white),
+                          shape: BoxShape.circle,
+                          color: Color(0xff272525),
+                        ),
+                        child: Icon(Icons.home,color: Colors.white,)
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

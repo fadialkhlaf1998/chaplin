@@ -65,7 +65,7 @@ class _MusicState extends State<MusicView> {
                 Padding(padding: EdgeInsets.only(top: 15),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height*0.5-MediaQuery.of(context).padding.top,
+                    height: MediaQuery.of(context).size.height*0.5-MediaQuery.of(context).padding.top - 50,
                     child: !loading?ListView.builder(
                         itemCount: this.music.length,
                         itemBuilder: (context,index){
