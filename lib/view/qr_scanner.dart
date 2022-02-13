@@ -127,7 +127,7 @@ class _QRScannerState extends State<QRScanner> {
         setState(() {
           initial=false;
         });
-        openwhatsapp(result!.code.toString());
+        openwhatsapp(context, result!.code.toString());
       } else if (result!.code.toString().contains("123456789") && initial && Global.option == 1){
         setState(() {
           initial=false;
@@ -140,18 +140,17 @@ class _QRScannerState extends State<QRScanner> {
   }
 
 
-  openwhatsapp(String msg) async{
-    var whatsapp ="+1 (202) 773-4834";
-    //whatsapp://send?phone=+1 (202) 773-4834&text=Hello
+  static openwhatsapp(BuildContext context,String msg) async{
+    var whatsapp ="+971 52 692 4021";
     var whatsappURl_android = "whatsapp://send?phone="+whatsapp+"&text=$msg";
     var whatappURL_ios ="https://wa.me/$whatsapp?text=${Uri.parse(msg)}";
-      // for iOS phone only
-      if( await canLaunch(whatappURL_ios)){
-        await launch(whatappURL_ios, forceSafariVC: false);
-      }else{
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: new Text("whatsapp no installed")));
-      }
+    if( await canLaunch(whatappURL_ios)){
+      await launch(whatappURL_ios);
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: new Text("whatsapp no installed")));
+
+    }
   }
 
 
