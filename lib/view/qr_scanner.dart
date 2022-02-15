@@ -141,6 +141,7 @@ class _QRScannerState extends State<QRScanner> {
 
 
   static openwhatsapp(BuildContext context,String msg) async{
+    String test = 'test';
     var whatsapp ="+971 52 692 4021";
     var whatsappURl_android = "https://api.whatsapp.com/send?phone=$whatsapp=${Uri.parse(msg)}";
     var whatappURL_ios ="https://wa.me/$whatsapp/?text=${Uri.parse(msg)}";
