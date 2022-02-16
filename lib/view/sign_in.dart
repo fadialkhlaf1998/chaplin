@@ -41,7 +41,6 @@ class _Sign_InState extends State<Sign_In> {
   }
   _permissions()async{
     var status = await Permission.camera.status;
-
     print(status.isDenied);
     if (status.isDenied) {
       // We didn't ask for permission yet or the permission has been denied before but not permanently.
