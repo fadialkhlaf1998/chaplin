@@ -141,18 +141,19 @@ class _QRScannerState extends State<QRScanner> {
 
 
   static openwhatsapp(BuildContext context,String msg) async{
-    String test = 'test';
-    var whatsapp ="+971 52 692 4021";
+
+    // var whatsapp ="00971526924021";
+    var whatsapp ="00971509938659";
     var whatsappURl_android = "https://api.whatsapp.com/send?phone=$whatsapp=${Uri.parse(msg)}";
     var whatappURL_ios ="https://wa.me/$whatsapp/?text=${Uri.parse(msg)}";
 
-      // add the [https]
-      if( await canLaunch(whatappURL_ios)){
-        await launch(whatappURL_ios);
-      }else{
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: new Text("whatsapp no installed")));
-      }
+    // add the [https]
+    if( await canLaunch(whatappURL_ios)){
+      await launch(whatappURL_ios);
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: new Text("whatsapp no installed")));
+    }
   }
 
 

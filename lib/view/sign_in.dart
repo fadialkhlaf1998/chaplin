@@ -5,9 +5,12 @@ import 'package:chaplin_new_version/model/global.dart';
 import 'package:chaplin_new_version/view/dashboard.dart';
 import 'package:chaplin_new_version/view/no_internet.dart';
 import 'package:chaplin_new_version/view/pick_your_choose.dart';
+import 'package:chaplin_new_version/view/qr_scanner.dart';
 import 'package:chaplin_new_version/view/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Sign_In extends StatefulWidget {
   const Sign_In({Key? key}) : super(key: key);
@@ -30,13 +33,29 @@ class _Sign_InState extends State<Sign_In> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
   bool request=true;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _permissions();
+  }
+  _permissions()async{
+    var status = await Permission.camera.status;
 
+    print(status.isDenied);
+    if (status.isDenied) {
+      // We didn't ask for permission yet or the permission has been denied before but not permanently.
+      print('==========');
+      Permission.camera.request();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
     return Scaffold(
+      backgroundColor: Color(0xff231F20),
       key: _scaffoldkey,
         body: SafeArea(
           child: Container(
@@ -137,7 +156,7 @@ class _Sign_InState extends State<Sign_In> {
                           ),
                           hintText: 'PASSWORD',
                             errorText: pass_vlidate?null:"Password can not be empty",
-                          hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+                          hintStyle: TextStyle(color: Colors.white24,fontSize: 12),
                           suffixIcon: IconButton(icon: Icon(hidden?Icons.visibility_off_outlined:Icons.remove_red_eye_outlined,color: Colors.white,),onPressed: (){
                             setState(() {
                               hidden=!hidden;
@@ -203,20 +222,14 @@ class _Sign_InState extends State<Sign_In> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: (){
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => const DashBoard()),
-                            // );
+                          onTap: ()async{
+
                             setState(() {
                               request=false;
                             });
                             StoryApi.get_stories(Global.customer_id).then((value) {
                               StoryApi.get_my_story(Global.customer_id).then((my_story){
                                 Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => PickChoose(value,my_story)));
-                                // setState(() {
-                                //   request=true;
-                                // });
                               });
                             });
                           },
@@ -255,14 +268,41 @@ class _Sign_InState extends State<Sign_In> {
                   ),
                   SizedBox(
                     height: 15,
-                  )
-
+                  ),
+                  // Padding(padding: EdgeInsets.only(top: 20),
+                  //   child: GestureDetector(
+                  //     onTap: (){
+                  //       openwhatsapp(context,"I love you");
+                  //     },
+                  //     child: Container(
+                  //       width: 100,
+                  //       height: 100,
+                  //       color: Colors.red,
+                  //       child: Text("whatsapp"),
+                  //     )
+                  //   ),
+                  // ),
                 ],
               ),
             ),
           ),
         ),
     );
+  }
+  static openwhatsapp(BuildContext context,String msg) async{
+
+    // var whatsapp ="00971526924021";
+    var whatsapp ="00971509938659";
+    var whatsappURl_android = "https://api.whatsapp.com/send?phone=$whatsapp=${Uri.parse(msg)}";
+    var whatappURL_ios ="https://wa.me/$whatsapp/?text=${Uri.parse(msg)}";
+
+    // add the [https]
+    if( await canLaunch(whatappURL_ios)){
+      await launch(whatappURL_ios);
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: new Text("whatsapp no installed")));
+    }
   }
   submit(){
     if(email_controller.value.text.isEmpty){

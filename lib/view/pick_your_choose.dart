@@ -387,7 +387,6 @@ class _PickChooseState extends State<PickChoose> {
             ),
           ),
         ),
-
       ),
       key: _scaffoldkey,
       backgroundColor: Color(0xff231F20),
@@ -408,212 +407,348 @@ class _PickChooseState extends State<PickChoose> {
                     children: [
                       Column(
                         children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height*0.24,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25),bottomRight: Radius.circular(25))
-                            ),
-                            child:  Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-
-                                Container(
-                                  padding: EdgeInsets.only(top: 5,bottom: 5),
-                                  child: SvgPicture.asset("assets/pick_page/logo.svg",height: 40,)
+                          Stack(
+                            alignment: Alignment.bottomLeft,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height*0.27,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25),bottomRight: Radius.circular(25))
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                child:  Column(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        _scaffoldkey.currentState!.openDrawer();
-                                      },
-                                      icon: SvgPicture.asset(
-                                          "assets/details.svg",
-                                          color: Color(0xff272525),
-                                          semanticsLabel: 'details'
-                                      ),
-                                    ),
                                     Container(
-                                      width: MediaQuery.of(context).size.width>=400?MediaQuery.of(context).size.width * 0.7:MediaQuery.of(context).size.width * 0.5,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xff272525),
-                                          borderRadius: BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 10),
-                                        child: TextField(
-                                          onSubmitted: (q){
-                                            get_search(q);
+                                      padding: EdgeInsets.only(top: 5,bottom: 5),
+                                      child: SvgPicture.asset("assets/pick_page/logo.svg",height: 40,)
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            _scaffoldkey.currentState!.openDrawer();
                                           },
-                                          cursorColor: Colors.white,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
+                                          icon: SvgPicture.asset(
+                                              "assets/details.svg",
+                                              color: Color(0xff272525),
+                                              semanticsLabel: 'details'
                                           ),
-                                          decoration: InputDecoration(
-                                            prefixIcon: Icon(Icons.search, size: 18, color: Colors.white.withOpacity(0.5),),
-                                            prefixIconConstraints: BoxConstraints(
-                                              minHeight: 0,
-                                              minWidth: 0,
-                                            ),
-                                            hintText: App_Localization.of(context)!.translate("find_your_favorite_dish"),
-                                            hintStyle: TextStyle(
-                                              color: Colors.white.withOpacity(0.5),
-                                              fontSize: 16,
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width>=400?MediaQuery.of(context).size.width * 0.7:MediaQuery.of(context).size.width * 0.5,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              color: Color(0xff272525),
+                                              borderRadius: BorderRadius.circular(10)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: TextField(
+                                              onSubmitted: (q){
+                                                get_search(q);
+                                              },
+                                              cursorColor: Colors.white,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                              ),
+                                              decoration: InputDecoration(
+                                                prefixIcon: Icon(Icons.search, size: 18, color: Colors.white.withOpacity(0.5),),
+                                                prefixIconConstraints: BoxConstraints(
+                                                  minHeight: 0,
+                                                  minWidth: 0,
+                                                ),
+                                                hintText: App_Localization.of(context)!.translate("find_your_favorite_dish"),
+                                                hintStyle: TextStyle(
+                                                  color: Colors.white.withOpacity(0.5),
+                                                  fontSize: 16,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        Global.get_cart(context).then((value) {
-                                          _calc_total();
-                                        });
-                                      },
-                                      /**/
-                                      icon: Icon(
-                                        Icons.shopping_cart,
-                                        color: Color(0xff272525),
-                                        size: 25,
-                                      ),
+                                        IconButton(
+                                          onPressed: () {
+                                            Global.get_cart(context).then((value) {
+                                              _calc_total();
+                                            });
+                                          },
+                                          /**/
+                                          icon: Icon(
+                                            Icons.shopping_cart,
+                                            color: Color(0xff272525),
+                                            size: 25,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 2),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height*0.09,
-                                    child: Padding(padding: EdgeInsets.only(left: 20,right: 20),
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: Global.stories.length+1,
-                                          itemBuilder: (context,index){
-                                            return index==0?
-                                            my_story==null?Padding(
-                                              padding: const EdgeInsets.only(left: 5,right: 5),
-                                              child: GestureDetector(
-                                                onTap: (){
+                              ),
+                              /*
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 2),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: MediaQuery.of(context).size.height*0.09,
+                                  child: Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: Global.stories.length+1,
+                                        itemBuilder: (context,index){
+                                          return index==0?
+                                          my_story==null?Padding(
+                                            padding: const EdgeInsets.only(left: 5,right: 5),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                //showAlertDialog(context);
+                                                //  setState(() {
+                                                //    pick=true;
+                                                //  });
+                                                if(Global.customer_id==-1){
+                                                  App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
+                                                }else{
                                                   //showAlertDialog(context);
-                                                  //  setState(() {
-                                                  //    pick=true;
-                                                  //  });
-                                                  if(Global.customer_id==-1){
-                                                    App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
-                                                  }else{
-                                                    //showAlertDialog(context);
-                                                    setState(() {
-                                                      pick=true;
-                                                    });
-                                                  }
-                                                },
-                                                child: AnimatedContainer(
-                                                  duration: Duration(milliseconds: 600),
-                                                  width: !pick ? MediaQuery.of(context).size.height*0.08 : MediaQuery.of(context).size.height*0.075,
-                                                  height: MediaQuery.of(context).size.height*0.08,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Color(0xff231F20),
-                                                    border: Border.all(color: Colors.white,width: 2),
-                                                  ),
-                                                  child: AnimatedSwitcher(
+                                                  setState(() {
+                                                    pick=true;
+                                                  });
+                                                }
+                                              },
+                                              child: AnimatedContainer(
+                                                duration: Duration(milliseconds: 600),
+                                                width: !pick ? MediaQuery.of(context).size.height*0.08 : MediaQuery.of(context).size.height*0.075,
+                                                height: MediaQuery.of(context).size.height*0.08,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xff231F20),
+                                                  border: Border.all(color: Colors.white,width: 2),
+                                                ),
+                                                child: AnimatedSwitcher(
                                                     duration: Duration(milliseconds: 600),
-                                                      child: !pick ? Icon(Icons.add,size: 40,color: Colors.white,) : Text('')
-                                                  ),
+                                                    child: !pick ? Icon(Icons.add,size: 40,color: Colors.white,) : Text('')
                                                 ),
                                               ),
-                                            ):Padding(
-                                              padding: const EdgeInsets.only(left: 5,right: 5),
-                                              child: GestureDetector(
-                                                onTap: (){
-                                                  //get_images(my_story.id,index-1);
-                                                  get_images_my_story();
-                                                },
-                                                child: Container(
-                                                  width: MediaQuery.of(context).size.height*0.08,
-                                                  height: MediaQuery.of(context).size.height*0.08,
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(color: Colors.white,width: 3),
-                                                      image: my_story!.image.endsWith("mp4")?DecorationImage(
-                                                          image:AssetImage("assets/chapo.png"),
-                                                          fit: BoxFit.cover
-                                                      ):DecorationImage(
-                                                          image:NetworkImage(StoryApi.media_url+my_story!.image),
-                                                          fit: BoxFit.cover
-                                                      )
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                                : Padding(
-                                              padding: const EdgeInsets.only(left: 5,right: 5),
-                                              child: GestureDetector(
-                                                onTap: (){
-                                                  get_images(Global.stories[index-1].id,index-1);
-                                                },
-                                                child: Container(
-                                                  width: MediaQuery.of(context).size.height*0.08+9,
-                                                  height: MediaQuery.of(context).size.height*0.08+9,
-                                                  decoration: BoxDecoration(
+                                            ),
+                                          ):Padding(
+                                            padding: const EdgeInsets.only(left: 5,right: 5),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                //get_images(my_story.id,index-1);
+                                                get_images_my_story();
+                                              },
+                                              child: Container(
+                                                width: MediaQuery.of(context).size.height*0.08,
+                                                height: MediaQuery.of(context).size.height*0.08,
+                                                decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
-                                                    gradient:Global.stories[index-1].readed==0? LinearGradient(
-                                                      colors: [
-                                                        Colors.orange,
-                                                        Colors.pinkAccent,
-                                                      ],
-                                                    ): LinearGradient(
-                                                      colors: [
-                                                        Colors.transparent,
-                                                        Colors.transparent,
-                                                      ],
-                                                    ),
-                                                    // borderRadius: BorderRadius.circular(35),
+                                                    border: Border.all(color: Colors.white,width: 3),
+                                                    image: my_story!.image.endsWith("mp4")?DecorationImage(
+                                                        image:AssetImage("assets/chapo.png"),
+                                                        fit: BoxFit.cover
+                                                    ):DecorationImage(
+                                                        image:NetworkImage(StoryApi.media_url+my_story!.image),
+                                                        fit: BoxFit.cover
+                                                    )
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                              : Padding(
+                                            padding: const EdgeInsets.only(left: 5,right: 5),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                get_images(Global.stories[index-1].id,index-1);
+                                              },
+                                              child: Container(
+                                                width: MediaQuery.of(context).size.height*0.08+9,
+                                                height: MediaQuery.of(context).size.height*0.08+9,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  gradient:Global.stories[index-1].readed==0? LinearGradient(
+                                                    colors: [
+                                                      Colors.orange,
+                                                      Colors.pinkAccent,
+                                                    ],
+                                                  ): LinearGradient(
+                                                    colors: [
+                                                      Colors.transparent,
+                                                      Colors.transparent,
+                                                    ],
                                                   ),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(2),
-                                                    child: Container(
-                                                      width: MediaQuery.of(context).size.height*0.08+3,
-                                                      height: MediaQuery.of(context).size.height*0.08+3,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.all(3),
-                                                        child: Container(
-                                                          width: MediaQuery.of(context).size.height*0.08,
-                                                          height: MediaQuery.of(context).size.height*0.08,
-                                                          decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
+                                                  // borderRadius: BorderRadius.circular(35),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(2),
+                                                  child: Container(
+                                                    width: MediaQuery.of(context).size.height*0.08+3,
+                                                    height: MediaQuery.of(context).size.height*0.08+3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(3),
+                                                      child: Container(
+                                                        width: MediaQuery.of(context).size.height*0.08,
+                                                        height: MediaQuery.of(context).size.height*0.08,
+                                                        decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
 
-                                                              image: Global.stories[index-1].image.endsWith("mp4")?DecorationImage(
-                                                                  image:AssetImage("assets/chapo.png"),
-                                                                  fit: BoxFit.cover
-                                                              ):DecorationImage(
-                                                                  image:NetworkImage(StoryApi.media_url+Global.stories[index-1].image),
-                                                                  fit: BoxFit.cover
-                                                              )
-                                                          ),
+                                                            image: Global.stories[index-1].image.endsWith("mp4")?DecorationImage(
+                                                                image:AssetImage("assets/chapo.png"),
+                                                                fit: BoxFit.cover
+                                                            ):DecorationImage(
+                                                                image:NetworkImage(StoryApi.media_url+Global.stories[index-1].image),
+                                                                fit: BoxFit.cover
+                                                            )
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            );
-                                          }),
-                                    ),
+                                            ),
+                                          );
+                                        }),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                               */
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 2),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: MediaQuery.of(context).size.height*0.09,
+                                  child: Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: Global.stories.length+1,
+                                        itemBuilder: (context,index){
+                                          return index==0?
+                                          my_story==null?Padding(
+                                            padding: const EdgeInsets.only(left: 5,right: 5),
+                                            child:
+                                                /** my add button*/
+                                            GestureDetector(
+                                              onTap: (){
+                                                //showAlertDialog(context);
+                                                //  setState(() {
+                                                //    pick=true;
+                                                //  });
+                                                if(Global.customer_id==-1){
+                                                  App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
+                                                }else{
+                                                  //showAlertDialog(context);
+                                                  setState(() {
+                                                    pick=true;
+                                                  });
+                                                }
+                                              },
+                                              child: AnimatedContainer(
+                                                duration: Duration(milliseconds: 600),
+                                                width: !pick ? MediaQuery.of(context).size.height*0.08 : MediaQuery.of(context).size.height*0.075,
+                                                height: MediaQuery.of(context).size.height*0.08,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xff231F20),
+                                                  border: Border.all(color: Colors.white,width: 2),
+                                                ),
+                                                child: AnimatedSwitcher(
+                                                    duration: Duration(milliseconds: 600),
+                                                    child: !pick ? Icon(Icons.add,size: 40,color: Colors.white,) : Text('')
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          :Padding(
+                                            padding: const EdgeInsets.only(left: 5,right: 5),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                //get_images(my_story.id,index-1);
+                                                get_images_my_story();
+                                              },
+                                              child: Container(
+                                                width: MediaQuery.of(context).size.height*0.08,
+                                                height: MediaQuery.of(context).size.height*0.08,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(color: Colors.white,width: 3),
+                                                    image: my_story!.image.endsWith("mp4")?DecorationImage(
+                                                        image:AssetImage("assets/chapo.png"),
+                                                        fit: BoxFit.cover
+                                                    ):DecorationImage(
+                                                        image:NetworkImage(StoryApi.media_url+my_story!.image),
+                                                        fit: BoxFit.cover
+                                                    )
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                              : Padding(
+                                            padding: const EdgeInsets.only(left: 5,right: 5),
+                                            child: GestureDetector(
+                                              onTap: (){
+                                                get_images(Global.stories[index-1].id,index-1);
+                                              },
+                                              child: Container(
+                                                width: MediaQuery.of(context).size.height*0.08+9,
+                                                height: MediaQuery.of(context).size.height*0.08+9,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  gradient:Global.stories[index-1].readed==0? LinearGradient(
+                                                    colors: [
+                                                      Colors.orange,
+                                                      Colors.pinkAccent,
+                                                    ],
+                                                  ): LinearGradient(
+                                                    colors: [
+                                                      Colors.transparent,
+                                                      Colors.transparent,
+                                                    ],
+                                                  ),
+                                                  // borderRadius: BorderRadius.circular(35),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(2),
+                                                  child: Container(
+                                                    width: MediaQuery.of(context).size.height*0.08+3,
+                                                    height: MediaQuery.of(context).size.height*0.08+3,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(3),
+                                                      child: Container(
+                                                        width: MediaQuery.of(context).size.height*0.08,
+                                                        height: MediaQuery.of(context).size.height*0.08,
+                                                        decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+
+                                                            image: Global.stories[index-1].image.endsWith("mp4")?DecorationImage(
+                                                                image:AssetImage("assets/chapo.png"),
+                                                                fit: BoxFit.cover
+                                                            ):DecorationImage(
+                                                                image:NetworkImage(StoryApi.media_url+Global.stories[index-1].image),
+                                                                fit: BoxFit.cover
+                                                            )
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
 
                         ],
@@ -799,8 +934,10 @@ class _PickChooseState extends State<PickChoose> {
                 child: CircularProgressIndicator(),
               ),
             ):Center()),
+
             Positioned(
-                left: 22,top: MediaQuery.of(context).size.height*0.25-MediaQuery.of(context).size.height*0.07,
+                left: 22,
+                top: MediaQuery.of(context).size.height*0.25-MediaQuery.of(context).size.height*0.04,
                 child: Padding(
                 padding: const EdgeInsets.only(left: 5,right: 5),
                    child: GestureDetector(
@@ -1043,4 +1180,6 @@ class _PickChooseState extends State<PickChoose> {
       });
     });
   }
+
 }
+

@@ -8,7 +8,6 @@ import 'package:chaplin_new_version/model/music.dart';
 import 'package:chaplin_new_version/model/my_customer.dart';
 import 'package:chaplin_new_version/model/my_responce.dart';
 import 'package:chaplin_new_version/model/order.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -275,15 +274,15 @@ class Connecter {
   }
 
   static Future<bool> check_internet() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      return false;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      return true;
-    }else if(connectivityResult == ConnectivityResult.mobile){
-      return true;
-    }
-    return false;
+    // var connectivityResult = await (Connectivity().checkConnectivity());
+    // if (connectivityResult == ConnectivityResult.none) {
+    //   return false;
+    // } else if (connectivityResult == ConnectivityResult.wifi) {
+    //   return true;
+    // }else if(connectivityResult == ConnectivityResult.mobile){
+    //   return true;
+    // }
+    return true;
   }
 
   static Future<bool> send_email(String tableNumber) async {

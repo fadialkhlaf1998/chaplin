@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>https</string>
+      <string>http</string>
+    </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -43,5 +48,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>NSCameraUsageDescription</key>
+        <string>This app needs access to camera to take photo and upload it in instagram story</string>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>This app needs access to photos to upload it in instagram story</string>
+        <key>io.flutter.embedded_views_preview</key>
+        <true/>
+        <key>NSCameraUsageDescription</key>
+        <string>This app needs camera access to scan QR codes</string>
+        <key>io.flutter.embedded_views_preview</key>
+        <true/>
+        <key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSAllowsArbitraryLoads</key>
+            <true/>
+        </dict>
 </dict>
 </plist>

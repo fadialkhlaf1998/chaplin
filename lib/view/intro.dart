@@ -23,13 +23,13 @@ class _GifState extends State<Gif> {
     AppSetting.load();
 
     super.initState();
-    _controller = VideoPlayerController.asset("assets/intro.mp4")
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-      });
-
-
-    _controller!.play();
+    // _controller = VideoPlayerController.asset("assets/intro.mp4")
+    //   ..initialize().then((_) {
+    //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+    //   });
+    //
+    //
+    // _controller!.play();
     WordPressConnecter.get_category().then((categories) {
       Global.categories.addAll(categories);
     });
@@ -55,7 +55,7 @@ class _GifState extends State<Gif> {
   @override
   void dispose() {
     super.dispose();
-    _controller!.dispose();
+    // _controller!.dispose();
   }
   get_delay(){
     Future.delayed(const Duration(milliseconds: 2500), () {
