@@ -76,7 +76,7 @@ class _Sign_InState extends State<Sign_In> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height*0.35,
+                    height: MediaQuery.of(context).size.height*0.3,
                     decoration: BoxDecoration(
                         color: Colors.transparent,
                       image: DecorationImage(
@@ -85,11 +85,11 @@ class _Sign_InState extends State<Sign_In> {
                       )
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(top: 15),
+                  Padding(padding: EdgeInsets.only(top: 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("SIGN IN",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),)
+                        Text("SIGN IN",style: TextStyle(color: Colors.white,fontSize: 35,fontWeight: FontWeight.bold),)
                       ],
                     ),
                   ),
@@ -107,7 +107,7 @@ class _Sign_InState extends State<Sign_In> {
                           }
                         },
                         textAlignVertical: TextAlignVertical.bottom,
-                        style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                        style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                             border: UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
@@ -120,7 +120,7 @@ class _Sign_InState extends State<Sign_In> {
                           ),
                             hintText: 'E-MAIL',
                           errorText: email_vlidate?null:"Email can not be empty",
-                          hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+                          hintStyle: TextStyle(color: Colors.white24,fontSize: 20,fontWeight: FontWeight.bold),
 
 
                         ),
@@ -142,7 +142,7 @@ class _Sign_InState extends State<Sign_In> {
                         },
                         obscureText: hidden,
                         textAlignVertical: TextAlignVertical.bottom,
-                        style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                        style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                           border: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
@@ -155,7 +155,7 @@ class _Sign_InState extends State<Sign_In> {
                           ),
                           hintText: 'PASSWORD',
                             errorText: pass_vlidate?null:"Password can not be empty",
-                          hintStyle: TextStyle(color: Colors.white24,fontSize: 12),
+                          hintStyle: TextStyle(color: Colors.white24,fontSize: 20),
                           suffixIcon: IconButton(icon: Icon(hidden?Icons.visibility_off_outlined:Icons.remove_red_eye_outlined,color: Colors.white,),onPressed: (){
                             setState(() {
                               hidden=!hidden;
@@ -175,14 +175,13 @@ class _Sign_InState extends State<Sign_In> {
                             onTap: (){
                               forget_password();
                             },
-                            child: Text("forget password",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14,decoration: TextDecoration.underline),),
+                            child: Text("forget password",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15,decoration: TextDecoration.underline),),
 
                           ),
                         ],
                       ),
                     ),
                   ),
-
                   Padding(padding: EdgeInsets.only(top: 40),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -194,14 +193,13 @@ class _Sign_InState extends State<Sign_In> {
                           child: Container(
                             width: MediaQuery.of(context).size.width*0.8,
                             height: 60,
-
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.all(Radius.circular(75)),
                               border: Border.all(color: Colors.white,width: 2),
                             ),
                             child:Center(
-                              child:  Text("SUBMIT",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
+                              child:  Text("SUBMIT",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
                             ),
                           ),
                         ),
@@ -222,7 +220,6 @@ class _Sign_InState extends State<Sign_In> {
                       children: [
                         GestureDetector(
                           onTap: ()async{
-
                             setState(() {
                               request=false;
                             });
@@ -242,7 +239,7 @@ class _Sign_InState extends State<Sign_In> {
                               border: Border.all(color: Colors.white,width: 2),
                             ),
                             child:Center(
-                              child:  Text("visit as guest",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
+                              child:  Text("visit as guest",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),),
                             ),
                           ),
                         ),

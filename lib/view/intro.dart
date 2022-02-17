@@ -38,7 +38,6 @@ class _GifState extends State<Gif> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: SafeArea(
           child: Container(

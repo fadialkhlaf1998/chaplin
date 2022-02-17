@@ -63,8 +63,12 @@ class _DashBoardState extends State<DashBoard> {
       WordPressConnecter.get_products_search(query).then((value){
         products=value;
         selected_category=-1;
-        loading=false;
-      }).catchError((){
+        setState(() {
+          loading=false;
+        });
+
+      }).catchError((err){
+        print(err);
         loading=false;
       });
     });
