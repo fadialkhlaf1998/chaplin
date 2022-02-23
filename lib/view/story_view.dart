@@ -25,6 +25,8 @@ class _StoryViewState extends State<Story_View> {
   bool loading=false ;
   int index;
   _StoryViewState(this.storyItems,this.controller,this.stories,this.index);
+  int index_item = 0;
+
 
   get_images(int id){
     setState(() {
@@ -71,16 +73,21 @@ class _StoryViewState extends State<Story_View> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: !loading?StoryView(
-
               controller: controller, // pass controller here too
               repeat: true, // should the stories be slid forever
               inline: true,
               onStoryShow: (s) {
+                s.shown=true;
+                // print('--------story--------');
+                //       print(s.shown);
+                // print('--------story--------');
+                index_item += 1;
                 // print('------------');
                 // print(storyItems.length);
-                // if(storyItems.length==1)
+                if(storyItems.length-1==index_item){
+                  StoryApi.read_story(stories[index].id, Global.customer_id);
+                }
                 // controller.next();
-
               },
               onComplete: () {
                 try{

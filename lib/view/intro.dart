@@ -39,12 +39,10 @@ class _GifState extends State<Gif> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Image.asset("assets/gif.gif",fit: BoxFit.cover,),
-          ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Image.asset("assets/gif.gif",fit: BoxFit.cover,),
         )
 
       );

@@ -705,7 +705,6 @@ class _PickChooseState extends State<PickChoose> {
                                                               height: MediaQuery.of(context).size.height*0.08,
                                                               decoration: BoxDecoration(
                                                                   shape: BoxShape.circle,
-
                                                                   image: Global.stories[index-1].image.endsWith("mp4")?DecorationImage(
                                                                       image:AssetImage("assets/chapo.png"),
                                                                       fit: BoxFit.cover
@@ -913,82 +912,6 @@ class _PickChooseState extends State<PickChoose> {
                 child: CircularProgressIndicator(),
               ),
             ):Center()),
-            /*
-                       Positioned(
-                left: MediaQuery.of(context).size.width*0.06,
-                top: MediaQuery.of(context).size.height*0.25-MediaQuery.of(context).size.height*0.04,
-                child: Padding(
-                padding: const EdgeInsets.only(left: 5,right: 5),
-                   child: GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        pick=false;
-                      });
-
-                },
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 600),
-                     curve: Curves.easeInOut,
-                  width: MediaQuery.of(context).size.height*0.068,
-                  height: pick?160:0,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(MediaQuery.of(context).size.height*0.04),
-                        topLeft: Radius.circular(5),
-                        topRight : Radius.circular(5),
-                        bottomLeft: Radius.circular(MediaQuery.of(context).size.height*0.04),
-                      ),
-                      color: Color(0xff231F20),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.white.withOpacity(0),
-                            blurRadius: 0.1,
-                            spreadRadius: 0.1,
-                            offset: Offset(0,1)
-                        )
-                      ]
-                  ),
-                  child:SingleChildScrollView(
-                    child: Container(
-                      height: 150,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(
-                            padding: EdgeInsets.all(0),
-                            onPressed: (){
-                              _picker.pickMultiImage().then((value) async{
-                                pick_image(value!);
-                              });
-                            }, icon: Icon(Icons.photo,size: 35,color: Colors.white,),),
-                          IconButton(
-                              padding: EdgeInsets.all(0),
-                              onPressed: (){
-                                List<XFile> value=<XFile>[];
-                                _picker.pickVideo(source: ImageSource.gallery).then((file) {
-                                  value.add(file!);
-                                  pick_image(value);
-                                });
-                              }, icon: Icon(Icons.video_call_outlined,size: 38,color: Colors.white,)),
-                          IconButton(
-                              padding: EdgeInsets.all(0),
-                              onPressed: (){
-                                List<XFile> value=<XFile>[];
-                                _picker.pickImage(source: ImageSource.camera).then((file) {
-                                  value.add(file!);
-                                  pick_image(value);
-                                });
-                              }, icon: Icon(Icons.camera_alt,size: 33,color: Colors.white,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ))
-
-
-            */
           ],
         ),
       ),
@@ -1114,7 +1037,7 @@ class _PickChooseState extends State<PickChoose> {
     StoryApi.get_images(id).then((value) {
       for(int i=0;i<value.length;i++){
         if(value[i].link.endsWith("mp4")){
-          print('******************************');
+          print('***************people story***************');
           print(StoryApi.media_url+value[i].link);
           storyItems.add(StoryItem.pageVideo(StoryApi.media_url+value[i].link,controller: controller));
         }else{
@@ -1141,7 +1064,7 @@ class _PickChooseState extends State<PickChoose> {
     StoryApi.get_images(my_story!.id).then((value) {
       for(int i=0;i<value.length;i++){
         if(value[i].link.endsWith("mp4")){
-          print('******************************');
+          print('**************story view****************');
           print(StoryApi.media_url+value[i].link);
           storyItems.add(StoryItem.pageVideo(StoryApi.media_url+value[i].link,controller: controller));
         }else{
