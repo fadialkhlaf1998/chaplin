@@ -94,6 +94,7 @@ flutter:
     - assets/dashboard/slider_1.png
     - assets/dashboard/slider_2.png
     - assets/dashboard/slider_3.jpg
+    - assets/dashboard/title.png
     - assets/story.png
     - assets/login.png
     - assets/chapo.png

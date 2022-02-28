@@ -43,8 +43,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
       DeviceOrientation.portraitUp,
     ]);
     return Scaffold(
-      backgroundColor: Colors.white,
-
+      backgroundColor: Color(0xff231F20),
       body: SafeArea(
         child: GestureDetector(
           onTap: (){
@@ -76,7 +75,6 @@ class _PhotoPickerState extends State<PhotoPicker> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-
                                 Stack(
                                   children: [
                                     Padding(
@@ -87,31 +85,35 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                           IconButton(onPressed: (){
                                             Navigator.pop(context);
                                           }, icon: Icon(Icons.arrow_back_ios,color: Colors.white,)),
-                                          Text("STORY",style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
+                                          Text("STORY",style: TextStyle(color: Colors.white,fontSize: 22,fontWeight: FontWeight.bold),),
                                           IconButton(onPressed: (){
                                             // Navigator.pop(context);
                                           }, icon: Icon(Icons.arrow_back,color: Colors.transparent,))
                                         ],
                                       ),
                                     ),
-                                    // Positioned(child: ,top: 10,)
                                   ],
                                 ),
-
+                                /** Add Story*/
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 2),
+                                  padding: const EdgeInsets.only(bottom: 10),
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height*0.09,
-                                    child: Padding(padding: EdgeInsets.only(left: 20,right: 20),
+                                    height: MediaQuery.of(context).size.height*0.065,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 10,right: 20),
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount: Global.stories.length+1,
                                           itemBuilder: (context,index){
-                                            return index==0?
-                                            my_story==null?Padding(
-                                              padding: const EdgeInsets.only(left: 5,right: 5),
-                                              child:  GestureDetector(
+                                            return index==0 ?
+                                            my_story==null ?
+                                            /** Add story */
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 0,right: 0),
+                                              child:
+                                              /** my add button*/
+                                              GestureDetector(
                                                 onTap: (){
                                                   //showAlertDialog(context);
                                                   //  setState(() {
@@ -127,21 +129,130 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                   }
                                                 },
                                                 child: AnimatedContainer(
-                                                  duration: Duration(milliseconds: 600),
-                                                  width: !pick ? MediaQuery.of(context).size.height*0.08 : MediaQuery.of(context).size.height*0.075,
-                                                  height: MediaQuery.of(context).size.height*0.08,
+                                                  duration: Duration(milliseconds: 700),
+                                                  curve: Curves.fastOutSlowIn,
+                                                  width: !pick ? MediaQuery.of(context).size.width*0.14 : MediaQuery.of(context).size.width * 0.9,
+                                                  height: MediaQuery.of(context).size.height*0.14,
                                                   decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.white,
-                                                    border: Border.all(color: Color(0xff231F20),width: 2),
+                                                    borderRadius: BorderRadius.circular(100),
+                                                    color: !pick ? Colors.white : Colors.transparent,
+                                                    //border: Border.all(color: Colors.white,width: 2),
                                                   ),
                                                   child: AnimatedSwitcher(
-                                                      duration: Duration(milliseconds: 600),
-                                                      child: !pick ? Icon(Icons.add,size: 40,color: Color(0xff231F20),) : Text('')
+                                                      duration: Duration(milliseconds: 500),
+                                                      child: !pick
+                                                          ? Icon(Icons.add, color: Color(0xff231F20),size: 30,)
+                                                          :  SingleChildScrollView(
+                                                        scrollDirection: Axis.horizontal,
+                                                        child: Container(
+                                                          child: Row(
+                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                            children: [
+                                                              GestureDetector(
+                                                                onTap: (){
+                                                                  setState(() {
+                                                                    pick=false;
+                                                                  });
+                                                                },
+                                                                child: Container(
+                                                                    width: 50,
+                                                                    height: 50,
+                                                                    decoration: BoxDecoration(
+                                                                      shape: BoxShape.circle,
+                                                                      color: Colors.white
+                                                                    ),
+                                                                    child: Icon(Icons.close,color: Color(0xff231F20))
+                                                                ),
+                                                              ),
+                                                              SizedBox(width: 10),
+                                                              GestureDetector(
+                                                                onTap: (){
+                                                                  _picker.pickMultiImage().then((value) async{
+                                                                    pick_image(value!);
+                                                                  });
+                                                                  pick = false;
+                                                                },
+                                                                child: Container(
+                                                                  width: MediaQuery.of(context).size.width * 0.22,
+                                                                  height: MediaQuery.of(context).size.height * 0.1,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(20),
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: [
+                                                                      Text('Images', style: TextStyle(color: Color(0xff231F20),fontSize: 18),),
+                                                                      Icon(Icons.photo,size: 27,color: Color(0xff231F20),),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              SizedBox(width: 10),
+                                                              GestureDetector(
+                                                                onTap: (){
+                                                                  List<XFile> value=<XFile>[];
+                                                                  _picker.pickVideo(source: ImageSource.gallery).then((file) {
+                                                                    value.add(file!);
+                                                                    pick_image(value);
+                                                                  });
+                                                                  pick = false;
+                                                                },
+                                                                child: Container(
+                                                                  height: MediaQuery.of(context).size.height * 0.1,
+                                                                  width: MediaQuery.of(context).size.width * 0.22,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(20),
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: [
+                                                                      Text('Videos', style: TextStyle(color: Color(0xff231F20),fontSize: 18),),
+                                                                      Icon(Icons.video_call_outlined,size: 33,color: Color(0xff231F20)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              SizedBox(width: 10),
+                                                              GestureDetector(
+                                                                onTap: (){
+                                                                  List<XFile> value=<XFile>[];
+                                                                  _picker.pickImage(source: ImageSource.camera).then((file) {
+                                                                    value.add(file!);
+                                                                    pick_image(value);
+                                                                  });
+                                                                  pick = false;
+                                                                },
+                                                                child: Container(
+                                                                  height: MediaQuery.of(context).size.height * 0.1,
+                                                                  width: MediaQuery.of(context).size.width * 0.22,
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(20),
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: [
+                                                                      Text('Camera', style: TextStyle(color: Color(0xff231F20),fontSize: 18),),
+                                                                      Icon(Icons.camera_alt,size: 27,color: Color(0xff231F20),),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      )
                                                   ),
                                                 ),
                                               ),
-                                            ):Padding(
+                                            )
+                                            /** View my story */
+                                                : Padding(
                                               padding: const EdgeInsets.only(left: 5,right: 5),
                                               child: GestureDetector(
                                                 onTap: (){
@@ -165,8 +276,9 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                 ),
                                               ),
                                             )
+                                            /** View people stories */
                                                 : Padding(
-                                              padding: const EdgeInsets.only(left: 5,right: 5),
+                                              padding: const EdgeInsets.only(left: 0,right: 0),
                                               child: GestureDetector(
                                                 onTap: (){
                                                   get_images(Global.stories[index-1].id,index-1);
@@ -199,13 +311,12 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: Padding(
-                                                        padding: const EdgeInsets.all(3),
+                                                        padding: const EdgeInsets.all(1),
                                                         child: Container(
                                                           width: MediaQuery.of(context).size.height*0.08,
                                                           height: MediaQuery.of(context).size.height*0.08,
                                                           decoration: BoxDecoration(
                                                               shape: BoxShape.circle,
-
                                                               image: Global.stories[index-1].image.endsWith("mp4")?DecorationImage(
                                                                   image:AssetImage("assets/chapo.png"),
                                                                   fit: BoxFit.cover
@@ -224,8 +335,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                           }),
                                     ),
                                   ),
-                                )
-
+                                ),
                               ],
                             ),
                           ),
@@ -255,6 +365,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                     ),
                   ),
               ),
+
               Positioned(child: loading==true?Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
@@ -263,7 +374,9 @@ class _PhotoPickerState extends State<PhotoPicker> {
                   child: CircularProgressIndicator(),
                 ),
               ):Center()),
-              Positioned(
+              /*
+
+                            Positioned(
                   left: 22,top: MediaQuery.of(context).size.height*0.25-MediaQuery.of(context).size.height*0.1,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5,right: 5),
@@ -332,6 +445,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
                       ),
                     ),
                   )),
+
+               */
               Stack(
                 alignment: Alignment.bottomCenter,
                 children: [

@@ -35,10 +35,7 @@ class _StoryViewState extends State<Story_View> {
     // final controller = StoryController();
     // controller  = StoryController();
     StoryApi.get_images(id).then((value) {
-      storyItems.clear();
-      // controller.dispose();
-      // controller= StoryController();
-
+       storyItems.clear();
       List<StoryItem> storyItems0=<StoryItem>[];
       setState(() {
         for(int i=0;i<value.length;i++){
@@ -72,34 +69,32 @@ class _StoryViewState extends State<Story_View> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: !loading?StoryView(
+            child: !loading?
+            StoryView(
               controller: controller, // pass controller here too
               repeat: true, // should the stories be slid forever
               inline: true,
               onStoryShow: (s) {
-                s.shown=true;
-                // print('--------story--------');
-                //       print(s.shown);
-                // print('--------story--------');
                 index_item += 1;
-                // print('------------');
-                // print(storyItems.length);
-                if(storyItems.length-1==index_item){
+                if(storyItems.length-1==index_item||storyItems.length==1){
                   StoryApi.read_story(stories[index].id, Global.customer_id);
+                  Global.stories[index].readed = 1;
                 }
                 // controller.next();
               },
               onComplete: () {
                 try{
+                  print('-------------------');
+                  print('story index:');
                   print(stories[index].id);
+                  print('customers ID:');
                   print(Global.customer_id);
-                  StoryApi.read_story(stories[index].id, Global.customer_id);
-
+                  //StoryApi.read_story(stories[index].id, Global.customer_id);
                 }catch(e){
 
                 }
-                change_story_index(stories[index].id);
-                if(index<stories.length-1){
+                //change_story_index(stories[index].id);
+                if(index < stories.length-1){
                   get_images(stories[index+1].id);
                 }else{
                   Navigator.pop(context);
@@ -110,15 +105,9 @@ class _StoryViewState extends State<Story_View> {
                 if (direction == Direction.down) {
                   Navigator.pop(context);
                 }
-                // if (direction == Direction.right) {
-                //   if(index<stories.length-1)
-                //   get_images(stories[index+1].id);
-                // }
-                // if (direction == Direction.left) {
-                //   if(index-1>0)
-                //     get_images(stories[index-1].id);
-                // }
-              }, storyItems: storyItems, // To disable vertical swipe gestures, ignore this parameter.
+
+              },
+              storyItems: storyItems, // To disable vertical swipe gestures, ignore this parameter.
               // Preferrably for inline story view.
             ):Container(
               width: MediaQuery.of(context).size.width,
@@ -140,7 +129,7 @@ class _StoryViewState extends State<Story_View> {
 
   change_story_index(int story_id){
     for(int i=0;i<Global.stories.length;i++){
-      if(story_id==Global.stories[i].id){
+      if(story_id == Global.stories[i].id){
         Story temp = Global.stories[i];
         Global.stories.removeAt(i);
         temp.readed=1;

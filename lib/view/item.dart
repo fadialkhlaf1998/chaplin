@@ -58,7 +58,7 @@ class _ItemState extends State<Item> {
       DeviceOrientation.portraitUp,
     ]);
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       key: _key,
       body: SafeArea(
         child: Stack(
@@ -66,16 +66,15 @@ class _ItemState extends State<Item> {
             SingleChildScrollView(
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.97,
+                height: MediaQuery.of(context).size.height * 0.91,
                 child: Stack(
                   alignment: Alignment.topLeft,
                   children: <Widget>[
-
                     Positioned(
                       top: 0,
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.35+50,
+                        height: MediaQuery.of(context).size.height * 0.35+60,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: NetworkImage(product.images!.first.src!),
@@ -102,7 +101,7 @@ class _ItemState extends State<Item> {
                       child: Container(
                         padding: const EdgeInsets.only(top: 50),
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height*0.6,
+                        height: MediaQuery.of(context).size.height*0.56,
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(50),topRight: Radius.circular(50))
@@ -119,14 +118,23 @@ class _ItemState extends State<Item> {
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width: MediaQuery.of(context).size.width  * 0.4,
+                                        padding: EdgeInsets.only(left: 20),
+                                        width: MediaQuery.of(context).size.width  * 0.6,
                                         //padding: const EdgeInsets.only(left: 20,right: 20),
                                         child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text(this.product.name!,style: TextStyle(fontSize: 26,fontWeight: FontWeight.bold),),
-                                            Padding(
+                                            Container(
+                                              child: Text(
+                                                this.product.name!,
+                                                maxLines: 3,
+                                                style: TextStyle(fontSize: 26,fontWeight: FontWeight.bold),),
+                                            ),
+                                            Container(
                                               padding: const EdgeInsets.only(top: 5),
-                                              child: Text("AED "+total.toString(),style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.red),),
+                                              child: Text(
+                                                "AED "+total.toString(),
+                                                style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.red),),
                                             ),
                                           ],
                                         ),
@@ -212,14 +220,16 @@ class _ItemState extends State<Item> {
                                     width: MediaQuery.of(context).size.width * 0.8,
                                     child: Column(
                                       children: [
-                                        Html(data: this.product.description!,
+                                        this.product.description.toString().isNotEmpty ?
+                                        Html(
+                                          data: this.product.description!,
                                           style: {
                                           "body": Style(
                                             textAlign: TextAlign.center,
                                             fontSize: const FontSize(18),
                                           ),
                                           },
-                                        )
+                                        ) : Text('There are\'t any description for this product', style: TextStyle(fontSize: 16),)
                                       ],
                                     ),
                                   ),
@@ -269,7 +279,7 @@ class _ItemState extends State<Item> {
                     ),
                     /**heart*/
                     Positioned(
-                      top: MediaQuery.of(context).size.height*0.365-20,
+                      top: MediaQuery.of(context).size.height*0.363-30,
                       right: MediaQuery.of(context).size.width*0.1,
                       child: GestureDetector(
                         onTap: (){

@@ -1,6 +1,10 @@
+
 import 'package:chaplin_new_version/controler/story_api.dart';
 import 'package:chaplin_new_version/model/global.dart';
 import 'package:chaplin_new_version/model/story.dart';
+import 'package:chaplin_new_version/view/dashboard.dart';
+import 'package:chaplin_new_version/view/pick_your_choose.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:story_view/story_view.dart';
@@ -35,34 +39,21 @@ class _MyStoryViewState extends State<MyStory_View> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: !loading&&storyItems.isNotEmpty?StoryView(
-
+            child: !loading && storyItems.isNotEmpty?StoryView(
               controller: controller, // pass controller here too
               repeat: true, // should the stories be slid forever
               inline: true,
               onStoryShow: (s) {
-                // print('------------');
-                // print(storyItems.length);
-                // if(storyItems.length==1)
-                // controller.next();
-                index++;
-                print(index);
+                //index++
                 },
               onComplete: () {
+                //Navigator.of(context).pop();
                 index=0;
               },
               onVerticalSwipeComplete: (direction) {
                 if (direction == Direction.down) {
                   Navigator.pop(context);
                 }
-                // if (direction == Direction.right) {
-                //   if(index<stories.length-1)
-                //   get_images(stories[index+1].id);
-                // }
-                // if (direction == Direction.left) {
-                //   if(index-1>0)
-                //     get_images(stories[index-1].id);
-                // }
               }, storyItems: storyItems, // To disable vertical swipe gestures, ignore this parameter.
               // Preferrably for inline story view.
             ):Container(
@@ -81,18 +72,126 @@ class _MyStoryViewState extends State<MyStory_View> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(onPressed: (){delete_image(index);}, icon: Icon(Icons.delete,color: Colors.white)),
-                  IconButton(onPressed: (){showAlertDialog(context);}, icon: Icon(Icons.add,color: Colors.white,)),
+                  IconButton(
+                      onPressed: () {
+                        controller.pause();
+                        showModalBottomSheet(
+                          context: context,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(25),
+                                )
+                              ),
+                          builder: (_){
+                            return StatefulBuilder(
+                            builder: (context, setState0) {
+                              setState0((){
+                                storyItems;
+                                print('================');
+                                print(images.length);
+                                print(storyItems.length);
+                              });
+                              return DraggableScrollableSheet(
+                                  initialChildSize: 0.5,
+                                  expand: false,
+                                  builder: (context, scrollController){
+                                    return Container(
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 20,bottom: 5),
+                                            child: Text('Your stories', style: TextStyle(fontSize: 22)),
+                                          ),
+                                          Divider(thickness: 1,indent: 70,endIndent: 70,color: Color(0xff231F20)),
+                                          SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Container(
+                                              margin: EdgeInsets.only(left: 10, right: 10),
+                                              height: MediaQuery.of(context).size.height * 0.2,
+                                              child: ListView.builder(
+                                                scrollDirection: Axis.horizontal,
+                                                shrinkWrap: true,
+                                                physics: NeverScrollableScrollPhysics(),
+                                                controller: scrollController,
+                                                itemCount: storyItems.length,
+                                                itemBuilder: (context, index){
+                                                  return Container(
+                                                    padding: EdgeInsets.only(bottom: 10,right: 10),
+                                                    child: Stack(
+                                                      alignment: Alignment.center,
+                                                      children: [
+                                                        Container(
+                                                          width: MediaQuery.of(context).size.width * 0.19,
+                                                          height: MediaQuery.of(context).size.height * 0.15,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(10),
+                                                              image: DecorationImage(
+                                                                  image: NetworkImage(StoryApi.media_url+images[index].link),
+                                                                  fit: BoxFit.cover
+                                                              )
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: 35,
+                                                          height: 35,
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white.withOpacity(0.7),
+                                                            shape: BoxShape.circle
+                                                          ),
+                                                        ),
+                                                        IconButton(
+                                                          onPressed: ()  {
+                                                            setState0((){
+                                                              loading = true;
+                                                              storyItems;
+                                                              images;
+                                                              loading = false;
+                                                            });
+                                                            // delete_image(index+1);
+                                                            setState(() {
+                                                              setState0((){
+                                                                loading=true;
+                                                                StoryApi.delete_image(images[index].id);
+                                                                setState0(() {
+                                                                  storyItems.removeAt(index);
+                                                                  images.removeAt(index);
+                                                                });
+                                                                if(storyItems.isEmpty){
+                                                                  StoryApi.get_stories(Global.customer_id).then((value) {
+                                                                      Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => PickChoose(value,null)));
+                                                                    });
+                                                                }
+                                                                loading=false;
+                                                              });
+                                                            });
+                                                          },
+                                                          icon: Icon(Icons.delete, size: 25,color: Colors.black.withOpacity(0.8)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          //  SizedBox(height: 200)
+                                        ],
+                                      ),
+                                    );
+                                  }
+                              );
+                            });
+                          }
+                        );
+                      },
+                      icon: Icon(Icons.delete,color: Colors.white)),
+                  IconButton(onPressed: (){
+                    showAlertDialog(context);
+                    }, icon: Icon(Icons.add,color: Colors.white,)),
                 ],
               ),
             ),
-          ))
-          // loading?Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   height: MediaQuery.of(context).size.height,
-          //   color: Colors.white.withOpacity(0.4),
-          //   child:Center(child: CircularProgressIndicator(),),
-          // ):Center(),
+          )),
         ],
       ),
     );
@@ -101,11 +200,19 @@ class _MyStoryViewState extends State<MyStory_View> {
   delete_image(int index){
     setState(() {
       loading=true;
-
       StoryApi.delete_image(images[index-1].id);
-      storyItems.removeAt(index-1);
+      setState(() {
+        storyItems.removeAt(index-1);
+        if(index!=0)
+        index=index-1;
+      });
       if(storyItems.isEmpty){
         Navigator.pop(context);
+        StoryApi.get_stories(Global.customer_id).then((value) {
+          StoryApi.get_my_story(Global.customer_id).then((my_story){
+            Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => PickChoose(value,my_story)));
+          });
+        });
       }
       loading=false;
     });
@@ -113,7 +220,7 @@ class _MyStoryViewState extends State<MyStory_View> {
   showAlertDialog(BuildContext context) {
     // Create button
     Widget okButton = FlatButton(
-      child: Text("OK"),
+      child: Text("OK", style: TextStyle(fontSize: 22),),
       onPressed: () {
         Navigator.of(context).pop();
       },
@@ -128,10 +235,12 @@ class _MyStoryViewState extends State<MyStory_View> {
           IconButton(
             padding: EdgeInsets.all(0),
             onPressed: (){
-            _picker.pickMultiImage().then((value) async{
+              Navigator.of(context).pop();
+              _picker.pickMultiImage().then((value) async{
               pick_image(value!);
              });
-          }, icon: Icon(Icons.photo,size: 50,),),
+            },
+            icon: Icon(Icons.photo,size: 50,),),
           IconButton(
               padding: EdgeInsets.all(0),
               onPressed: (){
@@ -140,7 +249,9 @@ class _MyStoryViewState extends State<MyStory_View> {
               value.add(file!);
               pick_image(value);
             });
-          }, icon: Icon(Icons.video_call_outlined,size: 50)),
+            Navigator.of(context).pop();
+            },
+              icon: Icon(Icons.video_call_outlined,size: 50)),
           IconButton(
               padding: EdgeInsets.all(0),
               onPressed: (){
@@ -149,14 +260,14 @@ class _MyStoryViewState extends State<MyStory_View> {
               value.add(file!);
               pick_image(value);
             });
-          }, icon: Icon(Icons.camera_alt,size: 50)),
+            Navigator.of(context).pop();
+              }, icon: Icon(Icons.camera_alt,size: 50)),
         ],
       ),
       actions: [
         okButton,
       ],
     );
-
     // show the dialog
     showDialog(
       context: context,
@@ -165,13 +276,9 @@ class _MyStoryViewState extends State<MyStory_View> {
       },
     );
   }
-    pick_image(List<XFile> value)async{
-
-
+  pick_image(List<XFile> value)async{
       setState(() {
-        // images!.add(value!);
         loading = true;
-
       });
       for(int i=0;i<value.length;i++){
         print(Global.customer_id!=-1);
@@ -183,24 +290,20 @@ class _MyStoryViewState extends State<MyStory_View> {
           get_images_my_story(value!);
         });
         loading=false;
-
       });
-      // Navigator.pop(context);
 
-      // Navigator.pop(context);
-
-
-    // Navigator.pop(context);
   }
-
   get_images_my_story(Story my_story){
     setState(() {
       loading=true;
     });
     List<StoryItem> storyItems0=<StoryItem>[];
+    List<MyStoryImage> images0 = <MyStoryImage>[];
     final controller = StoryController();
     StoryApi.get_images(my_story.id).then((value) {
+      images.clear();
       for(int i=0;i<value.length;i++){
+        images0.add(value[i]);
         if(value[i].link.endsWith("mp4")){
           print('******************************');
           print(StoryApi.media_url+value[i].link);
@@ -211,9 +314,12 @@ class _MyStoryViewState extends State<MyStory_View> {
       }
       setState(() {
         storyItems=storyItems0;
+        images = images0;
         loading=false;
       });
     });
   }
+
+
 
 }

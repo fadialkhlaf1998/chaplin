@@ -1,17 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:chaplin_new_version/controler/setting.dart';
 import 'package:chaplin_new_version/helper/app_localization.dart';
 import 'package:chaplin_new_version/model/global.dart';
-import 'package:chaplin_new_version/view/billing.dart';
-import 'package:chaplin_new_version/view/music.dart';
-import 'package:chaplin_new_version/view/photo_picker.dart';
-import 'package:chaplin_new_version/view/shipping.dart';
+import 'package:chaplin_new_version/view/item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-import 'item.dart';
-import 'my_point.dart';
 
 class Favorite extends StatefulWidget {
   const Favorite({Key? key}) : super(key: key);
@@ -553,6 +547,13 @@ class _FavoriteState extends State<Favorite> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Item(Global.wishlist[index])),
+                            );
+                           // Navigator.push();
                             /*
                             Navigator.push(
                               context,

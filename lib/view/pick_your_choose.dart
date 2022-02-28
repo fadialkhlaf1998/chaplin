@@ -68,6 +68,7 @@ class _PickChooseState extends State<PickChoose> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +79,7 @@ class _PickChooseState extends State<PickChoose> {
                 image: DecorationImage(
                     image: AssetImage("assets/sidebar_cover.png"),
                     fit: BoxFit.cover
-                )
+                ),
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -144,7 +145,6 @@ class _PickChooseState extends State<PickChoose> {
                               );
                             }else{
                               setState(() {
-                                // print(Global.customer!.id!);
                                 StoryApi.get_stories(Global.customer_id).then((value) {
                                   StoryApi.get_my_story(Global.customer_id).then((my_story){
                                     Navigator.push(
@@ -164,7 +164,7 @@ class _PickChooseState extends State<PickChoose> {
 
                           },
                           child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                            child: Text(App_Localization.of(context)!.translate("profile"),style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                            child: Text(App_Localization.of(context)!.translate("profile"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                           ),
                         ),
                         Container(
@@ -175,56 +175,6 @@ class _PickChooseState extends State<PickChoose> {
                       ],
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 20),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //
-                  //       GestureDetector(
-                  //         onTap: (){
-                  //           Navigator.push(
-                  //             context,
-                  //             MaterialPageRoute(builder: (context) => const MyPoints()),
-                  //           );
-                  //         },
-                  //         child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                  //           child: Text("MY POINTS",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                  //         ),
-                  //       ),
-                  //
-                  //     ],
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 20),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //
-                  //       GestureDetector(
-                  //         onTap: (){
-                  //           if(Global.customer!=null){
-                  //             Navigator.push(
-                  //               context,
-                  //               MaterialPageRoute(builder: (context) => Billing(0)),
-                  //             );
-                  //           }else{
-                  //             Navigator.push(
-                  //               context,
-                  //               MaterialPageRoute(builder: (context) => Sign_In()),
-                  //             );
-                  //             // _scaffoldkey.currentState!.showSnackBar(must_login_snackBar);
-                  //           }
-                  //         },
-                  //         child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                  //           child: Text("MY BILL",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                  //         ),
-                  //       ),
-                  //
-                  //     ],
-                  //   ),
-                  // ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
@@ -238,7 +188,7 @@ class _PickChooseState extends State<PickChoose> {
                             );
                           },
                           child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                            child: Text(App_Localization.of(context)!.translate("favorite"),style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                            child: Text(App_Localization.of(context)!.translate("favorite"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                           ),
                         ),
                       ],
@@ -265,7 +215,7 @@ class _PickChooseState extends State<PickChoose> {
                             }
                           },
                           child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                            child: Text(App_Localization.of(context)!.translate("my_address"),style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                            child: Text(App_Localization.of(context)!.translate("my_address"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                           ),
                         ),
                       ],
@@ -309,21 +259,21 @@ class _PickChooseState extends State<PickChoose> {
                       children: [
                         SizedBox(width: MediaQuery.of(context).size.width*0.1,),
                         GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("privace_policy"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                          child: Text(App_Localization.of(context)!.translate("privace_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                           onTap: (){
                             // Todo : nav
                           },
                         ),
                         Text("."),
                         GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("term_of_sale"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                          child: Text(App_Localization.of(context)!.translate("term_of_sale"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                           onTap: (){
                             // Todo : nav
                           },
                         ),
                         Text("."),
                         GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("term_of_use"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                          child: Text(App_Localization.of(context)!.translate("term_of_use"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                           onTap: (){
                             // Todo : nav
                           },
@@ -338,14 +288,14 @@ class _PickChooseState extends State<PickChoose> {
                       children: [
                         SizedBox(width: MediaQuery.of(context).size.width*0.1,),
                         GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("return_policy"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                          child: Text(App_Localization.of(context)!.translate("return_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                           onTap: (){
                             // Todo : nav
                           },
                         ),
                         Text("."),
                         GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("warranty_policy"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+                          child: Text(App_Localization.of(context)!.translate("warranty_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                           onTap: (){
                             // Todo : nav
                           },
@@ -389,6 +339,7 @@ class _PickChooseState extends State<PickChoose> {
           ),
         ),
       ),
+
       key: _scaffoldkey,
       backgroundColor: Color(0xff231F20),
       body: SafeArea(
@@ -449,7 +400,10 @@ class _PickChooseState extends State<PickChoose> {
                                                 left: 10, right: 10),
                                             child: TextField(
                                               onSubmitted: (q){
-                                                get_search(q);
+                                                if(q.isNotEmpty){
+                                                  get_search(q);
+                                                }
+
                                               },
                                               cursorColor: Colors.white,
                                               textAlign: TextAlign.center,
@@ -487,13 +441,14 @@ class _PickChooseState extends State<PickChoose> {
                                         ),
                                       ],
                                     ),
+                                    /** Add Story */
                                     Padding(
                                       padding: const EdgeInsets.only(bottom: 2),
                                       child: Container(
                                         width: MediaQuery.of(context).size.width,
                                         height: MediaQuery.of(context).size.height*0.065,
                                         child: Padding(
-                                          padding: EdgeInsets.only(left: 20,right: 20),
+                                          padding: EdgeInsets.only(left: 10,right: 20),
                                           child: ListView.builder(
                                               scrollDirection: Axis.horizontal,
                                               itemCount: Global.stories.length+1,
@@ -507,21 +462,17 @@ class _PickChooseState extends State<PickChoose> {
                                                   /** my add button*/
                                                   GestureDetector(
                                                     onTap: (){
-                                                      //showAlertDialog(context);
-                                                      //  setState(() {
-                                                      //    pick=true;
-                                                      //  });
                                                       if(Global.customer_id==-1){
                                                         App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
                                                       }else{
-                                                        //showAlertDialog(context);
                                                         setState(() {
                                                           pick=true;
                                                         });
                                                       }
                                                     },
                                                     child: AnimatedContainer(
-                                                      duration: Duration(milliseconds: 400),
+                                                      duration: Duration(milliseconds: 700),
+                                                      curve: Curves.fastOutSlowIn,
                                                       width: !pick ? MediaQuery.of(context).size.width*0.14 : MediaQuery.of(context).size.width * 0.9,
                                                       height: MediaQuery.of(context).size.height*0.14,
                                                       decoration: BoxDecoration(
@@ -530,7 +481,7 @@ class _PickChooseState extends State<PickChoose> {
                                                         border: Border.all(color: Colors.white,width: 2),
                                                       ),
                                                       child: AnimatedSwitcher(
-                                                        duration: Duration(milliseconds: 400),
+                                                        duration: Duration(milliseconds: 500),
                                                             child: !pick
                                                                 ? Icon(Icons.add, color: Colors.white,size: 30,)
                                                                 :  SingleChildScrollView(
@@ -561,9 +512,10 @@ class _PickChooseState extends State<PickChoose> {
                                                                         _picker.pickMultiImage().then((value) async{
                                                                           pick_image(value!);
                                                                         });
+                                                                        pick = false;
                                                                       },
                                                                       child: Container(
-                                                                        width: 100,
+                                                                        width: MediaQuery.of(context).size.width * 0.22,
                                                                         height: MediaQuery.of(context).size.height * 0.1,
                                                                         decoration: BoxDecoration(
                                                                           borderRadius: BorderRadius.circular(20),
@@ -574,7 +526,7 @@ class _PickChooseState extends State<PickChoose> {
                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                           children: [
                                                                             Text('Images', style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                                           Icon(Icons.photo,size: 29,color: Colors.white,),
+                                                                           Icon(Icons.photo,size: 27,color: Colors.white,),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -587,10 +539,11 @@ class _PickChooseState extends State<PickChoose> {
                                                                           value.add(file!);
                                                                           pick_image(value);
                                                                         });
+                                                                        pick = false;
                                                                       },
                                                                       child: Container(
                                                                         height: MediaQuery.of(context).size.height * 0.1,
-                                                                        width: 100,
+                                                                        width: MediaQuery.of(context).size.width * 0.22,
                                                                         decoration: BoxDecoration(
                                                                           borderRadius: BorderRadius.circular(20),
                                                                           color: Color(0xff231F20),
@@ -600,7 +553,7 @@ class _PickChooseState extends State<PickChoose> {
                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                           children: [
                                                                             Text('Videos', style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                                           Icon(Icons.video_call_outlined,size: 35,color: Colors.white,),
+                                                                           Icon(Icons.video_call_outlined,size: 33,color: Colors.white,),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -613,10 +566,11 @@ class _PickChooseState extends State<PickChoose> {
                                                                           value.add(file!);
                                                                           pick_image(value);
                                                                         });
+                                                                        pick = false;
                                                                       },
                                                                       child: Container(
                                                                         height: MediaQuery.of(context).size.height * 0.1,
-                                                                        width: 100,
+                                                                        width: MediaQuery.of(context).size.width * 0.22,
                                                                         decoration: BoxDecoration(
                                                                           borderRadius: BorderRadius.circular(20),
                                                                           color: Color(0xff231F20),
@@ -626,7 +580,7 @@ class _PickChooseState extends State<PickChoose> {
                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                           children: [
                                                                             Text('Camera', style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                                           Icon(Icons.camera_alt,size: 29,color: Colors.white,),
+                                                                           Icon(Icons.camera_alt,size: 27,color: Colors.white,),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -666,7 +620,7 @@ class _PickChooseState extends State<PickChoose> {
                                                 )
                                                 /** View people stories */
                                                     : Padding(
-                                                      padding: const EdgeInsets.only(left: 5,right: 5),
+                                                      padding: const EdgeInsets.only(left: 0,right: 0),
                                                       child: GestureDetector(
                                                         onTap: (){
                                                         get_images(Global.stories[index-1].id,index-1);
@@ -699,7 +653,7 @@ class _PickChooseState extends State<PickChoose> {
                                                             shape: BoxShape.circle,
                                                           ),
                                                           child: Padding(
-                                                            padding: const EdgeInsets.all(3),
+                                                            padding: const EdgeInsets.all(1),
                                                             child: Container(
                                                               width: MediaQuery.of(context).size.height*0.08,
                                                               height: MediaQuery.of(context).size.height*0.08,
@@ -731,17 +685,31 @@ class _PickChooseState extends State<PickChoose> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10,),
-                      Container(
-                          height: MediaQuery.of(context).size.height *0.07,
-                          child: Center(child: Text("We are in your service",style: TextStyle(fontSize: 22,color: Colors.white,fontWeight: FontWeight.bold),))
+                      SizedBox(height: 5),
+                      Column(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                            decoration: BoxDecoration(
+                             image: DecorationImage(
+                               image: AssetImage('assets/dashboard/title.png'),
+                             )
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(bottom: 5),
+                              height: MediaQuery.of(context).size.height *0.04,
+                              child: Center(child: Text("Were Meals & Memories are made",style: TextStyle(fontSize: 22,color: Colors.white,fontWeight: FontWeight.bold),))
+                          ),
+                        ],
                       ),
                       GestureDetector(
                         onTap: (){
                           Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.12,
+                          height: MediaQuery.of(context).size.height * 0.14,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -755,7 +723,6 @@ class _PickChooseState extends State<PickChoose> {
                               SvgPicture.asset("assets/pick_page/menu.svg",width: 60,),
                               Container(
                                 width: MediaQuery.of(context).size.width*0.95-120,
-
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -781,15 +748,9 @@ class _PickChooseState extends State<PickChoose> {
                             MaterialPageRoute(
                                 builder: (context) => const QRScanner()),
                           );
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => const MusicView()),
-                          // );
-                          //Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
-                        },
+                          },
                         child: Container(
-                          height:120,
+                          height: MediaQuery.of(context).size.height * 0.14,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -828,7 +789,7 @@ class _PickChooseState extends State<PickChoose> {
                           );
                         },
                         child: Container(
-                          height:120,
+                          height: MediaQuery.of(context).size.height * 0.15,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -868,7 +829,7 @@ class _PickChooseState extends State<PickChoose> {
                           );
                         },
                         child: Container(
-                          height:120,
+                          height: MediaQuery.of(context).size.height * 0.15,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -898,7 +859,6 @@ class _PickChooseState extends State<PickChoose> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -918,75 +878,15 @@ class _PickChooseState extends State<PickChoose> {
     );
   }
 
-  showAlertDialog(BuildContext context) {
-    // Create button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    // Create AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Please pick"),
-      content: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: (){
-              _picker.pickMultiImage().then((value) async{
-                pick_image(value!);
-              });
-            }, icon: Icon(Icons.photo,size: 50,),),
-          IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: (){
-                List<XFile> value=<XFile>[];
-                _picker.pickVideo(source: ImageSource.gallery).then((file) {
-                  value.add(file!);
-                  pick_image(value);
-                });
-              }, icon: Icon(Icons.video_call_outlined,size: 50)),
-          IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: (){
-                List<XFile> value=<XFile>[];
-                _picker.pickImage(source: ImageSource.camera).then((file) {
-                  value.add(file!);
-                  pick_image(value);
-                });
-              }, icon: Icon(Icons.camera_alt,size: 50)),
-        ],
-      ),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
   pick_image(List<XFile> value)async{
-
-    Navigator.pop(context);
     setState(() {
-      // images!.add(value!);
       loading = true;
-
     });
+
     for(int i=0;i<value.length;i++){
       await StoryApi.add_story(Global.customer_id, value[i].path);
     }
-
     StoryApi.get_my_story(Global.customer_id).then((value) {
-
       setState(() {
         my_story=value;
       });
@@ -995,39 +895,8 @@ class _PickChooseState extends State<PickChoose> {
     setState(() {
       loading=false;
     });
-
-    // Navigator.pop(context);
-
-    //Navigator.pop(context);
-
-
-    // Navigator.pop(context);
   }
 
-  // pick_image()async{
-  //     _picker.pickMultiImage().then((value) async{
-  //       setState(() {
-  //         // images!.add(value!);
-  //         loading = true;
-  //
-  //       });
-  //       for(int i=0;i<value!.length;i++){
-  //         print(Global.customer_id!=-1);
-  //         await StoryApi.add_story(Global.customer_id, value[i].path);
-  //         print('****');
-  //       }
-  //       setState(() {
-  //         StoryApi.get_stories(Global.customer_id).then((value) {
-  //           stories=value;
-  //           Global.stories=value;
-  //         });
-  //         loading=false;
-  //
-  //       });
-  //
-  //
-  //   });
-  // }
   get_images(int id,int index){
     setState(() {
       loading=true;

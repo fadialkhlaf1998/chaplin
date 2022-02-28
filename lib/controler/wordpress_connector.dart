@@ -10,7 +10,7 @@ import 'package:chaplin_new_version/model/product.dart';
 import 'package:http/http.dart' as http;
 
 class WordPressConnecter {
-  static String web_url = "https://chaplinuae.maxart.ae";
+  static String web_url = "https://chaplinuae.com";
   static String web_service_name = "wp-json/wp/v2";
   static String wooComerce_name = "/wc-api/v2";
   static String consumer_key="ck_640431af58d858cbf2ade27ebbfc4dcd9837d697";

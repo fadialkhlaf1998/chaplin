@@ -95,7 +95,7 @@ class _DashBoardState extends State<DashBoard> {
     ]);
     get_category();
     return Scaffold(
-      backgroundColor:  Color(0xff272525),
+      backgroundColor: Color(0xff272525),
       key: _scaffoldkey,
       drawer: Drawer(
         child: SafeArea(
@@ -471,7 +471,7 @@ class _DashBoardState extends State<DashBoard> {
                                               builder: (context) =>
                                               Item(this.products[index])),
                                         ).then((value) {
-                                                      _calc_total();
+                                          _calc_total();
                                         });
                                       },
                                       child: Padding(
@@ -883,7 +883,11 @@ class _DashBoardState extends State<DashBoard> {
                                         left: 10, right: 10),
                                     child: TextField(
                                       onSubmitted: (q){
-                                        get_search(q);
+                                        if(q.isNotEmpty){
+                                          get_search(q);
+                                        }else{
+                                          print('empty');
+                                        }
                                       },
                                       cursorColor: Colors.white,
                                       textAlign: TextAlign.center,
@@ -1005,68 +1009,60 @@ class _DashBoardState extends State<DashBoard> {
                 ),
               ) : Text(''),
             ),
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.055,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 12,
-                        offset: Offset(0, 7), // changes position of shadow
+            AnimatedOpacity(
+              opacity: MediaQuery.of(context).viewInsets.bottom == 0.0 ? 1 : 0,
+              curve: Curves.easeIn,
+              duration: Duration(milliseconds: 100),
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      color: Color(0xff272525),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
                       ),
-                    ],
-                    color: Color(0xff272525),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                    //
-                    // if(Global.is_signIn) {
-                    //   print('*****************************');
-                    //   print(Global.customer_id);
-                    //   StoryApi.get_stories(Global.customer_id).then((value) {
-                    //     StoryApi.get_my_story(Global.customer_id).then((
-                    //         my_story) {
-                    //       Navigator.pushReplacement(context, MaterialPageRoute(
-                    //           builder: (context) => PickChoose(value, my_story)));
-                    //     });
-                    //   });
-                    // }else{
-                    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PickChoose([],null)));
-                    // }
-                  },
-                  child: Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      width: MediaQuery.of(context).size.width*0.13,
-                      height: MediaQuery.of(context).size.width*0.13,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: Offset(1, 2), // changes position of shadow
-                          ),
-                        ],
-                        border: Border.all(width: 2, color: Colors.white),
-                        shape: BoxShape.circle,
-                        color: Color(0xff272525),
-                      ),
-                      child: Icon(Icons.home,color: Colors.white,)
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                        margin: EdgeInsets.only(bottom: 5),
+                        width: MediaQuery.of(context).size.width*0.13,
+                        height: MediaQuery.of(context).size.width*0.13,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              offset: Offset(1, -2), // changes position of shadow
+                            ),
+                          ],
+                          border: Border.all(width: 2, color: Colors.white),
+                          shape: BoxShape.circle,
+                          color: Color(0xff272525),
+                        ),
+                        child: Icon(Icons.home,color: Colors.white,)
+                    ),
                   ),
-                ),
-              ],
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.003,
+                    decoration: BoxDecoration(
+                      color: Color(0xff272525),
+                    ),
+                  ),
+                ],
+              ) ,
             ),
+
           ],
         ),
       ),

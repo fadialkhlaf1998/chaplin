@@ -114,7 +114,7 @@ class Global{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height*0.85 - 165,
+                        height: MediaQuery.of(context).size.height*0.62,
                         child: Container(
                           child: Column(
                             children: <Widget>[
@@ -123,7 +123,7 @@ class Global{
                                 child: Stack(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 25),
+                                      padding: const EdgeInsets.only(top: 20),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -155,7 +155,8 @@ class Global{
                               ),
                               Container(
                                 height: MediaQuery.of(context).size.height*0.51,
-                                child: ListView.builder(
+                                child: my_order.isNotEmpty ?
+                                ListView.builder(
                                     itemCount: Global.my_order.length,
                                     itemBuilder: (context, index) {
                                       return Padding(
@@ -278,7 +279,7 @@ class Global{
                                           ),
                                         ),
                                       );
-                                    }),
+                                    }) : Center(child: Text('There aren\'t any orders yet',style: TextStyle(fontSize: 18, color: Colors.black),),),
                               ),
                             //SizedBox(height: MediaQuery.of(context).size.height * 0.5,)
                             ],
@@ -303,7 +304,7 @@ class Global{
                               padding: const EdgeInsets.only(top: 5,bottom: 0,left: 25,right: 25),
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: 80,
+                                height: MediaQuery.of(context).size.height * 0.12,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -402,7 +403,7 @@ class Global{
                                     },
                                     child: Container(
                                       width: MediaQuery.of(context).size.width*0.75,
-                                      height: 60,
+                                      height: 50,
                                       decoration: BoxDecoration(
                                           color: Colors.black,
                                           borderRadius: BorderRadius.circular(15)
@@ -415,7 +416,7 @@ class Global{
                                 ],
                               ),
                             ),
-                            SizedBox(height: 20,)
+                            SizedBox(height: 30,)
                           ],
                         ),
                       )

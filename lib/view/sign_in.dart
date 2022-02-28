@@ -257,7 +257,7 @@ class _Sign_InState extends State<Sign_In> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Donot have an account?",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),)
+                          Text("Don\'t have an account?",style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),)
                         ],
                       ),
                     ),
