@@ -99,7 +99,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
-                                    height: MediaQuery.of(context).size.height*0.065,
+                                    height: MediaQuery.of(context).size.height*0.075,
                                     child: Padding(
                                       padding: EdgeInsets.only(left: 10,right: 20),
                                       child: ListView.builder(
@@ -115,10 +115,6 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                               /** my add button*/
                                               GestureDetector(
                                                 onTap: (){
-                                                  //showAlertDialog(context);
-                                                  //  setState(() {
-                                                  //    pick=true;
-                                                  //  });
                                                   if(Global.customer_id==-1){
                                                     App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
                                                   }else{
@@ -174,7 +170,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                                 },
                                                                 child: Container(
                                                                   width: MediaQuery.of(context).size.width * 0.22,
-                                                                  height: MediaQuery.of(context).size.height * 0.1,
+                                                                  height: MediaQuery.of(context).size.height * 0.06,
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(20),
                                                                     color: Colors.white,
@@ -183,8 +179,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                                     children: [
-                                                                      Text('Images', style: TextStyle(color: Color(0xff231F20),fontSize: 18),),
-                                                                      Icon(Icons.photo,size: 27,color: Color(0xff231F20),),
+                                                                      Text('Images', style: TextStyle(color: Color(0xff231F20),fontSize: 16),),
+                                                                      Icon(Icons.photo,size: 27,color: Color(0xff231F20)),
                                                                     ],
                                                                   ),
                                                                 ),
@@ -200,7 +196,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                                   pick = false;
                                                                 },
                                                                 child: Container(
-                                                                  height: MediaQuery.of(context).size.height * 0.1,
+                                                                  height: MediaQuery.of(context).size.height * 0.06,
                                                                   width: MediaQuery.of(context).size.width * 0.22,
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(20),
@@ -210,7 +206,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                                     children: [
-                                                                      Text('Videos', style: TextStyle(color: Color(0xff231F20),fontSize: 18),),
+                                                                      Text('Videos', style: TextStyle(color: Color(0xff231F20),fontSize: 16),),
                                                                       Icon(Icons.video_call_outlined,size: 33,color: Color(0xff231F20)),
                                                                     ],
                                                                   ),
@@ -227,7 +223,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                                   pick = false;
                                                                 },
                                                                 child: Container(
-                                                                  height: MediaQuery.of(context).size.height * 0.1,
+                                                                  height: MediaQuery.of(context).size.height * 0.06,
                                                                   width: MediaQuery.of(context).size.width * 0.22,
                                                                   decoration: BoxDecoration(
                                                                     borderRadius: BorderRadius.circular(20),
@@ -237,8 +233,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
                                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                                     children: [
-                                                                      Text('Camera', style: TextStyle(color: Color(0xff231F20),fontSize: 18),),
-                                                                      Icon(Icons.camera_alt,size: 27,color: Color(0xff231F20),),
+                                                                      Text('Camera', style: TextStyle(color: Color(0xff231F20),fontSize: 16),),
+                                                                      Icon(Icons.camera_alt,size: 25,color: Color(0xff231F20),),
                                                                     ],
                                                                   ),
                                                                 ),
@@ -339,25 +335,30 @@ class _PhotoPickerState extends State<PhotoPicker> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Semantics(
-                                child: GridView.builder(
-                                  shrinkWrap: true,
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:  3,crossAxisSpacing: 10),
-                                  physics: NeverScrollableScrollPhysics(),
-                                  key: UniqueKey(),
-                                  itemBuilder: (context, index) {
-                                    // Why network for web?
-                                    // See https://pub.dev/packages/image_picker#getting-ready-for-the-web-platform
-                                    return Semantics(
-                                      label: 'image_picker_example_picked_image',
-                                      child: Image.file(File(images![index].path)),
-                                    );
-                                  },
-                                  itemCount: images!.length,
-                                ),
-                                label: 'image_picker_example_picked_images'),
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.8,
+                            child: my_story == null
+                                ? Center(
+                              child: Text('There are no stories yet', style: TextStyle(fontSize: 18),),
+                            )
+                            :  GridView.builder(
+                              shrinkWrap: true,
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:  3,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10
+                              ),
+                              physics: NeverScrollableScrollPhysics(),
+                              key: UniqueKey(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  width: MediaQuery.of(context).size.width * 0.2,
+                                  decoration: BoxDecoration(
+                                  ),
+                                );
+                              },
+                              itemCount: my_story!.image.length,
+                            ),
                           ),
 
                         ],

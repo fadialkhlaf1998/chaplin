@@ -126,7 +126,9 @@ class _PickChooseState extends State<PickChoose> {
                       )
                     ],
                   ),
-                  Padding(
+                  Divider(thickness: 1,color: Colors.black,endIndent: 100, indent: 100,),
+                  /*
+                                    Padding(
                     padding: const EdgeInsets.only(top: 40),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -155,13 +157,7 @@ class _PickChooseState extends State<PickChoose> {
 
                                 });
                               });
-
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(builder: (context) => Profile()),
-                              // );
                             }
-
                           },
                           child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
                             child: Text(App_Localization.of(context)!.translate("profile"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
@@ -175,6 +171,9 @@ class _PickChooseState extends State<PickChoose> {
                       ],
                     ),
                   ),
+
+
+                   */
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
@@ -339,7 +338,6 @@ class _PickChooseState extends State<PickChoose> {
           ),
         ),
       ),
-
       key: _scaffoldkey,
       backgroundColor: Color(0xff231F20),
       body: SafeArea(
@@ -364,32 +362,37 @@ class _PickChooseState extends State<PickChoose> {
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height*0.23,
+                                height: MediaQuery.of(context).size.height*0.2,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25),bottomRight: Radius.circular(25))
                                 ),
                                 child:  Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    Container(
-                                      padding: EdgeInsets.only(top: 5,bottom: 5),
-                                      child: SvgPicture.asset("assets/pick_page/logo.svg",height: 40,)
-                                    ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            _scaffoldkey.currentState!.openDrawer();
-                                          },
-                                          icon: SvgPicture.asset(
-                                              "assets/details.svg",
-                                              color: Color(0xff272525),
-                                              semanticsLabel: 'details'
+                                        Container(
+                                          padding: EdgeInsets.only(left: 24, top: 10),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              _scaffoldkey.currentState!.openDrawer();
+                                            },
+                                            child: Image.asset(
+                                              "assets/menu2.png",
+                                            ),
                                           ),
                                         ),
                                         Container(
+                                          width: MediaQuery.of(context).size.width * 0.5,
+                                          height: MediaQuery.of(context).size.height * 0.075,
+                                          //  padding: EdgeInsets.only(top: 5,bottom: 5),
+                                            child: SvgPicture.asset("assets/pick_page/logo.svg",height: 40,)
+                                        ),
+                                        /*
+                                                                            Container(
                                           width: MediaQuery.of(context).size.width>=400?MediaQuery.of(context).size.width * 0.7:MediaQuery.of(context).size.width * 0.5,
                                           height: 30,
                                           decoration: BoxDecoration(
@@ -403,7 +406,6 @@ class _PickChooseState extends State<PickChoose> {
                                                 if(q.isNotEmpty){
                                                   get_search(q);
                                                 }
-
                                               },
                                               cursorColor: Colors.white,
                                               textAlign: TextAlign.center,
@@ -426,16 +428,18 @@ class _PickChooseState extends State<PickChoose> {
                                             ),
                                           ),
                                         ),
+
+                                         */
                                         IconButton(
                                           onPressed: () {
-                                            Global.get_cart(context).then((value) {
-                                              _calc_total();
-                                            });
+                                            // Global.get_cart(context).then((value) {
+                                            //   _calc_total();
+                                            // });
                                           },
                                           /**/
                                           icon: Icon(
                                             Icons.shopping_cart,
-                                            color: Color(0xff272525),
+                                            color: Colors.white,
                                             size: 25,
                                           ),
                                         ),
@@ -443,10 +447,10 @@ class _PickChooseState extends State<PickChoose> {
                                     ),
                                     /** Add Story */
                                     Padding(
-                                      padding: const EdgeInsets.only(bottom: 2),
+                                      padding: const EdgeInsets.only(bottom: 0),
                                       child: Container(
                                         width: MediaQuery.of(context).size.width,
-                                        height: MediaQuery.of(context).size.height*0.065,
+                                        height: MediaQuery.of(context).size.height*0.075,
                                         child: Padding(
                                           padding: EdgeInsets.only(left: 10,right: 20),
                                           child: ListView.builder(
@@ -473,8 +477,8 @@ class _PickChooseState extends State<PickChoose> {
                                                     child: AnimatedContainer(
                                                       duration: Duration(milliseconds: 700),
                                                       curve: Curves.fastOutSlowIn,
-                                                      width: !pick ? MediaQuery.of(context).size.width*0.14 : MediaQuery.of(context).size.width * 0.9,
-                                                      height: MediaQuery.of(context).size.height*0.14,
+                                                      width: !pick ? 60 : MediaQuery.of(context).size.width * 0.9,
+                                                      height: 50,
                                                       decoration: BoxDecoration(
                                                         borderRadius: BorderRadius.circular(100),
                                                         color: !pick ? Color(0xff231F20) : Colors.white,
@@ -515,8 +519,8 @@ class _PickChooseState extends State<PickChoose> {
                                                                         pick = false;
                                                                       },
                                                                       child: Container(
-                                                                        width: MediaQuery.of(context).size.width * 0.22,
-                                                                        height: MediaQuery.of(context).size.height * 0.1,
+                                                                        width: MediaQuery.of(context).size.width * 0.23,
+                                                                        height: MediaQuery.of(context).size.height * 0.06,
                                                                         decoration: BoxDecoration(
                                                                           borderRadius: BorderRadius.circular(20),
                                                                           color: Color(0xff231F20),
@@ -525,8 +529,8 @@ class _PickChooseState extends State<PickChoose> {
                                                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                           children: [
-                                                                            Text('Images', style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                                           Icon(Icons.photo,size: 27,color: Colors.white,),
+                                                                            Text('Images', style: TextStyle(color: Colors.white,fontSize: 15),),
+                                                                           Icon(Icons.photo,size: 25,color: Colors.white,),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -542,8 +546,8 @@ class _PickChooseState extends State<PickChoose> {
                                                                         pick = false;
                                                                       },
                                                                       child: Container(
-                                                                        height: MediaQuery.of(context).size.height * 0.1,
-                                                                        width: MediaQuery.of(context).size.width * 0.22,
+                                                                        height: MediaQuery.of(context).size.height * 0.06,
+                                                                        width: MediaQuery.of(context).size.width * 0.23,
                                                                         decoration: BoxDecoration(
                                                                           borderRadius: BorderRadius.circular(20),
                                                                           color: Color(0xff231F20),
@@ -552,8 +556,8 @@ class _PickChooseState extends State<PickChoose> {
                                                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                           children: [
-                                                                            Text('Videos', style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                                           Icon(Icons.video_call_outlined,size: 33,color: Colors.white,),
+                                                                            Text('Videos', style: TextStyle(color: Colors.white,fontSize: 15),),
+                                                                           Icon(Icons.video_call_outlined,size: 31,color: Colors.white,),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -569,8 +573,8 @@ class _PickChooseState extends State<PickChoose> {
                                                                         pick = false;
                                                                       },
                                                                       child: Container(
-                                                                        height: MediaQuery.of(context).size.height * 0.1,
-                                                                        width: MediaQuery.of(context).size.width * 0.22,
+                                                                        height: MediaQuery.of(context).size.height * 0.06,
+                                                                        width: MediaQuery.of(context).size.width * 0.23,
                                                                         decoration: BoxDecoration(
                                                                           borderRadius: BorderRadius.circular(20),
                                                                           color: Color(0xff231F20),
@@ -579,8 +583,8 @@ class _PickChooseState extends State<PickChoose> {
                                                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                           children: [
-                                                                            Text('Camera', style: TextStyle(color: Colors.white,fontSize: 18),),
-                                                                           Icon(Icons.camera_alt,size: 27,color: Colors.white,),
+                                                                            Text('Camera', style: TextStyle(color: Colors.white,fontSize: 15),),
+                                                                           Icon(Icons.camera_alt,size: 24,color: Colors.white,),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -699,8 +703,8 @@ class _PickChooseState extends State<PickChoose> {
                           ),
                           Container(
                             padding: EdgeInsets.only(bottom: 5),
-                              height: MediaQuery.of(context).size.height *0.04,
-                              child: Center(child: Text("Were Meals & Memories are made",style: TextStyle(fontSize: 22,color: Colors.white,fontWeight: FontWeight.bold),))
+                              height: MediaQuery.of(context).size.height *0.06,
+                              child: Center(child: Text("Where Meals & Memories are made",style: TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.bold),))
                           ),
                         ],
                       ),
@@ -709,7 +713,7 @@ class _PickChooseState extends State<PickChoose> {
                           Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.14,
+                          height: MediaQuery.of(context).size.height * 0.15,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -750,7 +754,7 @@ class _PickChooseState extends State<PickChoose> {
                           );
                           },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.14,
+                          height: MediaQuery.of(context).size.height * 0.16,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -782,14 +786,23 @@ class _PickChooseState extends State<PickChoose> {
                       GestureDetector(
                         onTap: (){
                           //Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PhotoPicker(stories, my_story)),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => PhotoPicker(stories, my_story)),
+                          // );
+                          if(my_story == null){
+                            if(Global.customer_id==-1){
+                              App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
+                            }else{
+                              setState(() {
+                                pick= !pick;
+                              });
+                            }
+                          }
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.15,
+                          height: MediaQuery.of(context).size.height * 0.17,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -829,7 +842,7 @@ class _PickChooseState extends State<PickChoose> {
                           );
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.15,
+                          height: MediaQuery.of(context).size.height * 0.17,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(

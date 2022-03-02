@@ -36,7 +36,7 @@ class DashBoard extends StatefulWidget {
   _DashBoardState createState() => _DashBoardState();
 }
 
-class _DashBoardState extends State<DashBoard> {
+class _DashBoardState extends State<DashBoard>{
   int selder_selected = 0;
   int selected_category = 0;
   int count = 0;
@@ -47,6 +47,7 @@ class _DashBoardState extends State<DashBoard> {
   bool music_poked=true;
   bool loading=false;
   bool show = true;
+  bool isPress = true;
   Timer? _timer;
   int start_timer = 0;
   List<ProductCategory> categories=<ProductCategory>[];
@@ -74,10 +75,13 @@ class _DashBoardState extends State<DashBoard> {
     });
   }
 
+  late AnimationController iconController;
+
   @override
   void initState() {
     super.initState();
     show = false;
+
 
   }
 
@@ -99,78 +103,79 @@ class _DashBoardState extends State<DashBoard> {
       key: _scaffoldkey,
       drawer: Drawer(
         child: SafeArea(
-            child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/sidebar_cover.png"),
-                      fit: BoxFit.cover
-                  )
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/sidebar_cover.png"),
+                  fit: BoxFit.cover
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: (){
-                            AppSetting.set_verificated(false);
-                            AppSetting.save("non", "non");
-                            AppSetting.set_timer("non");
-                            Global.customer=null;
-                            Global.customer_id=-1;
-                            Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
-                          },
-                          child: Padding(padding: EdgeInsets.only(top: 15,left: 15,right: 15),
-                            child: Global.customer==null?Center():Text(App_Localization.of(context)!.translate("logout"),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-                          ),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          AppSetting.set_verificated(false);
+                          AppSetting.save("non", "non");
+                          AppSetting.set_timer("non");
+                          Global.customer=null;
+                          Global.customer_id=-1;
+                          Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
+                        },
+                        child: Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),
+                          child: Global.customer==null?Center():Text(App_Localization.of(context)!.translate("logout"),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 40),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width*0.3,
-                            height: MediaQuery.of(context).size.width*0.3,
-                            decoration: BoxDecoration(
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width*0.3,
+                          height: MediaQuery.of(context).size.width*0.3,
+                          decoration: BoxDecoration(
                               color: Colors.transparent,
                               shape: BoxShape.circle
-                            ),
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Text(App_Localization.of(context)!.translate("charlie_chaplin"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 40),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 4,
-                            width: 40,
-                            color: Colors.black87,
-                          ),
-                          GestureDetector(
-                            onTap: (){
-                              if(Global.customer==null){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const Sign_In()),
-                                );
-                              }else{
-                                setState(() {
-                                  // print(Global.customer!.id!);
+                      )
+                    ],
+                  ),
+                  Divider(thickness: 1,color: Colors.black,endIndent: 100, indent: 100,),
+                  /*
+                                    Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 4,
+                          width: 40,
+                          color: Colors.black87,
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            if(Global.customer==null){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const Sign_In()),
+                              );
+                            }else{
+                              setState(() {
                                 StoryApi.get_stories(Global.customer_id).then((value) {
                                   StoryApi.get_my_story(Global.customer_id).then((my_story){
                                     Navigator.push(
@@ -179,242 +184,188 @@ class _DashBoardState extends State<DashBoard> {
                                     );
                                   });
 
-                                  });
                                 });
-
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) => Profile()),
-                                // );
-                              }
-
-                            },
-                            child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                              child: Text(App_Localization.of(context)!.translate("profile"),style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                            ),
+                              });
+                            }
+                          },
+                          child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Text(App_Localization.of(context)!.translate("profile"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                           ),
-                          Container(
-                            height: 4,
-                            width: 40,
-                            color: Colors.black87,
-                          ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                          height: 4,
+                          width: 40,
+                          color: Colors.black87,
+                        ),
+                      ],
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 20),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //
-                    //       GestureDetector(
-                    //         onTap: (){
-                    //           Navigator.push(
-                    //             context,
-                    //             MaterialPageRoute(builder: (context) => const MyPoints()),
-                    //           );
-                    //         },
-                    //         child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                    //           child: Text("MY POINTS",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                    //         ),
-                    //       ),
-                    //
-                    //     ],
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 20),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //
-                    //       GestureDetector(
-                    //         onTap: (){
-                    //           if(Global.customer!=null){
-                    //             Navigator.push(
-                    //               context,
-                    //               MaterialPageRoute(builder: (context) => Billing(0)),
-                    //             );
-                    //           }else{
-                    //             Navigator.push(
-                    //               context,
-                    //               MaterialPageRoute(builder: (context) => Sign_In()),
-                    //             );
-                    //             // _scaffoldkey.currentState!.showSnackBar(must_login_snackBar);
-                    //           }
-                    //         },
-                    //         child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                    //           child: Text("MY BILL",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                    //         ),
-                    //       ),
-                    //
-                    //     ],
-                    //   ),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: (){
+                  ),
+
+
+                   */
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Favorite()),
+                            );
+                          },
+                          child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Text(App_Localization.of(context)!.translate("favorite"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            if(Global.customer!=null){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => Favorite()),
+                                MaterialPageRoute(builder: (context) => Shipping(0)),
                               );
-                            },
-                            child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                              child: Text(App_Localization.of(context)!.translate("favorite"),style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                            ),
+                            }else{
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Billing(0)),
+                              );
+                              // _scaffoldkey.currentState!.showSnackBar(must_login_snackBar);
+                            }
+                          },
+                          child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Text(App_Localization.of(context)!.translate("my_address"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: (){
-                              if(Global.customer!=null){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => Shipping(0)),
-                                );
-                              }else{
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => Billing(0)),
-                                );
-                                // _scaffoldkey.currentState!.showSnackBar(must_login_snackBar);
-                              }
-                            },
-                            child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-                              child: Text(App_Localization.of(context)!.translate("my_address"),style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(onPressed: (){
-                            //todo nav to instgram
-                          }, icon: const ImageIcon(
-                            AssetImage("assets/social-media/insta.png"),
-                            size: 40,
-                          )),
-                          IconButton(onPressed: (){
-                            //todo nav to twitter
-                          }, icon: const ImageIcon(
-                            AssetImage("assets/social-media/twitter.png"),
-                            size: 40,
-                          )),
-                          IconButton(onPressed: (){
-                            //todo nav to facebook
-                          }, icon: const ImageIcon(
-                            AssetImage("assets/social-media/facebook.png"),
-                            size: 40,
-                          )),
-                          IconButton(onPressed: (){
-                            //todo nav to youtube
-                          }, icon: const ImageIcon(
-                            AssetImage("assets/social-media/youtube.png",),
-                            size: 25,
-                          )),
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(onPressed: (){
+                          //todo nav to instgram
+                        }, icon: const ImageIcon(
+                          AssetImage("assets/social-media/insta.png"),
+                          size: 40,
+                        )),
+                        IconButton(onPressed: (){
+                          //todo nav to twitter
+                        }, icon: const ImageIcon(
+                          AssetImage("assets/social-media/twitter.png"),
+                          size: 40,
+                        )),
+                        IconButton(onPressed: (){
+                          //todo nav to facebook
+                        }, icon: const ImageIcon(
+                          AssetImage("assets/social-media/facebook.png"),
+                          size: 40,
+                        )),
+                        IconButton(onPressed: (){
+                          //todo nav to youtube
+                        }, icon: const ImageIcon(
+                          AssetImage("assets/social-media/youtube.png",),
+                          size: 25,
+                        )),
 
-                        ],
-                      ),
+                      ],
                     ),
-                    Padding(padding: EdgeInsets.only(top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                          GestureDetector(
-                            child: Text(App_Localization.of(context)!.translate("privace_policy"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                            onTap: (){
-                              // Todo : nav
-                            },
-                          ),
-                          Text("."),
-                          GestureDetector(
-                            child: Text(App_Localization.of(context)!.translate("term_of_sale"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                            onTap: (){
-                              // Todo : nav
-                            },
-                          ),
-                          Text("."),
-                          GestureDetector(
-                            child: Text(App_Localization.of(context)!.translate("term_of_use"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                            onTap: (){
-                              // Todo : nav
-                            },
-                          ),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                        ],
-                      ),
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                        GestureDetector(
+                          child: Text(App_Localization.of(context)!.translate("privace_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                          onTap: (){
+                            // Todo : nav
+                          },
+                        ),
+                        Text("."),
+                        GestureDetector(
+                          child: Text(App_Localization.of(context)!.translate("term_of_sale"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                          onTap: (){
+                            // Todo : nav
+                          },
+                        ),
+                        Text("."),
+                        GestureDetector(
+                          child: Text(App_Localization.of(context)!.translate("term_of_use"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                          onTap: (){
+                            // Todo : nav
+                          },
+                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                      ],
                     ),
-                    Padding(padding: EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                          GestureDetector(
-                            child: Text(App_Localization.of(context)!.translate("return_policy"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                            onTap: (){
-                              // Todo : nav
-                            },
-                          ),
-                          Text("."),
-                          GestureDetector(
-                            child: Text(App_Localization.of(context)!.translate("warranty_policy"),style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-                            onTap: (){
-                              // Todo : nav
-                            },
-                          ),
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                        GestureDetector(
+                          child: Text(App_Localization.of(context)!.translate("return_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                          onTap: (){
+                            // Todo : nav
+                          },
+                        ),
+                        Text("."),
+                        GestureDetector(
+                          child: Text(App_Localization.of(context)!.translate("warranty_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                          onTap: (){
+                            // Todo : nav
+                          },
+                        ),
 
 
 
-                          SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                        ],
-                      ),
+                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                      ],
                     ),
-                    Padding(padding: EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(App_Localization.of(context)!.translate("version"),style: TextStyle(fontSize: 10,color: Colors.grey),),
-                        ],
-                      ),
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(App_Localization.of(context)!.translate("version"),style: TextStyle(fontSize: 10,color: Colors.grey),),
+                      ],
                     ),
-                    Padding(padding: EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(App_Localization.of(context)!.translate("rights"),style: TextStyle(fontSize: 8,color: Colors.black,),),
-                        ],
-                      ),
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(App_Localization.of(context)!.translate("rights"),style: TextStyle(fontSize: 8,color: Colors.black,),),
+                      ],
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height*0.1,
-                      width: MediaQuery.of(context).size.width*0.5,
-                      decoration: BoxDecoration(
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height*0.1,
+                    width: MediaQuery.of(context).size.width*0.5,
+                    decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/black_logo.png",),
-                          fit: BoxFit.cover
+                            image: AssetImage("assets/black_logo.png",),
+                            fit: BoxFit.cover
                         )
-                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-
+        ),
       ),
       body: SafeArea(
         child: Stack(
@@ -674,7 +625,7 @@ class _DashBoardState extends State<DashBoard> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.115 ),
                     categories.isNotEmpty?Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.2<=160?150:MediaQuery.of(context).size.height * 0.2,
+                      height: MediaQuery.of(context).size.height * 0.25<=160?150:MediaQuery.of(context).size.height * 0.2,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           image: DecorationImage(
@@ -689,7 +640,7 @@ class _DashBoardState extends State<DashBoard> {
                             height: MediaQuery.of(context).size.height * 0.05<40?50:MediaQuery.of(context).size.height * 0.06,
                             child: Padding(
                               padding:
-                              EdgeInsets.only(left: 15, right: 15, top: 20),
+                              EdgeInsets.only(left: 15, right: 15, top: 25),
                               child: Row(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
@@ -708,7 +659,6 @@ class _DashBoardState extends State<DashBoard> {
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold),
                                   ),*/
-
                                 ],
                               ),
                             ),
@@ -734,23 +684,17 @@ class _DashBoardState extends State<DashBoard> {
                                               curve: Curves.ease);
                                         });
                                         get_product();
-
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            top: 5,
-                                            bottom: 5),
+                                        margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                                         width:MediaQuery.of(context).size.height *0.09,
                                         height:MediaQuery.of(context).size.height * 0.1,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                             BorderRadius.circular(10),
+                                            border: selected_category == index ? Border.all(color: Colors.black54, width: 2) : Border.all(color: Colors.white),
                                             // BoxShape.circle or BoxShape.retangle
-                                            color: selected_category == index
-                                                ? Colors.black87
-                                                : Colors.white,
+                                            color: Colors.white,
                                             boxShadow: [
                                               MediaQuery.of(context).size.width<768?
                                               selected_category!=index?
@@ -771,16 +715,18 @@ class _DashBoardState extends State<DashBoard> {
                                             Container(
                                               width: MediaQuery.of(context).size.height *0.08,
                                               height: MediaQuery.of(context).size.height *0.06,
-                                              child:categories[index].image!=null?ClipRRect(
+                                              child: categories[index].image!=null
+                                                  ? ClipRRect(
                                                 borderRadius: BorderRadius.circular(7),
-                                                child: Image.network(
-                                                  categories[index].image!,
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder: (context, error, stackTrace) {
-                                                    return Icon(Icons.fastfood,color: selected_category==index?Colors.white:Colors.black87,size: 0.07*MediaQuery.of(context).size.height,);
+                                                    child: Image.network(
+                                                      categories[index].image!,
+                                                      fit: BoxFit.contain,
+                                                      errorBuilder: (context, error, stackTrace) {
+                                                        return Icon(Icons.fastfood,color: selected_category==index?Colors.white:Colors.black87,size: 0.07*MediaQuery.of(context).size.height,);
                                                   },
                                                 ),
-                                              ):Icon(Icons.fastfood,color: selected_category==index?Colors.white:Colors.black87,size: 0.1*MediaQuery.of(context).size.height,),
+                                              ) :
+                                              Icon(Icons.fastfood,color: selected_category==index?Colors.white:Colors.black87,size: 0.1*MediaQuery.of(context).size.height,),
                                               decoration: BoxDecoration(
                                                   boxShadow: [
                                                     MediaQuery.of(context).size.width<768?
@@ -791,7 +737,6 @@ class _DashBoardState extends State<DashBoard> {
                                                       blurRadius: 5.0,
                                                       spreadRadius: -15,
                                                     )
-
                                                         :BoxShadow(
                                                       color: Colors.grey.withOpacity(1),
                                                       offset: Offset(0, MediaQuery.of(context).size.height * 0.07/5), //(x,y)
@@ -803,8 +748,7 @@ class _DashBoardState extends State<DashBoard> {
                                                       blurRadius: 5.0,
                                                       spreadRadius: -15,
                                                     ),
-
-                                                  ]
+                                                  ],
                                               ),
                                             ),
                                             Text(
@@ -813,10 +757,7 @@ class _DashBoardState extends State<DashBoard> {
                                               style: TextStyle(
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.bold,
-                                                  color:
-                                                  selected_category == index
-                                                      ? Colors.white
-                                                      : Colors.black87),
+                                                  color: Colors.black87),
                                             )
                                           ],
                                         ),
@@ -836,7 +777,7 @@ class _DashBoardState extends State<DashBoard> {
                       width: MediaQuery.of(context).size.width,
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.14,
+                        height: MediaQuery.of(context).size.height * 0.15,
                         decoration: BoxDecoration(
                             color: Color(0xff272525),
                             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25))
@@ -844,92 +785,134 @@ class _DashBoardState extends State<DashBoard> {
                       ),
                     ),
                     /**search bar*/
-                    Positioned(
-                      top: 12,
-                      child: Container(
+                    Container(
                         width: MediaQuery.of(context).size.width,
-                        child: Column(
+                        height: MediaQuery.of(context).size.height * 0.14,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              height: MediaQuery.of(context).size.height * 0.05,
+                              child: GestureDetector(
+                                onTap: () {
+                                  _scaffoldkey.currentState!.openDrawer();
+                                },
+                                child: Image.asset(
+                                  "assets/menu1.png",
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 40,),
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 500),
+                              width: isPress ? MediaQuery.of(context).size.width * 0.6 : 0,
+                              height: MediaQuery.of(context).size.height * 0.07,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage('assets/logo.png'),
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _scaffoldkey.currentState!.openDrawer();
-                                  },
-                                  icon: SvgPicture.asset(
-                                      "assets/details.svg",
-                                      color: Colors.white,
-                                      semanticsLabel: 'details'
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 500),
+                              width: !isPress ? MediaQuery.of(context).size.width * 0.6 : 0,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: !isPress ?
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10),
+                                child: TextField(onSubmitted: (q){
+                                  if(q.isNotEmpty){
+                                    get_search(q);
+                                  }else{
+                                    print('empty');
+                                  }
+                                },
+                                  cursorColor: Colors.white,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xff272525).withOpacity(0.8),
+                                    fontSize: 20,
                                   ),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width>=400?MediaQuery.of(context).size.width * 0.7:MediaQuery.of(context).size.width * 0.5,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: TextField(
-                                      onSubmitted: (q){
-                                        if(q.isNotEmpty){
-                                          get_search(q);
-                                        }else{
-                                          print('empty');
-                                        }
-                                      },
-                                      cursorColor: Colors.white,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Color(0xff272525).withOpacity(0.8),
-                                        fontSize: 20,
-                                      ),
-                                      decoration: InputDecoration(
-                                        prefixIcon: Icon(Icons.search, size: 18),
-                                        prefixIconConstraints: BoxConstraints(
-                                          minHeight: 0,
-                                          minWidth: 0,
-                                        ),
-                                        hintText: App_Localization.of(context)!.translate("find_your_favorite_dish"),
-                                        hintStyle: TextStyle(
-                                          color: Color(0xff272525).withOpacity(0.6),
-                                          fontSize: 16,
-                                        ),
-                                      ),
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.search, size: 18),
+                                    prefixIconConstraints: BoxConstraints(
+                                      minHeight: 0,
+                                      minWidth: 0,
+                                    ),
+                                    hintText: App_Localization.of(context)!.translate("find_your_favorite_dish"),
+                                    hintStyle: TextStyle(
+                                      color: Color(0xff272525).withOpacity(0.6),
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    Global.get_cart(context).then((value) {
-                                      _calc_total();
-                                    });
-                                  },
-                                  /**/
-                                  icon: Icon(
-                                    Icons.shopping_cart,
-                                    color: Colors.white,
-                                    size: 23,
+                              ) : Text(''),
+                            ),
+                            SizedBox(width: 40,),
+                            /*
+                                                       Container(
+                            width: MediaQuery.of(context).size.width>=400?MediaQuery.of(context).size.width * 0.7:MediaQuery.of(context).size.width * 0.5,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10),
+                              child: TextField(
+                                onSubmitted: (q){
+                                  if(q.isNotEmpty){
+                                    get_search(q);
+                                  }else{
+                                    print('empty');
+                                  }
+                                },
+                                cursorColor: Colors.white,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xff272525).withOpacity(0.8),
+                                  fontSize: 20,
+                                ),
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.search, size: 18),
+                                  prefixIconConstraints: BoxConstraints(
+                                    minHeight: 0,
+                                    minWidth: 0,
+                                  ),
+                                  hintText: App_Localization.of(context)!.translate("find_your_favorite_dish"),
+                                  hintStyle: TextStyle(
+                                    color: Color(0xff272525).withOpacity(0.6),
+                                    fontSize: 16,
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
+                          ),
 
+                           */
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isPress = !isPress;
+                                  });
+                                  // Global.get_cart(context).then((value) {
+                                  //   _calc_total();
+                                  // });
+                                },
+                                child: isPress ?
+                                Container(
+
+                                    child: Icon(Icons.search, color: Colors.white,size: 25,)) :
+                                Container(
+                                    child: Icon(Icons.close, color: Colors.white,size: 25,))
+                            ),
                           ],
                         ),
                       ),
-                    ),
                   ],
                 ),
               ],
@@ -1062,7 +1045,6 @@ class _DashBoardState extends State<DashBoard> {
                 ],
               ) ,
             ),
-
           ],
         ),
       ),

@@ -108,6 +108,8 @@ flutter:
     - assets/black_logo.png
     - assets/sidebar_cover.png
     - assets/details.svg
+    - assets/menu1.png
+    - assets/menu2.png
     - assets/gif.gif
     - assets/pick_page/
 

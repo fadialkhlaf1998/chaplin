@@ -63,7 +63,8 @@ class _MyStoryViewState extends State<MyStory_View> {
               child:Center(child: CircularProgressIndicator(color: Colors.white,),),
             ),
           ),
-          Positioned(bottom: 10,child: Container(
+          Positioned(
+              bottom: 10,child: Container(
             color: Colors.transparent,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height*0.1,
@@ -92,7 +93,7 @@ class _MyStoryViewState extends State<MyStory_View> {
                                 print(storyItems.length);
                               });
                               return DraggableScrollableSheet(
-                                  initialChildSize: 0.5,
+                                  initialChildSize: 0.52,
                                   expand: false,
                                   builder: (context, scrollController){
                                     return Container(

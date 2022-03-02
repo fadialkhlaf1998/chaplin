@@ -27,7 +27,6 @@ class _FavoriteState extends State<Favorite> {
       snackBar = SnackBar(content: Text(App_Localization.of(context)!.translate("add_cart_msg")));
       must_login_snackBar = SnackBar(content: Text(App_Localization.of(context)!.translate("login_first")));
     });
-
   }
 
 
@@ -534,7 +533,6 @@ class _FavoriteState extends State<Favorite> {
                       App_Localization.of(context)!.translate("you_dont_have_any_favorite_food"),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18),
-
                   ),
                 ),
               ) :
@@ -551,17 +549,7 @@ class _FavoriteState extends State<Favorite> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      Item(Global.wishlist[index])),
-                            );
-                           // Navigator.push();
-                            /*
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                  const Item()),
-                            );
-                            */
+                                      Item(Global.wishlist[index])));
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(

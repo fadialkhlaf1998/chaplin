@@ -139,8 +139,8 @@ class _QRScannerState extends State<QRScanner> {
     });
   }
 
-
-  static openwhatsapp(BuildContext context,String msg) async{
+ /*
+   static openwhatsapp(BuildContext context,String msg) async{
 
     // var whatsapp ="00971526924021";
     var whatsapp ="971509938659";
@@ -156,6 +156,34 @@ class _QRScannerState extends State<QRScanner> {
     }
   }
 
+
+  */
+
+  static openwhatsapp(BuildContext context,String msg) async{
+    var whatsapp ="971526924021";
+    var whatsappURl_android = "whatsapp://send?phone="+whatsapp+"&text=$msg";
+    var whatappURL_ios ="https://wa.me/$whatsapp?text=${Uri.parse(msg)}";
+
+    String url = WA_url(whatsapp,msg);
+
+    if( await canLaunch(url)){
+      await launch(url);
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Can not open whatsapp")));
+
+    }
+  }
+
+  static String WA_url(String phone,String message) {
+    if (Platform.isAndroid) {
+      // add the [https]
+      return "https://wa.me/$phone/?text=${Uri.parse(message)}"; // new line
+    } else {
+      // add the [https]
+      return "https://api.whatsapp.com/send?phone=$phone=${Uri.parse(message)}"; // new line
+    }
+  }
 
 
   @override
