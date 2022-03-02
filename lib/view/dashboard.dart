@@ -692,9 +692,8 @@ class _DashBoardState extends State<DashBoard>{
                                         decoration: BoxDecoration(
                                             borderRadius:
                                             BorderRadius.circular(10),
-                                            border: selected_category == index ? Border.all(color: Colors.black54, width: 2) : Border.all(color: Colors.white),
                                             // BoxShape.circle or BoxShape.retangle
-                                            color: Colors.white,
+                                            color: selected_category == index ? Color(0xff272525) : Colors.white,
                                             boxShadow: [
                                               MediaQuery.of(context).size.width<768?
                                               selected_category!=index?
@@ -718,12 +717,13 @@ class _DashBoardState extends State<DashBoard>{
                                               child: categories[index].image!=null
                                                   ? ClipRRect(
                                                 borderRadius: BorderRadius.circular(7),
-                                                    child: Image.network(
+                                                    child: SvgPicture.network(
                                                       categories[index].image!,
                                                       fit: BoxFit.contain,
-                                                      errorBuilder: (context, error, stackTrace) {
-                                                        return Icon(Icons.fastfood,color: selected_category==index?Colors.white:Colors.black87,size: 0.07*MediaQuery.of(context).size.height,);
-                                                  },
+                                                  color: selected_category == index ? Colors.white : Color(0xff272525),
+                                                  //     errorBuilder: (context, error, stackTrace) {
+                                                  //       return Icon(Icons.fastfood,color: selected_category==index?Colors.white:Colors.black87,size: 0.07*MediaQuery.of(context).size.height,);
+                                                  // },
                                                 ),
                                               ) :
                                               Icon(Icons.fastfood,color: selected_category==index?Colors.white:Colors.black87,size: 0.1*MediaQuery.of(context).size.height,),
@@ -757,7 +757,8 @@ class _DashBoardState extends State<DashBoard>{
                                               style: TextStyle(
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.black87),
+                                                  color: selected_category == index ? Colors.white : Color(0xff272525)
+                                              ),
                                             )
                                           ],
                                         ),

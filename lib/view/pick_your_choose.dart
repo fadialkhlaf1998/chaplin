@@ -450,7 +450,7 @@ class _PickChooseState extends State<PickChoose> {
                                       padding: const EdgeInsets.only(bottom: 0),
                                       child: Container(
                                         width: MediaQuery.of(context).size.width,
-                                        height: MediaQuery.of(context).size.height*0.075,
+                                        height: MediaQuery.of(context).size.height*0.08,
                                         child: Padding(
                                           padding: EdgeInsets.only(left: 10,right: 20),
                                           child: ListView.builder(
@@ -474,126 +474,131 @@ class _PickChooseState extends State<PickChoose> {
                                                         });
                                                       }
                                                     },
-                                                    child: AnimatedContainer(
-                                                      duration: Duration(milliseconds: 700),
-                                                      curve: Curves.fastOutSlowIn,
-                                                      width: !pick ? 60 : MediaQuery.of(context).size.width * 0.9,
-                                                      height: 50,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(100),
-                                                        color: !pick ? Color(0xff231F20) : Colors.white,
-                                                        border: Border.all(color: Colors.white,width: 2),
-                                                      ),
-                                                      child: AnimatedSwitcher(
-                                                        duration: Duration(milliseconds: 500),
-                                                            child: !pick
-                                                                ? Icon(Icons.add, color: Colors.white,size: 30,)
-                                                                :  SingleChildScrollView(
-                                                              scrollDirection: Axis.horizontal,
-                                                              child: Container(
-                                                                child: Row(
-                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                  children: [
-                                                                    GestureDetector(
-                                                                      onTap: (){
-                                                                        setState(() {
-                                                                          pick=false;
-                                                                        });
-                                                                      },
-                                                                      child: Container(
-                                                                        width: 50,
-                                                                        height: 50,
-                                                                        decoration: BoxDecoration(
-                                                                          shape: BoxShape.circle,
-                                                                          color: Color(0xff231F20),
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        AnimatedContainer(
+                                                          duration: Duration(milliseconds: 700),
+                                                          curve: Curves.fastOutSlowIn,
+                                                          width: !pick ? MediaQuery.of(context).size.width * 0.15 : MediaQuery.of(context).size.width * 0.9,
+                                                          height: MediaQuery.of(context).size.width * 0.15,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(100),
+                                                            color: !pick ? Color(0xff231F20) : Colors.white,
+                                                            border: Border.all(color: Colors.white,width: 2),
+                                                          ),
+                                                          child: AnimatedSwitcher(
+                                                            duration: Duration(milliseconds: 500),
+                                                                child: !pick
+                                                                    ? Icon(Icons.add, color: Colors.white,size: 30,)
+                                                                    :  SingleChildScrollView(
+                                                                  scrollDirection: Axis.horizontal,
+                                                                  child: Container(
+                                                                    child: Row(
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                      children: [
+                                                                        GestureDetector(
+                                                                          onTap: (){
+                                                                            setState(() {
+                                                                              pick=false;
+                                                                            });
+                                                                          },
+                                                                          child: Container(
+                                                                            width: 50,
+                                                                            height: 50,
+                                                                            decoration: BoxDecoration(
+                                                                              shape: BoxShape.circle,
+                                                                              color: Color(0xff231F20),
+                                                                            ),
+                                                                            child: Icon(Icons.close,color: Colors.white,)
+                                                                          ),
                                                                         ),
-                                                                        child: Icon(Icons.close,color: Colors.white,)
-                                                                      ),
+                                                                        SizedBox(width: 10),
+                                                                        GestureDetector(
+                                                                          onTap: (){
+                                                                            _picker.pickMultiImage().then((value) async{
+                                                                              pick_image(value!);
+                                                                            });
+                                                                            pick = false;
+                                                                          },
+                                                                          child: Container(
+                                                                            width: MediaQuery.of(context).size.width * 0.22,
+                                                                            height: MediaQuery.of(context).size.height * 0.06,
+                                                                            decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(20),
+                                                                              color: Color(0xff231F20),
+                                                                            ),
+                                                                            child: Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                Text('Images', style: TextStyle(color: Colors.white,fontSize: 15),),
+                                                                               Icon(Icons.photo,size: 25,color: Colors.white,),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(width: 10),
+                                                                        GestureDetector(
+                                                                          onTap: (){
+                                                                            List<XFile> value=<XFile>[];
+                                                                            _picker.pickVideo(source: ImageSource.gallery).then((file) {
+                                                                              value.add(file!);
+                                                                              pick_image(value);
+                                                                            });
+                                                                            pick = false;
+                                                                          },
+                                                                          child: Container(
+                                                                            height: MediaQuery.of(context).size.height * 0.06,
+                                                                            width: MediaQuery.of(context).size.width * 0.22,
+                                                                            decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(20),
+                                                                              color: Color(0xff231F20),
+                                                                            ),
+                                                                            child: Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                Text('Videos', style: TextStyle(color: Colors.white,fontSize: 15),),
+                                                                               Icon(Icons.video_call_outlined,size: 31,color: Colors.white,),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(width: 10),
+                                                                        GestureDetector(
+                                                                          onTap: (){
+                                                                            List<XFile> value=<XFile>[];
+                                                                            _picker.pickImage(source: ImageSource.camera).then((file) {
+                                                                              value.add(file!);
+                                                                              pick_image(value);
+                                                                            });
+                                                                            pick = false;
+                                                                          },
+                                                                          child: Container(
+                                                                            height: MediaQuery.of(context).size.height * 0.06,
+                                                                            width: MediaQuery.of(context).size.width * 0.22,
+                                                                            decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(20),
+                                                                              color: Color(0xff231F20),
+                                                                            ),
+                                                                            child: Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                Text('Camera', style: TextStyle(color: Colors.white,fontSize: 15),),
+                                                                               Icon(Icons.camera_alt,size: 24,color: Colors.white,),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
                                                                     ),
-                                                                    SizedBox(width: 10),
-                                                                    GestureDetector(
-                                                                      onTap: (){
-                                                                        _picker.pickMultiImage().then((value) async{
-                                                                          pick_image(value!);
-                                                                        });
-                                                                        pick = false;
-                                                                      },
-                                                                      child: Container(
-                                                                        width: MediaQuery.of(context).size.width * 0.23,
-                                                                        height: MediaQuery.of(context).size.height * 0.06,
-                                                                        decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(20),
-                                                                          color: Color(0xff231F20),
-                                                                        ),
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                          children: [
-                                                                            Text('Images', style: TextStyle(color: Colors.white,fontSize: 15),),
-                                                                           Icon(Icons.photo,size: 25,color: Colors.white,),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(width: 10),
-                                                                    GestureDetector(
-                                                                      onTap: (){
-                                                                        List<XFile> value=<XFile>[];
-                                                                        _picker.pickVideo(source: ImageSource.gallery).then((file) {
-                                                                          value.add(file!);
-                                                                          pick_image(value);
-                                                                        });
-                                                                        pick = false;
-                                                                      },
-                                                                      child: Container(
-                                                                        height: MediaQuery.of(context).size.height * 0.06,
-                                                                        width: MediaQuery.of(context).size.width * 0.23,
-                                                                        decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(20),
-                                                                          color: Color(0xff231F20),
-                                                                        ),
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                          children: [
-                                                                            Text('Videos', style: TextStyle(color: Colors.white,fontSize: 15),),
-                                                                           Icon(Icons.video_call_outlined,size: 31,color: Colors.white,),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(width: 10),
-                                                                    GestureDetector(
-                                                                      onTap: (){
-                                                                        List<XFile> value=<XFile>[];
-                                                                        _picker.pickImage(source: ImageSource.camera).then((file) {
-                                                                          value.add(file!);
-                                                                          pick_image(value);
-                                                                        });
-                                                                        pick = false;
-                                                                      },
-                                                                      child: Container(
-                                                                        height: MediaQuery.of(context).size.height * 0.06,
-                                                                        width: MediaQuery.of(context).size.width * 0.23,
-                                                                        decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(20),
-                                                                          color: Color(0xff231F20),
-                                                                        ),
-                                                                        child: Row(
-                                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                          children: [
-                                                                            Text('Camera', style: TextStyle(color: Colors.white,fontSize: 15),),
-                                                                           Icon(Icons.camera_alt,size: 24,color: Colors.white,),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            )
-                                                      ),
+                                                                  ),
+                                                                )
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 )
