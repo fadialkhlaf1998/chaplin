@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chaplin_new_version/controler/connector.dart';
 import 'package:chaplin_new_version/controler/setting.dart';
+import 'package:chaplin_new_version/controler/store.dart';
 import 'package:chaplin_new_version/controler/story_api.dart';
 import 'package:chaplin_new_version/controler/wordpress_connector.dart';
 import 'package:chaplin_new_version/helper/app_localization.dart';
@@ -82,7 +83,6 @@ class _DashBoardState extends State<DashBoard>{
     super.initState();
     show = false;
 
-
   }
 
   @override
@@ -113,23 +113,6 @@ class _DashBoardState extends State<DashBoard>{
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          AppSetting.set_verificated(false);
-                          AppSetting.save("non", "non");
-                          AppSetting.set_timer("non");
-                          Global.customer=null;
-                          Global.customer_id=-1;
-                          Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
-                        },
-                        child: Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),
-                          child: Global.customer==null?Center():Text(App_Localization.of(context)!.translate("logout"),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                        ),
-                      ),
-                    ],
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -203,6 +186,23 @@ class _DashBoardState extends State<DashBoard>{
 
 
                    */
+                  Global.customer == null ?
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
+                          },
+                          child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Text('Login',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ) : Center(),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
@@ -244,6 +244,27 @@ class _DashBoardState extends State<DashBoard>{
                           },
                           child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
                             child: Text(App_Localization.of(context)!.translate("my_address"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            AppSetting.set_verificated(false);
+                            AppSetting.save("non", "non");
+                            AppSetting.set_timer("non");
+                            Global.customer=null;
+                            Global.customer_id=-1;
+                            Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
+                          },
+                          child: Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),
+                            child: Global.customer==null?Center():Text(App_Localization.of(context)!.translate("logout"),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                           ),
                         ),
                       ],
@@ -531,26 +552,21 @@ class _DashBoardState extends State<DashBoard>{
                                                               _timer?.cancel();
                                                             });
                                                             _timer = new Timer.periodic(
-                                                              Duration(seconds: 1),
-                                                                (Timer timer){
-                                                                if(start_timer == 3){
-                                                                  setState(() {
-                                                                    show = false;
-                                                                    timer.cancel();
-                                                                  });
-                                                                }else {
-                                                                  setState(() {
-                                                                    start_timer ++;
-                                                                  });
-                                                                }
+                                                                Duration(seconds: 1),
+                                                                    (Timer timer){
+                                                                  if(start_timer == 3){
+                                                                    setState(() {
+                                                                      show = false;
+                                                                      timer.cancel();
+                                                                    });
+                                                                  }else {
+                                                                    setState(() {
+                                                                      start_timer ++;
+                                                                    });
+                                                                  }
                                                                 }
                                                             );
 
-                                                            // Future.delayed(Duration(milliseconds: 2500),(){
-                                                            //   setState(() {
-                                                            //     show = false;
-                                                            //   });
-                                                            // });
                                                             Global.add_to_order(this.products[index], 1);
                                                             _calc_total();
                                                           },
@@ -571,7 +587,7 @@ class _DashBoardState extends State<DashBoard>{
                                                               size: 20,
                                                             ),
                                                           ),
-                                                        )
+                                                        ),
                                                       ],
                                                     ),
                                                   )

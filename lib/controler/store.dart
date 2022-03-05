@@ -40,6 +40,7 @@ class Store {
     for(int i=0;i<Global.wishlist.length;i++){
       if(Global.wishlist[i].id==_products.id){
         Global.wishlist.removeAt(i);
+
       }
     }
     save_wishlist(Global.wishlist);

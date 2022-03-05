@@ -106,404 +106,418 @@ class _BillingState extends State<Billing> {
     return Scaffold(
       key: _scaffoldkey,
       body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              color: Colors.black87,
-              image: DecorationImage(
-                  image: AssetImage("assets/login.png"),
-                  fit: BoxFit.cover
-              )
-          ),
-          //color: Colors.black87,
-          child: SingleChildScrollView(
-            child:
-            !request?
-            loading()
-                :Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height*0.35,
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                          image: AssetImage("assets/logo.png"),
-                          fit: BoxFit.none
-                      )
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Billing",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),)
-                    ],
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width*0.8,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(padding: EdgeInsets.only(top: 20),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width*0.35,
-                          height: 50,
-                          child: TextField(
-                            controller: firstname_controller,
-                            onChanged: (query){
-                              if(query.isNotEmpty){
-                                setState(() {
-                                  firstname_vlidate=true;
-                                });
-                              }
-                            },
-                            textAlignVertical: TextAlignVertical.bottom,
-                            style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              hintText: 'FIRST NAME',
-                              errorText: firstname_vlidate?null:"First name can not be empty",
-                              hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+        child: Stack(
+          alignment: Alignment.topLeft,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                  color: Colors.black87,
+                  image: DecorationImage(
+                      image: AssetImage("assets/login.png"),
+                      fit: BoxFit.cover
+                  )
+              ),
+              //color: Colors.black87,
+              child: SingleChildScrollView(
+                child:
+                !request?
+                loading()
+                    :Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height*0.35,
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          image: DecorationImage(
+                              image: AssetImage("assets/logo.png"),
+                              fit: BoxFit.none
+                          )
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Billing",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),)
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width*0.8,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(padding: EdgeInsets.only(top: 20),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width*0.35,
+                              height: 50,
+                              child: TextField(
+                                controller: firstname_controller,
+                                onChanged: (query){
+                                  if(query.isNotEmpty){
+                                    setState(() {
+                                      firstname_vlidate=true;
+                                    });
+                                  }
+                                },
+                                textAlignVertical: TextAlignVertical.bottom,
+                                style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                                decoration: InputDecoration(
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  hintText: 'FIRST NAME',
+                                  errorText: firstname_vlidate?null:"First name can not be empty",
+                                  hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
 
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(padding: EdgeInsets.only(top: 20),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width*0.35,
-                          height: 50,
-                          child: TextField(
-                            controller: lastname_controller,
-                            onChanged: (query){
-                              if(query.isNotEmpty){
-                                setState(() {
-                                  lastname_vlidate=true;
-                                });
-                              }
-                            },
-                            textAlignVertical: TextAlignVertical.bottom,
-                            style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              hintText: 'LAST NAME',
-                              errorText: lastname_vlidate?null:"Last name can not be empty",
-                              hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+                          Padding(padding: EdgeInsets.only(top: 20),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width*0.35,
+                              height: 50,
+                              child: TextField(
+                                controller: lastname_controller,
+                                onChanged: (query){
+                                  if(query.isNotEmpty){
+                                    setState(() {
+                                      lastname_vlidate=true;
+                                    });
+                                  }
+                                },
+                                textAlignVertical: TextAlignVertical.bottom,
+                                style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                                decoration: InputDecoration(
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white),
+                                  ),
+                                  hintText: 'LAST NAME',
+                                  errorText: lastname_vlidate?null:"Last name can not be empty",
+                                  hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
 
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    height: 50,
-                    child: TextField(
-                      controller: email_controller,
-                      onChanged: (query){
-                        if(query.isNotEmpty){
-                          setState(() {
-                            email_vlidate=true;
-                          });
-                        }
-                      },
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'E-MAIL',
-                        errorText: email_vlidate?null:"Email can not be empty",
-                        hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
-
+                        ],
                       ),
                     ),
-                  ),
-                ),
+                    Padding(padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.8,
+                        height: 50,
+                        child: TextField(
+                          controller: email_controller,
+                          onChanged: (query){
+                            if(query.isNotEmpty){
+                              setState(() {
+                                email_vlidate=true;
+                              });
+                            }
+                          },
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            hintText: 'E-MAIL',
+                            errorText: email_vlidate?null:"Email can not be empty",
+                            hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
 
-                /**company*/
-                Padding(padding: EdgeInsets.only(top: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    height: 50,
-                    child: TextField(
-                      controller: company_controller,
-
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'COMPANY',
-                        hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
-
-                      ),
-                    ),
-                  ),
-                ),
-
-                /**address 1*/
-                Padding(padding: EdgeInsets.only(top: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    height: 50,
-                    child: TextField(
-                      controller: address1_controller,
-                      onChanged: (query){
-                        if(query.isNotEmpty){
-                          setState(() {
-                            address1_vlidate=true;
-                          });
-                        }
-                      },
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'Address 1',
-                        errorText: address1_vlidate?null:"Address 1 can not be empty",
-                        hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
-
-                      ),
-                    ),
-                  ),
-                ),
-
-                /**address 2*/
-                Padding(padding: EdgeInsets.only(top: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    height: 50,
-                    child: TextField(
-                      controller: address2_controller,
-
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'Address 2',
-
-                        hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
-
-                      ),
-                    ),
-                  ),
-                ),
-
-                /**city*/
-                Padding(padding: EdgeInsets.only(top: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    height: 50,
-                    child: TextField(
-                      controller: city_controller,
-                      onChanged: (query){
-                        if(query.isNotEmpty){
-                          setState(() {
-                            city_vlidate=true;
-                          });
-                        }
-                      },
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'CITY',
-                        errorText: city_vlidate?null:"City can not be empty",
-                        hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
-
-                      ),
-                    ),
-                  ),
-                ),
-
-                /**state*/
-                Padding(padding: EdgeInsets.only(top: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    height: 50,
-                    child: TextField(
-                      controller: state_controller,
-
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'State',
-
-                        hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
-
-                      ),
-                    ),
-                  ),
-                ),
-
-                /**country*/
-                Padding(padding: EdgeInsets.only(top: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    height: 50,
-                    child: TextField(
-                      controller: contry_controller,
-
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'COUNTRY',
-
-                        hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
-
-                      ),
-                    ),
-                  ),
-                ),
-
-                /**phone*/
-                Padding(padding: EdgeInsets.only(top: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    height: 50,
-                    child: TextField(
-                      controller: phone_controller,
-                      onChanged: (query){
-                        if(query.isNotEmpty){
-                          setState(() {
-                            phone_vlidate=true;
-                          });
-                        }
-                      },
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
-                      decoration: InputDecoration(
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'PHONE',
-                        errorText: phone_vlidate?null:"Phone can not be empty",
-                        hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
-
-                      ),
-                    ),
-                  ),
-                ),
-
-                Padding(padding: EdgeInsets.only(top: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          createAccount();
-
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width*0.8,
-                          height: 60,
-
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.all(Radius.circular(75)),
-                            border: Border.all(color: Colors.white,width: 2),
-                          ),
-                          child:Center(
-                            child:  Text("Save",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+
+                    /**company*/
+                    Padding(padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.8,
+                        height: 50,
+                        child: TextField(
+                          controller: company_controller,
+
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            hintText: 'COMPANY',
+                            hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    /**address 1*/
+                    Padding(padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.8,
+                        height: 50,
+                        child: TextField(
+                          controller: address1_controller,
+                          onChanged: (query){
+                            if(query.isNotEmpty){
+                              setState(() {
+                                address1_vlidate=true;
+                              });
+                            }
+                          },
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            hintText: 'Address 1',
+                            errorText: address1_vlidate?null:"Address 1 can not be empty",
+                            hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    /**address 2*/
+                    Padding(padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.8,
+                        height: 50,
+                        child: TextField(
+                          controller: address2_controller,
+
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            hintText: 'Address 2',
+
+                            hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    /**city*/
+                    Padding(padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.8,
+                        height: 50,
+                        child: TextField(
+                          controller: city_controller,
+                          onChanged: (query){
+                            if(query.isNotEmpty){
+                              setState(() {
+                                city_vlidate=true;
+                              });
+                            }
+                          },
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            hintText: 'CITY',
+                            errorText: city_vlidate?null:"City can not be empty",
+                            hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    /**state*/
+                    Padding(padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.8,
+                        height: 50,
+                        child: TextField(
+                          controller: state_controller,
+
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            hintText: 'State',
+
+                            hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    /**country*/
+                    Padding(padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.8,
+                        height: 50,
+                        child: TextField(
+                          controller: contry_controller,
+
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            hintText: 'COUNTRY',
+
+                            hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    /**phone*/
+                    Padding(padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width*0.8,
+                        height: 50,
+                        child: TextField(
+                          controller: phone_controller,
+                          onChanged: (query){
+                            if(query.isNotEmpty){
+                              setState(() {
+                                phone_vlidate=true;
+                              });
+                            }
+                          },
+                          textAlignVertical: TextAlignVertical.bottom,
+                          style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold,fontFamily: "RedHand"),
+                          decoration: InputDecoration(
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            hintText: 'PHONE',
+                            errorText: phone_vlidate?null:"Phone can not be empty",
+                            hintStyle: TextStyle(color: Colors.white24,fontSize: 13,fontWeight: FontWeight.bold),
+
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Padding(padding: EdgeInsets.only(top: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              createAccount();
+
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width*0.8,
+                              height: 60,
+
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.all(Radius.circular(75)),
+                                border: Border.all(color: Colors.white,width: 2),
+                              ),
+                              child:Center(
+                                child:  Text("Save",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 15,
+                    )
+
+                  ],
                 ),
-
-                SizedBox(
-                  height: 15,
-                )
-
-              ],
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(top: 25, left: 20),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back_ios,color: Colors.white,size: 28,),
+              ),
+            ),
+          ],
         ),
       ),
     );

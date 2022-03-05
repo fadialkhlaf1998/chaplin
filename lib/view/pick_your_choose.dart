@@ -85,23 +85,6 @@ class _PickChooseState extends State<PickChoose> {
               child: Column(
                 children: [
                   Row(
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          AppSetting.set_verificated(false);
-                          AppSetting.save("non", "non");
-                          AppSetting.set_timer("non");
-                          Global.customer=null;
-                          Global.customer_id=-1;
-                          Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
-                        },
-                        child: Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),
-                          child: Global.customer==null?Center():Text(App_Localization.of(context)!.translate("logout"),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
@@ -174,6 +157,23 @@ class _PickChooseState extends State<PickChoose> {
 
 
                    */
+                  Global.customer == null ?
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
+                          },
+                          child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
+                            child: Text('Login',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ) : Center(),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
@@ -215,6 +215,27 @@ class _PickChooseState extends State<PickChoose> {
                           },
                           child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
                             child: Text(App_Localization.of(context)!.translate("my_address"),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            AppSetting.set_verificated(false);
+                            AppSetting.save("non", "non");
+                            AppSetting.set_timer("non");
+                            Global.customer=null;
+                            Global.customer_id=-1;
+                            Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
+                          },
+                          child: Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),
+                            child: Global.customer==null?Center():Text(App_Localization.of(context)!.translate("logout"),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                           ),
                         ),
                       ],
@@ -718,7 +739,7 @@ class _PickChooseState extends State<PickChoose> {
                           Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.15,
+                          height: MediaQuery.of(context).size.height * 0.14,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -759,7 +780,7 @@ class _PickChooseState extends State<PickChoose> {
                           );
                           },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.16,
+                          height: MediaQuery.of(context).size.height * 0.15,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -790,12 +811,6 @@ class _PickChooseState extends State<PickChoose> {
                       ),
                       GestureDetector(
                         onTap: (){
-                          //Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => PhotoPicker(stories, my_story)),
-                          // );
                           if(my_story == null){
                             if(Global.customer_id==-1){
                               App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
@@ -807,7 +822,7 @@ class _PickChooseState extends State<PickChoose> {
                           }
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.17,
+                          height: MediaQuery.of(context).size.height * 0.16,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -847,7 +862,7 @@ class _PickChooseState extends State<PickChoose> {
                           );
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.17,
+                          height: MediaQuery.of(context).size.height * 0.16,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
@@ -876,6 +891,10 @@ class _PickChooseState extends State<PickChoose> {
                             ],
                           ),
                         ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text('POWERED BY MAXART',style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
                       ),
                     ],
                   ),

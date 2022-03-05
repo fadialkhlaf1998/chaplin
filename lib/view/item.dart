@@ -13,10 +13,17 @@ class Item extends StatefulWidget {
 
   Item(this.product){
     print('*');
+    print(Global.wishlist.length);
+    if(Global.wishlist.length==0){
+      product.favorite=false;
+    }
     for(int i=0;i<Global.wishlist.length;i++){
-
       if(Global.wishlist[i].id==product.id){
         product.favorite=true;
+        Global.wishlist[i] = product;
+        break;
+      }else{
+        product.favorite=false;
       }
     }
   }
@@ -288,11 +295,17 @@ class _ItemState extends State<Item> {
                               product.favorite=false;
                             });
                             Store.remove_from_wishlist(product);
+                            setState(() {
+                              Global.wishlist;
+                            });
                           }else{
                             setState(() {
                               product.favorite=true;
                             });
                             Store.add_to_wishlist(product);
+                            setState(() {
+                              Global.wishlist;
+                            });
                           }
                         },
                         child: Container(

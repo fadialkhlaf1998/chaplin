@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chaplin_new_version/controler/store.dart';
 import 'package:chaplin_new_version/helper/app_localization.dart';
 import 'package:chaplin_new_version/model/global.dart';
 import 'package:chaplin_new_version/view/item.dart';
@@ -37,296 +38,6 @@ class _FavoriteState extends State<Favorite> {
     ]);
     return Scaffold(
       key: _scaffoldkey,
-      // drawer: Drawer(
-      //   child: SafeArea(
-      //     child: Container(
-      //       decoration: BoxDecoration(
-      //           image: DecorationImage(
-      //               image: AssetImage("assets/sidebar_cover.png"),
-      //               fit: BoxFit.cover
-      //           )
-      //       ),
-      //       child: SingleChildScrollView(
-      //         child: Column(
-      //           children: [
-      //             Row(
-      //               children: [
-      //                 GestureDetector(
-      //                   onTap: (){
-      //                     AppSetting.set_verificated(false);
-      //                     AppSetting.save("non", "non");
-      //                     AppSetting.set_timer("non");
-      //                     Global.customer=null;
-      //                     Global.customer_id=-1;
-      //                     Navigator.pushNamedAndRemoveUntil(context, "signIn", (r) => false);
-      //                   },
-      //                   child: Padding(padding: EdgeInsets.only(top: 15,left: 15,right: 15),
-      //                     child: Global.customer==null?Center():Text("LOG OUT",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-      //                   ),
-      //                 ),
-      //               ],
-      //             ),
-      //             Row(
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               children: [
-      //                 Padding(
-      //                   padding: const EdgeInsets.only(top: 40),
-      //                   child: Container(
-      //                     width: MediaQuery.of(context).size.width*0.3,
-      //                     height: MediaQuery.of(context).size.width*0.3,
-      //                     decoration: BoxDecoration(
-      //                         color: Colors.transparent,
-      //                         shape: BoxShape.circle
-      //                     ),
-      //                   ),
-      //                 )
-      //               ],
-      //             ),
-      //             Row(
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               children: [
-      //                 Padding(
-      //                     padding: const EdgeInsets.only(top: 10),
-      //                     child: Text("Charlie Chaplin",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
-      //                 )
-      //               ],
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.only(top: 40),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.center,
-      //                 children: [
-      //                   Container(
-      //                     height: 4,
-      //                     width: 40,
-      //                     color: Colors.black87,
-      //                   ),
-      //                   GestureDetector(
-      //                     onTap: (){
-      //                       Navigator.push(
-      //                         context,
-      //                         MaterialPageRoute(builder: (context) => const PhotoPicker()),
-      //                       );
-      //                     },
-      //                     child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-      //                       child: Text("PROFILE",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-      //                     ),
-      //                   ),
-      //                   Container(
-      //                     height: 4,
-      //                     width: 40,
-      //                     color: Colors.black87,
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.only(top: 20),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.center,
-      //                 children: [
-      //
-      //                   GestureDetector(
-      //                     onTap: (){
-      //                       Navigator.push(
-      //                         context,
-      //                         MaterialPageRoute(builder: (context) => const MyPoints()),
-      //                       );
-      //                     },
-      //                     child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-      //                       child: Text("MY POINTS",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-      //                     ),
-      //                   ),
-      //
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.only(top: 20),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.center,
-      //                 children: [
-      //
-      //                   GestureDetector(
-      //                     onTap: (){
-      //                       if(Global.is_signIn){
-      //                         Navigator.push(
-      //                           context,
-      //                           MaterialPageRoute(builder: (context) => Billing(0)),
-      //                         );
-      //                       }else{
-      //                         _scaffoldkey.currentState!.showSnackBar(must_login_snackBar);
-      //                       }
-      //                     },
-      //                     child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-      //                       child: Text("MY BILL",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-      //                     ),
-      //                   ),
-      //
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.only(top: 20),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.center,
-      //                 children: [
-      //                   GestureDetector(
-      //                     onTap: (){
-      //                       Navigator.push(
-      //                         context,
-      //                         MaterialPageRoute(builder: (context) => const Favorite()),
-      //                       );
-      //                     },
-      //                     child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-      //                       child: Text("FAVORITE",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(
-      //               padding: const EdgeInsets.only(top: 20),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.center,
-      //                 children: [
-      //                   GestureDetector(
-      //                     onTap: (){
-      //                       if(Global.is_signIn){
-      //                         Navigator.push(
-      //                           context,
-      //                           MaterialPageRoute(builder: (context) => Shipping(0)),
-      //                         );
-      //                       }else{
-      //                         _scaffoldkey.currentState!.showSnackBar(must_login_snackBar);
-      //                       }
-      //                     },
-      //                     child: Padding(padding: EdgeInsets.only(left: 15,right: 15),
-      //                       child: Text("MY ADDRESSE",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //                 children: [
-      //                   IconButton(onPressed: (){
-      //                     //todo nav to instgram
-      //                   }, icon: const ImageIcon(
-      //                     AssetImage("assets/social-media/insta.png"),
-      //                     size: 40,
-      //                   )),
-      //                   IconButton(onPressed: (){
-      //                     //todo nav to twitter
-      //                   }, icon: const ImageIcon(
-      //                     AssetImage("assets/social-media/twitter.png"),
-      //                     size: 40,
-      //                   )),
-      //                   IconButton(onPressed: (){
-      //                     //todo nav to facebook
-      //                   }, icon: const ImageIcon(
-      //                     AssetImage("assets/social-media/facebook.png"),
-      //                     size: 40,
-      //                   )),
-      //                   IconButton(onPressed: (){
-      //                     //todo nav to youtube
-      //                   }, icon: const ImageIcon(
-      //                     AssetImage("assets/social-media/youtube.png",),
-      //                     size: 25,
-      //                   )),
-      //
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(padding: EdgeInsets.only(top: 20),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //                 children: [
-      //                   SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-      //                   GestureDetector(
-      //                     child: Text("Privace Policy",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-      //                     onTap: (){
-      //                       // Todo : nav
-      //                     },
-      //                   ),
-      //                   Text("."),
-      //                   GestureDetector(
-      //                     child: Text("Terms Of Sale",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-      //                     onTap: (){
-      //                       // Todo : nav
-      //                     },
-      //                   ),
-      //                   Text("."),
-      //                   GestureDetector(
-      //                     child: Text("Terms Of Use",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-      //                     onTap: (){
-      //                       // Todo : nav
-      //                     },
-      //                   ),
-      //                   SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(padding: EdgeInsets.only(top: 10),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //                 children: [
-      //                   SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-      //                   GestureDetector(
-      //                     child: Text("Return Policy",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-      //                     onTap: (){
-      //                       // Todo : nav
-      //                     },
-      //                   ),
-      //                   Text("."),
-      //                   GestureDetector(
-      //                     child: Text("Warranty Policy",style: TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
-      //                     onTap: (){
-      //                       // Todo : nav
-      //                     },
-      //                   ),
-      //
-      //
-      //
-      //                   SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(padding: EdgeInsets.only(top: 10),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //                 children: [
-      //                   Text("Version 1.0",style: TextStyle(fontSize: 10,color: Colors.grey),),
-      //                 ],
-      //               ),
-      //             ),
-      //             Padding(padding: EdgeInsets.only(top: 10),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //                 children: [
-      //                   Text("© 2018Chaplin. ALL RIGHTS RESERVED.",style: TextStyle(fontSize: 8,color: Colors.black,),),
-      //                 ],
-      //               ),
-      //             ),
-      //             Container(
-      //               height: MediaQuery.of(context).size.height*0.1,
-      //               width: MediaQuery.of(context).size.width*0.5,
-      //               decoration: BoxDecoration(
-      //                   image: DecorationImage(
-      //                       image: AssetImage("assets/black_logo.png",),
-      //                       fit: BoxFit.cover
-      //                   )
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      //
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -558,21 +269,12 @@ class _FavoriteState extends State<Favorite> {
                                 top: 10,
                                 bottom: 0),
                             child: Container(
-                              height: MediaQuery.of(context)
-                                  .size
-                                  .height *
-                                  0.18,
+                              height: MediaQuery.of(context).size.height * 0.18,
                               color: Colors.transparent,
                               child: Center(
                                 child: Container(
-                                  width: MediaQuery.of(context)
-                                      .size
-                                      .width *
-                                      0.9,
-                                  height: MediaQuery.of(context)
-                                      .size
-                                      .height *
-                                      0.15,
+                                  width: MediaQuery.of(context).size.width * 0.9,
+                                  height: MediaQuery.of(context).size.height * 0.15,
                                   decoration: BoxDecoration(
                                     color: Colors.black87,
                                     borderRadius:
@@ -580,16 +282,21 @@ class _FavoriteState extends State<Favorite> {
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment
-                                        .spaceEvenly,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                                          image: DecorationImage(
+                                            image: NetworkImage(Global.wishlist[index].images!.first.src!),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
                                         width: MediaQuery.of(context).size.width*0.2,
-                                        child: Image.network(
-                                            Global.wishlist[index].images!.first.src!),
+                                        height: MediaQuery.of(context).size.height * 0.15,
                                       ),
                                       Container(
-                                        width: MediaQuery.of(context).size.width*0.5,
+                                        width: MediaQuery.of(context).size.width*0.45,
                                         child: Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment
@@ -630,33 +337,68 @@ class _FavoriteState extends State<Favorite> {
                                           ],
                                         ),
                                       ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            bottom: 10),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .end,
+                                      Container(
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            GestureDetector(
-                                              onTap: () {},
-                                              child: Container(
-                                                height: 35,
-                                                width: 35,
-                                                decoration: BoxDecoration(
+                                            Padding(
+                                              padding:
+                                              const EdgeInsets.only(
+                                                  bottom: 10,right: 10),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .end,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {},
+                                                    child: Container(
+                                                      height: 33,
+                                                      width: 33,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          shape: BoxShape.circle),
+                                                      child: Icon(
+                                                        Icons.shopping_cart_outlined,
+                                                        color: Colors.black87,
+                                                        size: 20,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                              const EdgeInsets.only(
+                                                  bottom: 10,right: 10),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    Global.wishlist[index].favorite = false;
+                                                  });
+                                                  Store.remove_from_wishlist(Global.wishlist[index]);
+                                                },
+                                                child: Container(
+                                                  height: 33,
+                                                  width: 33,
+                                                  decoration: BoxDecoration(
                                                     color: Colors.white,
-                                                    shape: BoxShape.circle),
-                                                child: Icon(
-                                                  Icons.shopping_cart_outlined,
-                                                  color: Colors.black87,
-                                                  size: 20,
+                                                    shape: BoxShape.circle
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.delete_outline,
+                                                    color: Colors.black,
+                                                    size: 25,
+                                                  ),
                                                 ),
                                               ),
-                                            )
+                                            ),
+
                                           ],
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
