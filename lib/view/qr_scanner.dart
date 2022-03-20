@@ -112,7 +112,7 @@ class _QRScannerState extends State<QRScanner> {
       setState(() {
         result = scanData;
       });
-      if(result!.code.toString().contains("123456789") && initial && Global.option == 0) {
+      if(result!.code.toString().contains("https://l.ead.me/bcisar") && initial && Global.option == 0) {
         setState(() {
           initial=false;
         });

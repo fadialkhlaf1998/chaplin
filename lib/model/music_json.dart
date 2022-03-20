@@ -7,17 +7,13 @@ import 'dart:convert';
 class MusicJson {
   MusicJson({
     this.id,
-    this.name,
-    this.description,
-    this.metaData,
-    this.links,
+    this.title,
+    this.link,
   });
 
   int? id;
-  String? name;
-  String? description;
-  List<MetaDatum>? metaData;
-  Links? links;
+  String? title;
+  String? link;
 
   factory MusicJson.fromJson(String str) => MusicJson.fromMap(json.decode(str));
 
@@ -25,18 +21,14 @@ class MusicJson {
 
   factory MusicJson.fromMap(Map<String, dynamic> json) => MusicJson(
     id: json["id"],
-    name: json["name"],
-    description: json["description"],
-    metaData: List<MetaDatum>.from(json["meta_data"].map((x) => MetaDatum.fromMap(x))),
-    links: Links.fromMap(json["_links"]),
+    title: json["title"],
+    link: json["link"],
   );
 
   Map<String, dynamic> toMap() => {
     "id": id,
-    "name": name,
-
-    "meta_data": List<dynamic>.from(metaData!.map((x) => x.toMap())),
-    "_links": links!.toMap(),
+    "title": title,
+    "link": link,
   };
 }
 

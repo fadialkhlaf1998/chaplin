@@ -9,18 +9,17 @@ import 'package:chaplin_new_version/model/story.dart';
 import 'package:chaplin_new_version/view/billing.dart';
 import 'package:chaplin_new_version/view/dashboard.dart';
 import 'package:chaplin_new_version/view/favorite.dart';
-import 'package:chaplin_new_version/view/music.dart';
 import 'package:chaplin_new_version/view/my_story_view.dart';
-import 'package:chaplin_new_version/view/photo_picker.dart';
 import 'package:chaplin_new_version/view/qr_scanner.dart';
 import 'package:chaplin_new_version/view/shipping.dart';
-import 'package:chaplin_new_version/view/sign_in.dart';
 import 'package:chaplin_new_version/view/story_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:story_view/story_view.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../controler/store.dart';
 
 class PickChoose extends StatefulWidget {
 
@@ -245,29 +244,48 @@ class _PickChooseState extends State<PickChoose> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(onPressed: (){
+                        IconButton(onPressed: ()async{
                           //todo nav to instgram
+                          if( await canLaunch("https://instagram.com/chaplin_uae?utm_medium=copy_link")){
+                            await launch("https://instagram.com/chaplin_uae?utm_medium=copy_link");
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Can not open Instagram")));
+                          }
                         }, icon: const ImageIcon(
                           AssetImage("assets/social-media/insta.png"),
                           size: 40,
                         )),
-                        IconButton(onPressed: (){
-                          //todo nav to twitter
-                        }, icon: const ImageIcon(
-                          AssetImage("assets/social-media/twitter.png"),
-                          size: 40,
-                        )),
-                        IconButton(onPressed: (){
+                        // IconButton(onPressed: (){
+                        //   //todo nav to twitter
+                        // }, icon: const ImageIcon(
+                        //   AssetImage("assets/social-media/twitter.png"),
+                        //   size: 40,
+                        // )),
+                        IconButton(
+                         onPressed: ()async{
                           //todo nav to facebook
+                           if( await canLaunch("https://m.facebook.com/chaplindubai/")){
+                             await launch("https://m.facebook.com/chaplindubai/");
+                           }else{
+                             ScaffoldMessenger.of(context).showSnackBar(
+                                 SnackBar(content: Text("Can not open facebook")));
+                           }
                         }, icon: const ImageIcon(
                           AssetImage("assets/social-media/facebook.png"),
                           size: 40,
                         )),
-                        IconButton(onPressed: (){
+                        IconButton(onPressed: ()async{
                           //todo nav to youtube
+                          if( await canLaunch("https://vm.tiktok.com/ZSeV9XSK2/")){
+                          await launch("https://vm.tiktok.com/ZSeV9XSK2/");
+                          }else{
+                          ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Can not open facebook")));
+                          }
                         }, icon: const ImageIcon(
-                          AssetImage("assets/social-media/youtube.png",),
-                          size: 25,
+                          AssetImage("assets/social-media/tik-tok.png",),
+                          size: 20,
                         )),
 
                       ],
@@ -374,8 +392,182 @@ class _PickChooseState extends State<PickChoose> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: SingleChildScrollView(
-                  child: Column(
+                  child: Stack(
                     children: [
+                      Column(
+                        children: [
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.17,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage("assets/pick_page/m.png"),
+                                      fit: BoxFit.cover
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SvgPicture.asset("assets/pick_page/menu.svg",width: 60,),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width*0.95-120,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Menu",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                                        SizedBox(height: 10,),
+                                        Text("Great food within minutes",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),),
+                                      ],
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                Global.option = 0;
+                              });
+                              Store.load_music_timer().then((value) {
+                                print(value);
+                                if(value == false){
+                                  App.err_msg(context, 'You can play song again after ${Store.dur} minutes');
+                                }else{
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const QRScanner()),
+                                  );
+                                }
+                              });
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.17,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage("assets/pick_page/2.png"),
+                                      fit: BoxFit.cover
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SvgPicture.asset("assets/pick_page/music.svg",width: 60,),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width*0.95-120,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Music",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                                        SizedBox(height: 10,),
+                                        Text("Life is a song, let's enjoy together some good music",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
+                                      ],
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              if(my_story == null){
+                                if(Global.customer_id==-1){
+                                  App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
+                                }else{
+                                  setState(() {
+                                    pick= !pick;
+                                  });
+                                }
+                              }
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.17,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage("assets/pick_page/3.png"),
+                                      fit: BoxFit.cover
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SvgPicture.asset("assets/pick_page/story.svg",width: 60,),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width*0.95-120,
+
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Chaplin friends ",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                                        SizedBox(height: 10,),
+                                        Text("Capture and share your special moments with us! ",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
+                                      ],
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              //Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const QRScanner()),
+                              );
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.17,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage("assets/pick_page/4.png"),
+                                      fit: BoxFit.cover
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SvgPicture.asset("assets/pick_page/car.svg",width: 60,),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width*0.95-120,
+
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Valet",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                                        SizedBox(height: 10,),
+                                        Text("Ready to go? Request your car now",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
+                                      ],
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Text('POWERED BY MAXART',style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
+                          ),
+                        ],
+                      ),
                       Column(
                         children: [
                           Stack(
@@ -383,7 +575,7 @@ class _PickChooseState extends State<PickChoose> {
                             children: [
                               Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height*0.2,
+                                height: MediaQuery.of(context).size.height*0.22,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25),bottomRight: Radius.circular(25))
@@ -715,8 +907,8 @@ class _PickChooseState extends State<PickChoose> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
-                      Column(
+                      /*
+                       Column(
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width,
@@ -734,168 +926,8 @@ class _PickChooseState extends State<PickChoose> {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
-                        },
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.14,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/pick_page/m.png"),
-                                fit: BoxFit.cover
-                              )
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SvgPicture.asset("assets/pick_page/menu.svg",width: 60,),
-                              Container(
-                                width: MediaQuery.of(context).size.width*0.95-120,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Menu",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
-                                    SizedBox(height: 10,),
-                                    Text("Great food within minutes",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),),
-                                  ],
-                                ),
-                              ),
+                       */
 
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            Global.option = 0;
-                          });
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const QRScanner()),
-                          );
-                          },
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.15,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/pick_page/2.png"),
-                                fit: BoxFit.cover
-                              )
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SvgPicture.asset("assets/pick_page/music.svg",width: 60,),
-                              Container(
-                                width: MediaQuery.of(context).size.width*0.95-120,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Music",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
-                                    SizedBox(height: 10,),
-                                    Text("Life is a song, let's enjoy together some good music",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
-                                  ],
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          if(my_story == null){
-                            if(Global.customer_id==-1){
-                              App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
-                            }else{
-                              setState(() {
-                                pick= !pick;
-                              });
-                            }
-                          }
-                        },
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.16,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/pick_page/3.png"),
-                                fit: BoxFit.cover
-                              )
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SvgPicture.asset("assets/pick_page/story.svg",width: 60,),
-                              Container(
-                                width: MediaQuery.of(context).size.width*0.95-120,
-
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Chaplin friends ",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
-                                    SizedBox(height: 10,),
-                                    Text("Capture and share your special moments with us! ",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
-                                  ],
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          //Navigator.push(context,  MaterialPageRoute(builder: (context) => const DashBoard()),);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const QRScanner()),
-                          );
-                        },
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.16,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/pick_page/4.png"),
-                                fit: BoxFit.cover
-                              )
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SvgPicture.asset("assets/pick_page/car.svg",width: 60,),
-                              Container(
-                                width: MediaQuery.of(context).size.width*0.95-120,
-
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Valet",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
-                                    SizedBox(height: 10,),
-                                    Text("Ready to go? Request your car now",style: TextStyle(color: Colors.white,fontSize: 14,fontWeight: FontWeight.bold),),
-                                  ],
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text('POWERED BY MAXART',style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
-                      ),
                     ],
                   ),
                 ),

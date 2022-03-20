@@ -1,10 +1,15 @@
 import 'package:chaplin_new_version/controler/connector.dart';
 import 'package:chaplin_new_version/controler/wordpress_connector.dart';
+import 'package:chaplin_new_version/helper/my_app.dart';
 import 'package:chaplin_new_version/model/global.dart';
 import 'package:chaplin_new_version/model/music.dart';
+import 'package:chaplin_new_version/model/music_json.dart';
 import 'package:chaplin_new_version/view/no_internet.dart';
+import 'package:chaplin_new_version/view/pick_your_choose.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../controler/store.dart';
 
 class MusicView extends StatefulWidget {
   const MusicView({Key? key}) : super(key: key);
@@ -16,7 +21,7 @@ class MusicView extends StatefulWidget {
 class _MusicState extends State<MusicView> {
   
   int selected_music=0;
-  List<Music> music=<Music>[];
+  List<MusicJson> music=<MusicJson>[];
   bool loading=false;
   bool initial=true;
 
@@ -24,6 +29,7 @@ class _MusicState extends State<MusicView> {
   void initState() {
     // TODO: implement initState
     get_data();
+    Store.save_music_timer();
     super.initState();
   }
 
@@ -90,7 +96,7 @@ class _MusicState extends State<MusicView> {
                                           Padding(padding: EdgeInsets.only(right: 10),
                                             child: Container(height: 30,width: 3,color:  selected_music==index?Colors.white:Colors.transparent,),
                                           ),
-                                          Text(this.music[index].name,style: TextStyle(color: selected_music==index?Colors.white:Colors.grey,fontSize: 20,fontWeight: FontWeight.bold),)
+                                          Text(this.music[index].title!,style: TextStyle(color: selected_music==index?Colors.white:Colors.grey,fontSize: 20,fontWeight: FontWeight.bold),)
                                         ],
                                       ),
                                     ),
@@ -145,7 +151,7 @@ class _MusicState extends State<MusicView> {
             //initial=false;
             loading=true;
           });
-          Connecter.get_music_list().then((list) {
+          Connecter.show_songs().then((list) {
             setState(() {
               if(list.length>0){
                 initial=false;
@@ -202,12 +208,46 @@ class _MusicState extends State<MusicView> {
     );
   }
   add_music(){
-    Connecter.insert_music(this.music[selected_music].name, this.music[selected_music].link);
+    Connecter.music_record(this.music[selected_music].link!, this.music[selected_music].title!).then((value){
+      if(value == -1){
+       // App.err_msg(context, 'Something went wrong');
+      }else{
+        int time = 4 * value;
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context){
+            return WillPopScope(
+              onWillPop: ()async => false,
+              child: _alertDialog(context,'Your song added successfully\nRemaining time to play ≈ $time minutes' ),
+            );
+          }
+        );
+        //App.succ_msg(context, 'Remaining time to play ≈ $time minutes');
+      }
+    });
     setState(() {
       //ToDO add musicc timer
       ///Global.had_music=true;
       Global.music_timer=DateTime.now().toString();
     });
-    Navigator.of(context).pop();
+
+    //Navigator.of(context).pop();
+  }
+
+  _alertDialog(context,msg){
+    return AlertDialog(
+      title: Text(msg),
+      actions: [
+        GestureDetector(
+          onTap: (){
+            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>PickChoose()));
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+          child: Text('Done',style: TextStyle(fontSize: 20),),
+        ),
+      ],
+    );
   }
 }

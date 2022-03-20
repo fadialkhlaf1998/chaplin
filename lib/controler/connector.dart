@@ -13,6 +13,8 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:xml/xml.dart' as xml;
 
+import '../model/music_json.dart';
+
 class Connecter {
   static String web_signIn_url="chaplinapp.maxart.ae";
   static String web_service_name="WebService.asmx";
@@ -368,5 +370,52 @@ class Connecter {
   //   }
   //
   // }
+
+  static Future<int> music_record(String link,String title)async{
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    var request = http.Request('POST', Uri.parse(url + 'api/music_record'));
+    request.body = json.encode({
+      "link": link,
+      "title": title
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      var jsondata = json.decode(data);
+      print(jsondata["count"]);
+      return jsondata["count"];
+    }
+    else {
+      print(response.reasonPhrase);
+      return -1;
+    }
+  }
+
+  static Future<List<MusicJson>> show_songs()async{
+    // var headers = {
+    //   'Cookie': 'connect.sid=s%3AnID6cHlNxQswKaQvnmi4x5w9Ye-Epsbc.kraPXDC7oznm5z8Jnf89ZmvlSjunqhOOxeYdZkDX0lo'
+    // };
+    var request = http.Request('GET', Uri.parse(url + 'api/music'));
+
+    //request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String data=await response.stream.bytesToString();
+      return List<MusicJson>.from(json.decode(data).map((x) => MusicJson.fromMap(x)));
+    }
+    else {
+      print(response.reasonPhrase);
+      return <MusicJson>[];
+    }
+  }
+
+
 
 }

@@ -170,50 +170,50 @@ class WordPressConnecter {
     }
   }
 
-  static Future<List<Music>> get_music() async {
-    try {
-      var url = Uri.parse(web_url+'/wc-api/v2/products/categories?consumer_key=ck_640431af58d858cbf2ade27ebbfc4dcd9837d697&consumer_secret=cs_4c52fa2c203caf60ad6f9d4ce7952231f224f4e5');
-      var responce = await http.get(url);
-      ProductCategory? cat ;
-      var categories = jsonDecode(responce.body)["product_categories"] as List;
-
-      for (int i = 0; i < categories.length; i++) {
-        ProductCategory productCategory = ProductCategory.fromMap(
-            categories[i]);
-        if (productCategory.name!.toLowerCase().contains("music")) {
-          cat = productCategory;
-          break;
-        }
-      }
-      //print(cat!.id!);
-      //String productsJson=await get_products_string(cat.id!);
-      List<MusicJson> products=await get_products_string(cat!.id!);
-      List<Music> result=<Music>[];
-      String link="non";
-      String art="non";
-      for ( int i = 0 ; i < products.length ; i++ ){
-        for(int j=0;j<products[i].metaData!.length;j++){
-          if(products[i].metaData![j].key=="youtube_link"){
-            link=products[i].metaData![j].value!;
-          }
-          if(products[i].metaData![j].key=="artist"){
-            art=products[i].metaData![j].value!;
-          }
-      }
-        if(art!="non"&&link!="non"){
-          result.add(Music(products[i].name!,link,art));
-        }
-
-
-      }
-      //print(productsJson);
-
-      return result;
-    } on Exception catch (_) {
-      print("-----------");
-      return <Music>[];
-    }
-  }
+  // static Future<List<Music>> get_music() async {
+  //   try {
+  //     var url = Uri.parse(web_url+'/wc-api/v2/products/categories?consumer_key=ck_640431af58d858cbf2ade27ebbfc4dcd9837d697&consumer_secret=cs_4c52fa2c203caf60ad6f9d4ce7952231f224f4e5');
+  //     var responce = await http.get(url);
+  //     ProductCategory? cat ;
+  //     var categories = jsonDecode(responce.body)["product_categories"] as List;
+  //
+  //     for (int i = 0; i < categories.length; i++) {
+  //       ProductCategory productCategory = ProductCategory.fromMap(
+  //           categories[i]);
+  //       if (productCategory.name!.toLowerCase().contains("music")) {
+  //         cat = productCategory;
+  //         break;
+  //       }
+  //     }
+  //     //print(cat!.id!);
+  //     //String productsJson=await get_products_string(cat.id!);
+  //     List<MusicJson> products=await get_products_string(cat!.id!);
+  //     List<Music> result=<Music>[];
+  //     String link="non";
+  //     String art="non";
+  //     for ( int i = 0 ; i < products.length ; i++ ){
+  //       for(int j=0;j<products[i].metaData!.length;j++){
+  //         if(products[i].metaData![j].key=="youtube_link"){
+  //           link=products[i].metaData![j].value!;
+  //         }
+  //         if(products[i].metaData![j].key=="artist"){
+  //           art=products[i].metaData![j].value!;
+  //         }
+  //     }
+  //       if(art!="non"&&link!="non"){
+  //         result.add(Music(products[i].name!,link,art));
+  //       }
+  //
+  //
+  //     }
+  //     //print(productsJson);
+  //
+  //     return result;
+  //   } on Exception catch (_) {
+  //     print("-----------");
+  //     return <Music>[];
+  //   }
+  // }
   static Future<List<MusicJson>> get_products_string(int category_id) async {
     try {
       var url = Uri.parse(web_url+'/wp-json/wc/v3/products?category=$category_id&consumer_key=ck_640431af58d858cbf2ade27ebbfc4dcd9837d697&consumer_secret=cs_4c52fa2c203caf60ad6f9d4ce7952231f224f4e5');

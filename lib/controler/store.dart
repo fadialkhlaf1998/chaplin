@@ -5,6 +5,9 @@ import 'package:chaplin_new_version/model/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Store {
+
+  static int dur = 0;
+
   static Future<List<Product>> load_wishlist()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String jsonString = prefs.getString("wishlist")??"non";
@@ -44,5 +47,39 @@ class Store {
       }
     }
     save_wishlist(Global.wishlist);
+  }
+
+  static save_music_timer(){
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString("image_timer", DateTime.now().toString());
+    });
+  }
+
+  static Future<bool> load_music_timer()async{
+    var prefs = await SharedPreferences.getInstance();
+    String time = prefs.getString("image_timer")?? "non";
+    if(time=="non"){
+        return true;
+      }else{
+        DateTime old = DateTime.parse(time);
+        dur = 30 - (DateTime.now().minute - old.minute);
+        print (dur.toString());
+          if(old.year<DateTime.now().year){
+            return true;
+          }
+          else if(DateTime.now().month>old.month){
+            return true;
+          }
+          else if(DateTime.now().day>old.day){
+            return true;
+          }
+          else if(((DateTime.now().hour*60)+DateTime.now().minute)>=((old.hour*60)+old.minute+30)){
+            return true;
+          }else{
+            return false;
+          }
+    }
+
+
   }
 }
