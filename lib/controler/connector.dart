@@ -20,11 +20,36 @@ class Connecter {
   static String web_service_name="WebService.asmx";
   static String auth_1='60f232d451e877f0a6c0e884546353cc1998';
   static String auth_2='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148';
-  static String url = "https://phpstack-548447-2379311.cloudwaysapps.com/";
+  static String url = "https://admin.chaplinuae.com/";
   // static String url = "http://10.0.2.2:3000/";
 
 
+  static Future<bool> get_phone()async{
+    var request = http.Request('GET', Uri.parse(url + 'api/phone'));
 
+    //request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String data=await response.stream.bytesToString();
+      print(data);
+      var jsondata = jsonDecode(data) as List;
+      print(jsondata.first["phone"].toString());
+      Global.phone = jsondata.first["phone"].toString();
+      return true;
+    }
+    else {
+      print(response.reasonPhrase);
+      return false;
+    }
+  }
+  static get_number()async{
+    bool succ = await get_phone();
+    if(!succ){
+      get_number();
+    }
+  }
 
   static Future<bool> sign_up(String email,String password,String firstname,String lastname)async{
     // try {

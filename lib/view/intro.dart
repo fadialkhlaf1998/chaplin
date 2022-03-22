@@ -22,6 +22,7 @@ class _GifState extends State<Gif> {
     AppSetting.get_timer();
     AppSetting.load();
 
+
     super.initState();
     // _controller = VideoPlayerController.asset("assets/intro.mp4")
     //   ..initialize().then((_) {
@@ -30,6 +31,7 @@ class _GifState extends State<Gif> {
     //
     //
     // _controller!.play();
+    Connecter.get_number();
     WordPressConnecter.get_category().then((categories) {
       Global.categories.addAll(categories);
     });

@@ -42,6 +42,7 @@ class Global{
   static bool delivery = false;
   static int? option;
   static String? table_number;
+  static String phone= "";
   static String? description;
 
   static add_to_order(Product product,int count){

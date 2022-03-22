@@ -564,7 +564,7 @@ class _PickChooseState extends State<PickChoose> {
                           ),
                           Container(
                             padding: EdgeInsets.only(top: 20),
-                            child: Text('POWERED BY MAXART',style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
+                            child: Text('DEVELOPED BY MAXART',style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
                           ),
                         ],
                       ),
@@ -679,6 +679,7 @@ class _PickChooseState extends State<PickChoose> {
                                                   /** my add button*/
                                                   GestureDetector(
                                                     onTap: (){
+
                                                       if(Global.customer_id==-1){
                                                         App.err_msg(context, App_Localization.of(context)!.translate("login_first"));
                                                       }else{
@@ -693,10 +694,11 @@ class _PickChooseState extends State<PickChoose> {
                                                         AnimatedContainer(
                                                           duration: Duration(milliseconds: 700),
                                                           curve: Curves.fastOutSlowIn,
-                                                          width: !pick ? MediaQuery.of(context).size.width * 0.15 : MediaQuery.of(context).size.width * 0.9,
-                                                          height: MediaQuery.of(context).size.width * 0.15,
+                                                          width: !pick ? MediaQuery.of(context).size.height*0.08 : MediaQuery.of(context).size.width * 0.9,
+                                                          height: MediaQuery.of(context).size.height*0.08,
+                                                          // MediaQuery.of(context).size.width * 0.15
                                                           decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.circular(100),
+                                                            borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height*0.04),
                                                             color: !pick ? Color(0xff231F20) : Colors.white,
                                                             border: Border.all(color: Colors.white,width: 2),
                                                           ),
@@ -907,27 +909,6 @@ class _PickChooseState extends State<PickChoose> {
                           ),
                         ],
                       ),
-                      /*
-                       Column(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                            decoration: BoxDecoration(
-                             image: DecorationImage(
-                               image: AssetImage('assets/dashboard/title.png'),
-                             )
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(bottom: 5),
-                              height: MediaQuery.of(context).size.height *0.06,
-                              child: Center(child: Text("Where Meals & Memories are made",style: TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.bold),))
-                          ),
-                        ],
-                      ),
-                       */
-
                     ],
                   ),
                 ),
