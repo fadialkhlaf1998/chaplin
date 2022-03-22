@@ -17,6 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:new_version/new_version.dart';
 import 'package:story_view/story_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../controler/store.dart';
@@ -48,6 +49,16 @@ class _PickChooseState extends State<PickChoose> {
 
   _PickChooseState(this.stories,this.my_story);
 
+  _checkVersion(BuildContext context)async{
+    //todo change IDS
+    final newVersion = NewVersion(
+      iOSId: "",
+      androidId: 'com.snapchat.android',
+    );
+    final state = await newVersion.getVersionStatus();
+    newVersion.showUpdateDialog(context: context, versionStatus: state!);
+  }
+
   get_search(String query){
     setState(() {
       loading=true;
@@ -65,7 +76,11 @@ class _PickChooseState extends State<PickChoose> {
       Global.total=Global.get_total();
     });
   }
-
+ @override
+  void initState() {
+    super.initState();
+    _checkVersion(context);
+  }
 
 
   @override
