@@ -504,6 +504,8 @@ class _PickChooseState extends State<PickChoose> {
                                     pick= !pick;
                                   });
                                 }
+                              }else{
+                                get_images_my_story();
                               }
                             },
                             child: Container(
