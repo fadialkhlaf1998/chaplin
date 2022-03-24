@@ -8,7 +8,6 @@ import 'package:chaplin_new_version/view/sign_up.dart';
 import 'package:chaplin_new_version/view/verification_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'helper/app_localization.dart';
 

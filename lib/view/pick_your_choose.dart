@@ -53,7 +53,7 @@ class _PickChooseState extends State<PickChoose> {
     //todo change IDS
     final newVersion = NewVersion(
       iOSId: "",
-      androidId: 'com.snapchat.android',
+      androidId: 'com.maxart.chaplin_new_version',
     );
     final state = await newVersion.getVersionStatus();
     newVersion.showUpdateDialog(context: context, versionStatus: state!);
@@ -504,6 +504,8 @@ class _PickChooseState extends State<PickChoose> {
                                     pick= !pick;
                                   });
                                 }
+                              }else{
+                                get_images_my_story();
                               }
                             },
                             child: Container(

@@ -27,15 +27,11 @@ class Connecter {
   static Future<bool> get_phone()async{
     var request = http.Request('GET', Uri.parse(url + 'api/phone'));
 
-    //request.headers.addAll(headers);
-
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
       String data=await response.stream.bytesToString();
-      print(data);
       var jsondata = jsonDecode(data) as List;
-      print(jsondata.first["phone"].toString());
       Global.phone = jsondata.first["phone"].toString();
       return true;
     }

@@ -1,4 +1,4 @@
-package com.example.chaplin_new_version
+package com.maxart.chaplin_new_version
 
 import io.flutter.embedding.android.FlutterActivity
 
