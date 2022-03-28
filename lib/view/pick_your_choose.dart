@@ -52,7 +52,7 @@ class _PickChooseState extends State<PickChoose> {
   _checkVersion(BuildContext context)async{
     //todo change IDS
     final newVersion = NewVersion(
-      iOSId: "",
+      iOSId: "com.Maxart.Chaplin",
       androidId: 'com.maxart.chaplin_new_version',
     );
     final state = await newVersion.getVersionStatus();
