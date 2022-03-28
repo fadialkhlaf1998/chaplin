@@ -156,11 +156,14 @@ class _ItemState extends State<Item> {
                                               padding: const EdgeInsets.only(top: 0,left: 15,right: 10),
                                               child: GestureDetector(
                                                 onTap: (){
-                                                  setState(() {
-                                                    count--;
-                                                    saved_total=count*price;
-                                                    total=count*price;
-                                                  });
+                                                  if(count>1){
+                                                    setState(() {
+                                                      count--;
+                                                      saved_total=count*price;
+                                                      total=count*price;
+                                                    });
+                                                  }
+
                                                 },
                                                 child: Container(
                                                   width: 30,
