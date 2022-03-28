@@ -309,60 +309,60 @@ class _PickChooseState extends State<PickChoose> {
                       ],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("privace_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-                        Text("."),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("term_of_sale"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-                        Text("."),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("term_of_use"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                      ],
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("return_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-                        Text("."),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("warranty_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-
-
-
-                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                      ],
-                    ),
-                  ),
+                  // Padding(padding: EdgeInsets.only(top: 20),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("privace_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //       Text("."),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("term_of_sale"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //       Text("."),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("term_of_use"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //       SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                  //     ],
+                  //   ),
+                  // ),
+                  // Padding(padding: EdgeInsets.only(top: 10),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("return_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //       Text("."),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("warranty_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //
+                  //
+                  //
+                  //       SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                  //     ],
+                  //   ),
+                  // ),
                   Padding(padding: EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

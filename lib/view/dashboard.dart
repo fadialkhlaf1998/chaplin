@@ -28,6 +28,7 @@ import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class DashBoard extends StatefulWidget {
@@ -274,88 +275,107 @@ class _DashBoardState extends State<DashBoard>{
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(onPressed: (){
+                        IconButton(onPressed: ()async{
                           //todo nav to instgram
+                          if( await canLaunch("https://instagram.com/chaplin_uae?utm_medium=copy_link")){
+                            await launch("https://instagram.com/chaplin_uae?utm_medium=copy_link");
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Can not open Instagram")));
+                          }
                         }, icon: const ImageIcon(
                           AssetImage("assets/social-media/insta.png"),
                           size: 40,
                         )),
-                        IconButton(onPressed: (){
-                          //todo nav to twitter
-                        }, icon: const ImageIcon(
-                          AssetImage("assets/social-media/twitter.png"),
-                          size: 40,
-                        )),
-                        IconButton(onPressed: (){
-                          //todo nav to facebook
-                        }, icon: const ImageIcon(
+                        // IconButton(onPressed: (){
+                        //   //todo nav to twitter
+                        // }, icon: const ImageIcon(
+                        //   AssetImage("assets/social-media/twitter.png"),
+                        //   size: 40,
+                        // )),
+                        IconButton(
+                            onPressed: ()async{
+                              //todo nav to facebook
+                              if( await canLaunch("https://m.facebook.com/chaplindubai/")){
+                                await launch("https://m.facebook.com/chaplindubai/");
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text("Can not open facebook")));
+                              }
+                            }, icon: const ImageIcon(
                           AssetImage("assets/social-media/facebook.png"),
                           size: 40,
                         )),
-                        IconButton(onPressed: (){
+                        IconButton(onPressed: ()async{
                           //todo nav to youtube
+                          if( await canLaunch("https://vm.tiktok.com/ZSeV9XSK2/")){
+                            await launch("https://vm.tiktok.com/ZSeV9XSK2/");
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Can not open facebook")));
+                          }
                         }, icon: const ImageIcon(
-                          AssetImage("assets/social-media/youtube.png",),
-                          size: 25,
+                          AssetImage("assets/social-media/tik-tok.png",),
+                          size: 20,
                         )),
 
                       ],
                     ),
                   ),
-                  Padding(padding: EdgeInsets.only(top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("privace_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-                        Text("."),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("term_of_sale"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-                        Text("."),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("term_of_use"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                      ],
-                    ),
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("return_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-                        Text("."),
-                        GestureDetector(
-                          child: Text(App_Localization.of(context)!.translate("warranty_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
-                          onTap: (){
-                            // Todo : nav
-                          },
-                        ),
-
-
-
-                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
-                      ],
-                    ),
-                  ),
+                  // Padding(padding: EdgeInsets.only(top: 20),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("privace_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //       Text("."),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("term_of_sale"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //       Text("."),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("term_of_use"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //       SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                  //     ],
+                  //   ),
+                  // ),
+                  // Padding(padding: EdgeInsets.only(top: 10),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("return_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //       Text("."),
+                  //       GestureDetector(
+                  //         child: Text(App_Localization.of(context)!.translate("warranty_policy"),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                  //         onTap: (){
+                  //           // Todo : nav
+                  //         },
+                  //       ),
+                  //
+                  //
+                  //
+                  //       SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                  //     ],
+                  //   ),
+                  // ),
                   Padding(padding: EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -387,8 +407,7 @@ class _DashBoardState extends State<DashBoard>{
             ),
           ),
         ),
-      ),
-      body: SafeArea(
+      ),      body: SafeArea(
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -427,7 +446,7 @@ class _DashBoardState extends State<DashBoard>{
                               crossAxisCount: MediaQuery.of(context).size.width>=768?2:1,
                               crossAxisSpacing: 15.0,
                               mainAxisSpacing: 5.0,
-                              mainAxisExtent: MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.19+MediaQuery.of(context).size.width*0.075: MediaQuery.of(context).size.height * 0.3+MediaQuery.of(context).size.width*0.075//MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.18: MediaQuery.of(context).size.height * 0.21
+                              mainAxisExtent: MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.2+MediaQuery.of(context).size.width*0.075: MediaQuery.of(context).size.height * 0.3+MediaQuery.of(context).size.width*0.075//MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.18: MediaQuery.of(context).size.height * 0.21
                             ),
                                 physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
@@ -453,12 +472,12 @@ class _DashBoardState extends State<DashBoard>{
                                             top: 10,
                                             bottom: 0),
                                         child: Container(
-                                          height:MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.19+MediaQuery.of(context).size.width*0.075: MediaQuery.of(context).size.height * 0.3+MediaQuery.of(context).size.width*0.075,//MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.18: MediaQuery.of(context).size.height * 0.21,
+                                          height:MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.2+MediaQuery.of(context).size.width*0.075: MediaQuery.of(context).size.height * 0.3+MediaQuery.of(context).size.width*0.075,//MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.18: MediaQuery.of(context).size.height * 0.21,
                                           color: Colors.transparent,
                                           child: Center(
                                             child: Container(
                                               width: MediaQuery.of(context).size.width *0.9,
-                                              height: MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.19: MediaQuery.of(context).size.height * 0.3,
+                                              height: MediaQuery.of(context).size.height>600? MediaQuery.of(context).size.height * 0.2: MediaQuery.of(context).size.height * 0.3,
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius:
