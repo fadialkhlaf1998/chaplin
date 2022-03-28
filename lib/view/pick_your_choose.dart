@@ -56,7 +56,10 @@ class _PickChooseState extends State<PickChoose> {
       androidId: 'com.maxart.chaplin_new_version',
     );
     final state = await newVersion.getVersionStatus();
-    newVersion.showUpdateDialog(context: context, versionStatus: state!);
+    if(state!.canUpdate){
+      newVersion.showUpdateDialog(context: context, versionStatus: state);
+    }
+
   }
 
   get_search(String query){
