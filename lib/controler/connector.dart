@@ -117,6 +117,7 @@ class Connecter {
     //   return false;
     // }
 
+    print('************************************************');
     var headers = {
       'Content-Type': 'application/json'
     };
@@ -128,7 +129,7 @@ class Connecter {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
+    print(response.statusCode);
     if (response.statusCode == 200) {
       String json = await response.stream.bytesToString();
       print(json);

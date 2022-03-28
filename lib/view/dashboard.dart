@@ -277,8 +277,8 @@ class _DashBoardState extends State<DashBoard>{
                       children: [
                         IconButton(onPressed: ()async{
                           //todo nav to instgram
-                          if( await canLaunch("https://instagram.com/chaplin_uae?utm_medium=copy_link")){
-                            await launch("https://instagram.com/chaplin_uae?utm_medium=copy_link");
+                          if( await canLaunch("https://www.instagram.com/chaplin_uae?utm_medium=copy_link")){
+                            await launch("https://www.instagram.com/chaplin_uae?utm_medium=copy_link");
                           }else{
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Can not open Instagram")));

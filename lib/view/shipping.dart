@@ -1,5 +1,6 @@
 import 'package:chaplin_new_version/controler/connector.dart';
 import 'package:chaplin_new_version/controler/wordpress_connector.dart';
+import 'package:chaplin_new_version/helper/my_app.dart';
 import 'package:chaplin_new_version/model/global.dart';
 import 'package:chaplin_new_version/model/order.dart';
 import 'package:chaplin_new_version/view/fail.dart';
@@ -496,6 +497,7 @@ class _ShippingState extends State<Shipping> {
           };
           WordPressConnecter.put_customer(data,Global.customer!.id!).then((value) {
             if(value){
+              App.succ_msg(context, "Your Address Has Saved Successfully");
               if(op==0){
                 Navigator.of(context).pop();
               }else if(op==1){

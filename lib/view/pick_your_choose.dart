@@ -217,16 +217,18 @@ class _PickChooseState extends State<PickChoose> {
                       children: [
                         GestureDetector(
                           onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Shipping(0)),
+                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context) => Billing(0)),
+                            // );
                             if(Global.customer!=null){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => Shipping(0)),
-                              );
+
                             }else{
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => Billing(0)),
-                              );
+
                               // _scaffoldkey.currentState!.showSnackBar(must_login_snackBar);
                             }
                           },
@@ -264,8 +266,8 @@ class _PickChooseState extends State<PickChoose> {
                       children: [
                         IconButton(onPressed: ()async{
                           //todo nav to instgram
-                          if( await canLaunch("https://instagram.com/chaplin_uae?utm_medium=copy_link")){
-                            await launch("https://instagram.com/chaplin_uae?utm_medium=copy_link");
+                          if( await canLaunch("https://www.instagram.com/chaplin_uae?utm_medium=copy_link")){
+                            await launch("https://www.instagram.com/chaplin_uae?utm_medium=copy_link");
                           }else{
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Can not open Instagram")));
