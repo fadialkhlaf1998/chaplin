@@ -342,14 +342,16 @@ class _Sign_InState extends State<Sign_In> {
                   setState(() {
                     request=true;
                   });
-                  _scaffoldkey.currentState!.showSnackBar(snackBar);
+                  // _scaffoldkey.currentState!.showSnackBar(snackBar);
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               });
             }else{
               setState(() {
                 request=true;
               });
-              _scaffoldkey.currentState!.showSnackBar(snackBar);
+              // _scaffoldkey.currentState!.showSnackBar(snackBar);
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           });
           // Connecter.log_in(email_controller.value.text, pass_controller.value.text).then((existed) {
@@ -409,12 +411,14 @@ class _Sign_InState extends State<Sign_In> {
               setState(() {
                 request=true;
               });
-              _scaffoldkey.currentState!.showSnackBar(sendPasswordSnackBar);
+              // _scaffoldkey.currentState!.showSnackBar(sendPasswordSnackBar);
+              ScaffoldMessenger.of(context).showSnackBar(sendPasswordSnackBar);
             }else{
               setState(() {
                 request=true;
               });
-              _scaffoldkey.currentState!.showSnackBar(forgetPasswordSnackBar);
+              // _scaffoldkey.currentState!.showSnackBar(forgetPasswordSnackBar);
+              ScaffoldMessenger.of(context).showSnackBar(forgetPasswordSnackBar);
             }
           });
         }

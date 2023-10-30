@@ -621,7 +621,8 @@ class _BillingState extends State<Billing> {
                 request=true;
               });
               final snackBar_2= SnackBar(content: Text('some thing went wrong'));
-              _scaffoldkey.currentState!.showSnackBar(snackBar_2);
+              // _scaffoldkey.currentState!.showSnackBar(snackBar_2);
+              ScaffoldMessenger.of(context).showSnackBar(snackBar_2);
             }
 
           });
@@ -629,7 +630,8 @@ class _BillingState extends State<Billing> {
       });
 
     }else if(Global.customer==null){
-      _scaffoldkey.currentState!.showSnackBar(snackBar);
+      // _scaffoldkey.currentState!.showSnackBar(snackBar);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
   loading(){

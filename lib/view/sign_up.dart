@@ -573,7 +573,8 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         confirm=false;
       });
-      _scaffoldkey.currentState!.showSnackBar(confirm_snackBar);
+      // _scaffoldkey.currentState!.showSnackBar(confirm_snackBar);
+      ScaffoldMessenger.of(context).showSnackBar(confirm_snackBar);
     }
     if(address1_controller.value.text.isEmpty){
       setState(() {
@@ -659,7 +660,8 @@ class _SignUpState extends State<SignUp> {
                   setState(() {
                     request=true;
                   });
-                  _scaffoldkey.currentState!.showSnackBar(snackBar);
+                  // _scaffoldkey.currentState!.showSnackBar(snackBar);
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               });
 
@@ -668,7 +670,8 @@ class _SignUpState extends State<SignUp> {
                 request=true;
               });
               final snackBar_2= SnackBar(content: Text('some thing went wrong'));
-              _scaffoldkey.currentState!.showSnackBar(snackBar_2);
+              // _scaffoldkey.currentState!.showSnackBar(snackBar_2);
+              ScaffoldMessenger.of(context).showSnackBar(snackBar_2);
             }
 
           });

@@ -59,7 +59,8 @@ class InnerPage extends StatelessWidget {
                       size: 50,
                     ),
                   ),
-                  succcessChild: Center(
+
+                  successChild: Center(
                     child: Icon(
                       Icons.done_all,
                       color: Colors.greenAccent,
@@ -138,7 +139,7 @@ class InnerPage extends StatelessWidget {
                 size: 50,
               ),
             ),
-            succcessChild: Center(
+            successChild: Center(
               child: Icon(
                 Icons.done_all,
                 color: Colors.greenAccent,

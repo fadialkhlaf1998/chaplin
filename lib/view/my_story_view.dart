@@ -220,7 +220,7 @@ class _MyStoryViewState extends State<MyStory_View> {
   }
   showAlertDialog(BuildContext context) {
     // Create button
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text("OK", style: TextStyle(fontSize: 22),),
       onPressed: () {
         Navigator.of(context).pop();

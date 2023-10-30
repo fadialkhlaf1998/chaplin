@@ -285,7 +285,8 @@ class _VerificationCodeState extends State<VerificationCode> {
               setState(() {
                 request=true;
               });
-              _scaffoldkey.currentState!.showSnackBar(snackBar);
+              // _scaffoldkey.currentState!.showSnackBar(snackBar);
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           });
         }
@@ -316,7 +317,8 @@ class _VerificationCodeState extends State<VerificationCode> {
             setState(() {
               request=true;
             });
-            _scaffoldkey.currentState!.showSnackBar(snackBar);
+            // _scaffoldkey.currentState!.showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         });
       }
