@@ -16,11 +16,11 @@ import 'package:xml/xml.dart' as xml;
 import '../model/music_json.dart';
 
 class Connecter {
-  static String web_signIn_url="chaplinapp.maxart.ae";
-  static String web_service_name="WebService.asmx";
-  static String auth_1='60f232d451e877f0a6c0e884546353cc1998';
-  static String auth_2='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148';
-  static String url = "https://admin.chaplinuae.com/";
+  static String web_signIn_url="";
+  static String web_service_name="";
+  static String auth_1='';
+  static String auth_2='';
+  static String url = "";
   // static String url = "http://10.0.2.2:3000/";
 
 
